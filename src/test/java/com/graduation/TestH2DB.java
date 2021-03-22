@@ -1,4 +1,4 @@
-package db;
+package com.graduation;
 
 import java.sql.*;
 
