@@ -2,19 +2,30 @@ package com.graduation.model;
 
 import lombok.*;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "votes")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Vote {
 
-    private int vote_id;
+    @Id
+    @Column(name = "vote_id")
+    private int voteId;
 
-    private int user_id;
+    @Column(name = "user_id")
+    private int userId;
 
-    private LocalDateTime vote_date;
+    @Column(name = "restaurant_id")
+    private int restaurantId;
 
-    private String restaurant_name;
+    @Column(name = "vote_date")
+    private LocalDateTime voteDate;
 
 }

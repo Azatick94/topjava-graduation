@@ -1,22 +1,34 @@
 package com.graduation.model;
 
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.LocalDateTime;
+import javax.persistence.*;
+import java.time.LocalDate;
 
+@Entity
+@Table(name = "lunches")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Lunch {
 
-    private int lunch_id;
+    @Id
+    @Column(name = "lunch_id")
+    private int lunchId;
 
-    private LocalDateTime date_registered;
+    @Column(name = "date_registered")
+    private LocalDate dateRegistered;
 
-    private String restaurant_name;
+    @Column(name = "lunch_name")
+    private String lunchName;
 
-    private String lunch_name;
-
+    @Column(name = "price")
     private int price;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "restaurant_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Restaurant restaurant;
 }

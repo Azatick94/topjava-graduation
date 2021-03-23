@@ -15,7 +15,8 @@ import javax.persistence.Table;
 public class User {
 
     @Id
-    private int user_id;
+    @Column(name = "user_id")
+    private int userId;
 
     @Column(name = "name")
     private String name;
