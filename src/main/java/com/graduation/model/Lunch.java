@@ -10,9 +10,13 @@ import java.time.LocalDateTime;
 public class Lunch {
 
     private int lunch_id;
+
     private LocalDateTime date_registered;
+
     private String restaurant_name;
+
     private String lunch_name;
+
     private int price;
 
 }

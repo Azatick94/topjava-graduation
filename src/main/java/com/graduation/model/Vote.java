@@ -10,8 +10,11 @@ import java.time.LocalDateTime;
 public class Vote {
 
     private int vote_id;
+
     private int user_id;
+
     private LocalDateTime vote_date;
+
     private String restaurant_name;
 
 }
