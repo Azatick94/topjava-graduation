@@ -7,6 +7,12 @@ import java.util.List;
 
 public interface LunchService {
 
+    Lunch save(Lunch lunch);
+
+    boolean delete(int lunchId);
+
+    Lunch getByLunchId(int lunchId);
+
     List<Lunch> getAll();
 
     List<Lunch> getByRestaurantName(String name);

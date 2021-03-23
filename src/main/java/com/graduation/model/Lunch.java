@@ -15,6 +15,8 @@ import java.time.LocalDate;
 public class Lunch {
 
     @Id
+    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = 100000)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     @Column(name = "lunch_id")
     private int lunchId;
 

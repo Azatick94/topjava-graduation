@@ -17,8 +17,23 @@ public class LunchServiceImpl implements LunchService {
     }
 
     @Override
+    public Lunch save(Lunch lunch) {
+        return repository.save(lunch);
+    }
+
+    @Override
+    public boolean delete(int lunchId) {
+        return repository.delete(lunchId);
+    }
+
+    @Override
+    public Lunch getByLunchId(int lunchId) {
+        return repository.getByLunchId(lunchId);
+    }
+
+    @Override
     public List<Lunch> getAll() {
-        return (List<Lunch>) repository.findAll();
+        return repository.getAll();
     }
 
     @Override
