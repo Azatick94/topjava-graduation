@@ -3,15 +3,13 @@ package com.graduation.service;
 import com.graduation.TestData.RestaurantData;
 import com.graduation.model.Restaurant;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@SpringBootTest
-class RestaurantServiceImplTest {
+class RestaurantServiceImplTest extends AbstractServiceTest {
 
     @Autowired
     private RestaurantService service;
