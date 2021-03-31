@@ -11,8 +11,8 @@ import java.util.List;
 
 public interface CrudVoteRepository extends CrudRepository<Vote, Integer> {
 
-    @Query("SELECT v FROM Vote v WHERE v.voteDate >= :startDateTime AND v.voteDate <= :endDateTime")
-    List<Vote> getBetweenDatesIncluding(@Param("startDateTime") LocalDateTime startDate, @Param("endDateTime") LocalDateTime endDate);
+    @Query("SELECT v FROM Vote v WHERE v.voteDateTime >= :startDateTime AND v.voteDateTime <= :endDateTime")
+    List<Vote> getBetweenDatesIncluding(@Param("startDateTime") LocalDateTime startDateTime, @Param("endDateTime") LocalDateTime endDateTime);
 
     Vote getByVoteId(int lunchId);
 

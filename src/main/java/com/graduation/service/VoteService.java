@@ -23,19 +23,17 @@ public class VoteService implements BaseService<Vote> {
 
     @Override
     public Vote getById(int id) {
-        return null;
-//        return voteRepository.getByVoteId(id);
+        return voteRepository.getById(id);
     }
 
     @Override
     public Vote save(Vote vote) {
-        return null;
-//        return voteRepository.save(vote);
+        return voteRepository.create(vote);
     }
 
     @Override
     public void update(Vote vote, int id) {
-//        voteRepository.save(vote);
+        voteRepository.update(vote, id);
     }
 
     @Override

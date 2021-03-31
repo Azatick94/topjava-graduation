@@ -42,7 +42,8 @@ public class VoteRepository implements BaseRepository<Vote> {
     @Override
     @Transactional
     public void update(Vote vote, int id) {
-//        voteRepository.save(vote);
+        vote.setVoteId(id);
+        voteRepository.save(vote);
     }
 
     public List<Vote> getBetweenDatesIncluding(LocalDateTime startDateTime, LocalDateTime endDateTime) {

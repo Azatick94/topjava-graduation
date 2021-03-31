@@ -1,11 +1,11 @@
 package com.graduation.web;
 
+import com.graduation.model.Restaurant;
 import com.graduation.model.Vote;
 import com.graduation.service.VoteService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,5 +24,29 @@ public class VoteController {
     public List<Vote> getAll() {
         log.info("Getting All Votes");
         return voteService.getAll();
+    }
+
+    @GetMapping("{id}")
+    public Vote getById(@PathVariable int id) {
+        log.info("Getting Vote By Id: " + id);
+        return voteService.getById(id);
+    }
+
+    @PostMapping
+    public Vote save(@RequestBody Vote vote) {
+        log.info("Saving Vote");
+        return voteService.save(vote);
+    }
+
+    @PutMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void update(@RequestBody Vote vote, @PathVariable int id) {
+        log.info("Updating Vote");
+        voteService.update(vote, id);
+    }
+
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable int id) {
+        log.info("Deleting Vote");
+        voteService.delete(id);
     }
 }
