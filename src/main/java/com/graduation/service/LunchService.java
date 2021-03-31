@@ -1,24 +1,55 @@
 package com.graduation.service;
 
 import com.graduation.model.Lunch;
+import com.graduation.repository.LunchRepository;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public interface LunchService {
+@Service
+public class LunchService implements BaseService<Lunch> {
 
-    Lunch save(Lunch lunch);
+    private final LunchRepository repository;
 
-    boolean delete(int lunchId);
+    public LunchService(LunchRepository repository) {
+        this.repository = repository;
+    }
 
-    Lunch getByLunchId(int lunchId);
+    @Override
+    public List<Lunch> getAll() {
+        return repository.getAll();
+    }
 
-    List<Lunch> getAll();
+    @Override
+    public Lunch getById(int id) {
+        return repository.getById(id);
+    }
 
-    List<Lunch> getByRestaurantName(String name);
+    @Override
+    public Lunch save(Lunch lunch) {
+        return repository.create(lunch);
+    }
 
-    List<Lunch> getBetweenDatesIncluding(LocalDate startDate, LocalDate endDate);
+    @Override
+    public void update(Lunch lunch, int id) {
+        repository.update(lunch, id);
+    }
 
-    List<Lunch> getByRestaurantNameBetweenDates(String name, LocalDate startDate, LocalDate endDate);
+    @Override
+    public void delete(int id) {
+        repository.delete(id);
+    }
 
+    public List<Lunch> getByRestaurantName(String name) {
+        return repository.getByRestaurantName(name);
+    }
+
+    public List<Lunch> getBetweenDatesIncluding(LocalDate startDate, LocalDate endDate) {
+        return repository.getBetweenDatesIncluding(startDate, endDate);
+    }
+
+    public List<Lunch> getByRestaurantNameBetweenDates(String restaurantName, LocalDate startDate, LocalDate endDate) {
+        return repository.getByRestaurantNameBetweenDates(restaurantName, startDate, endDate);
+    }
 }

@@ -14,4 +14,10 @@ public class RestaurantData {
     public static Restaurant restaurant6 = new Restaurant(100011, "Khachapuri");
 
     public static List<Restaurant> allRestaurants = List.of(restaurant1, restaurant2, restaurant3, restaurant4, restaurant5, restaurant6);
+
+    public static Restaurant getNewRestaurant() {
+        Restaurant restaurant = new Restaurant();
+        restaurant.setRestaurantName("New_Restaurant");
+        return restaurant;
+    }
 }

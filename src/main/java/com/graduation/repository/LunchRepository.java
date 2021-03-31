@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public class LunchRepository {
+public class LunchRepository implements BaseRepository<Lunch> {
 
     private final CrudLunchRepository crudRepo;
 
@@ -17,25 +17,33 @@ public class LunchRepository {
         this.crudRepo = crudRepo;
     }
 
+    @Override
+    public List<Lunch> getAll() {
+        return (List<Lunch>) crudRepo.findAll();
+    }
+
+    @Override
+    public Lunch getById(int id) {
+        return crudRepo.getByLunchId(id);
+    }
+
+    @Override
     @Transactional
-    public Lunch save(Lunch lunch) {
-        if (lunch == null) {
-            return null;
-        }
+    public void delete(int id) {
+        crudRepo.delete(id);
+    }
+
+    @Transactional
+    @Override
+    public Lunch create(Lunch lunch) {
         return crudRepo.save(lunch);
     }
 
     @Transactional
-    public boolean delete(int lunchId) {
-        return crudRepo.delete(lunchId) != 0;
-    }
-
-    public Lunch getByLunchId(int lunchId) {
-        return crudRepo.getByLunchId(lunchId);
-    }
-
-    public List<Lunch> getAll() {
-        return (List<Lunch>) crudRepo.findAll();
+    @Override
+    public void update(Lunch lunch, int id) {
+        lunch.setLunchId(id);
+        crudRepo.save(lunch);
     }
 
     public List<Lunch> getByRestaurantName(String restaurantName) {

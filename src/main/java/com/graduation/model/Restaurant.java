@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "restaurants")
@@ -17,9 +14,15 @@ import javax.persistence.Table;
 public class Restaurant {
 
     @Id
+    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = 100000)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     @Column(name = "id")
-    int id;
+    Integer id;
 
     @Column(name = "restaurant_name")
     String restaurantName;
+
+    public boolean isNew() {
+        return this.id == null;
+    }
 }

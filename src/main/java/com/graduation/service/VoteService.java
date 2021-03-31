@@ -1,20 +1,49 @@
 package com.graduation.service;
 
 import com.graduation.model.Vote;
+import com.graduation.repository.VoteRepository;
+import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface VoteService {
-    Vote save(Vote vote);
+@Service
+public class VoteService implements BaseService<Vote> {
 
-    boolean delete(int voteId);
+    private final VoteRepository voteRepository;
 
-    Vote getByVoteId(int voteId);
+    public VoteService(VoteRepository voteRepository) {
+        this.voteRepository = voteRepository;
+    }
 
-    List<Vote> getAll();
+    @Override
+    public List<Vote> getAll() {
+        return voteRepository.getAll();
+    }
 
-    List<Vote> getBetweenDatesIncluding(LocalDateTime startDateTime, LocalDateTime endDateTime);
+    @Override
+    public Vote getById(int id) {
+        return null;
+//        return voteRepository.getByVoteId(id);
+    }
 
+    @Override
+    public Vote save(Vote vote) {
+        return null;
+//        return voteRepository.save(vote);
+    }
+
+    @Override
+    public void update(Vote vote, int id) {
+//        voteRepository.save(vote);
+    }
+
+    @Override
+    public void delete(int id) {
+        voteRepository.delete(id);
+    }
+
+    public List<Vote> getBetweenDatesIncluding(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        return voteRepository.getBetweenDatesIncluding(startDateTime, endDateTime);
+    }
 }

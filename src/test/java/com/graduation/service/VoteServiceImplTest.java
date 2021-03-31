@@ -27,34 +27,34 @@ public class VoteServiceImplTest extends AbstractServiceTest {
 //        System.out.println();
 //        assertThat(savedLunch).isEqualTo(expectedLunch);
     }
-
-    @Test
-    void updateVoteTest() {
-        Vote newVote = voteService.getByVoteId(100033);
-        newVote.setVoteDate(LocalDateTime.MIN);
-
-        Vote expectedVote = new Vote(100033, 100003, 100009, LocalDateTime.MIN);
-        Vote updatedVote = voteService.save(newVote);
-
-        assertThat(updatedVote).isEqualTo(expectedVote);
-    }
-
-    @Test
-    void deleteTest() {
-        voteService.delete(100032);
-        assertNull(voteService.getByVoteId(100032));
-    }
-
-    @Test
-    void getAllTest() {
-        List<Vote> votes = voteService.getAll();
-        assertEquals(votes.size(), 4);
-    }
-
-    @Test
-    void getBetweenDatesIncluding() {
-        List<Vote> votesBetweenDates = voteService.getBetweenDatesIncluding(LocalDateTime.of(2021, 1, 1,0,0),
-                LocalDateTime.of(2021, 1, 2,0,0));
-        assertEquals(votesBetweenDates.size(), 3);
-    }
+//
+//    @Test
+//    void updateVoteTest() {
+//        Vote newVote = voteService.getByVoteId(100033);
+//        newVote.setVoteDate(LocalDateTime.MIN);
+//
+//        Vote expectedVote = new Vote(100033, 100003, 100009, LocalDateTime.MIN);
+//        Vote updatedVote = voteService.save(newVote);
+//
+//        assertThat(updatedVote).isEqualTo(expectedVote);
+//    }
+//
+//    @Test
+//    void deleteTest() {
+//        voteService.delete(100032);
+//        assertNull(voteService.getByVoteId(100032));
+//    }
+//
+//    @Test
+//    void getAllTest() {
+//        List<Vote> votes = voteService.getAll();
+//        assertEquals(votes.size(), 4);
+//    }
+//
+//    @Test
+//    void getBetweenDatesIncluding() {
+//        List<Vote> votesBetweenDates = voteService.getBetweenDatesIncluding(LocalDateTime.of(2021, 1, 1,0,0),
+//                LocalDateTime.of(2021, 1, 2,0,0));
+//        assertEquals(votesBetweenDates.size(), 3);
+//    }
 }

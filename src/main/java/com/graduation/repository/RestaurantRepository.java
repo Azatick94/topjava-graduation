@@ -1,10 +1,50 @@
 package com.graduation.repository;
 
 import com.graduation.model.Restaurant;
-import org.springframework.data.repository.CrudRepository;
+import com.graduation.repository.crud.CrudRestaurantRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Repository
-public interface RestaurantRepository extends CrudRepository<Restaurant, Integer> {
-    Restaurant findByRestaurantName(String restaurantName);
+public class RestaurantRepository implements BaseRepository<Restaurant> {
+
+    private final CrudRestaurantRepository crudRepo;
+
+    public RestaurantRepository(CrudRestaurantRepository crudRepo) {
+        this.crudRepo = crudRepo;
+    }
+
+    @Override
+    public List<Restaurant> getAll() {
+        return (List<Restaurant>) crudRepo.findAll();
+    }
+
+    @Override
+    public Restaurant getById(int id) {
+        return crudRepo.findById(id).orElse(null);
+    }
+
+    @Transactional
+    @Override
+    public void delete(int id) {
+        crudRepo.delete(id);
+    }
+
+    @Transactional
+    @Override
+    public Restaurant create(Restaurant restaurant) {
+        return crudRepo.save(restaurant);
+    }
+
+    @Transactional
+    public void update(Restaurant restaurant, int id) {
+        restaurant.setId(id);
+        crudRepo.save(restaurant);
+    }
+
+    public Restaurant getByRestaurantName(String restaurantName) {
+        return crudRepo.getByRestaurantName(restaurantName);
+    }
 }

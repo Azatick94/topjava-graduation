@@ -18,7 +18,7 @@ public class Lunch {
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = 100000)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     @Column(name = "lunch_id")
-    private int lunchId;
+    private Integer lunchId;
 
     @Column(name = "date_registered")
     private LocalDate dateRegistered;
@@ -33,4 +33,8 @@ public class Lunch {
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
+
+    public boolean isNew() {
+        return this.lunchId == null;
+    }
 }

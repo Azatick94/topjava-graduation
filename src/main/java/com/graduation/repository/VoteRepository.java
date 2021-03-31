@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public class VoteRepository {
+public class VoteRepository implements BaseRepository<Vote> {
 
     private final CrudVoteRepository voteRepository;
 
@@ -17,25 +17,32 @@ public class VoteRepository {
         this.voteRepository = voteRepository;
     }
 
+    @Override
+    public List<Vote> getAll() {
+        return (List<Vote>) voteRepository.findAll();
+    }
+
+    @Override
+    public Vote getById(int id) {
+        return voteRepository.getByVoteId(id);
+    }
+
+    @Override
     @Transactional
-    public Vote save(Vote vote) {
-        if (vote == null) {
-            return null;
-        }
+    public void delete(int id) {
+        voteRepository.delete(id);
+    }
+
+    @Override
+    @Transactional
+    public Vote create(Vote vote) {
         return voteRepository.save(vote);
     }
 
+    @Override
     @Transactional
-    public boolean delete(int lunchId) {
-        return voteRepository.delete(lunchId) != 0;
-    }
-
-    public Vote getByVoteId(int voteId) {
-        return voteRepository.getByVoteId(voteId);
-    }
-
-    public List<Vote> getAll() {
-        return (List<Vote>) voteRepository.findAll();
+    public void update(Vote vote, int id) {
+//        voteRepository.save(vote);
     }
 
     public List<Vote> getBetweenDatesIncluding(LocalDateTime startDateTime, LocalDateTime endDateTime) {

@@ -17,13 +17,13 @@ public class Vote {
 
     @Id
     @Column(name = "vote_id")
-    private int voteId;
+    private Integer voteId;
 
     @Column(name = "user_id")
-    private int userId;
+    private Integer userId;
 
     @Column(name = "restaurant_id")
-    private int restaurantId;
+    private Integer restaurantId;
 
     @Column(name = "vote_date")
     private LocalDateTime voteDate;
