@@ -1,7 +1,9 @@
 package com.graduation.web;
 
+import com.graduation.model.Vote;
 import com.graduation.model.VoteHistory;
-import com.graduation.service.VoteHistoryService;
+import com.graduation.service.VoteService;
+import com.graduation.util.VoteCalculator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,15 +14,19 @@ import java.util.List;
 @RequestMapping("/rest/vote_history")
 public class VoteHistoryController {
 
-    private final VoteHistoryService voteHistoryService;
+    private final VoteService voteService;
 
-    public VoteHistoryController(VoteHistoryService voteHistoryService) {
-        this.voteHistoryService = voteHistoryService;
+    public VoteHistoryController(VoteService voteService) {
+        this.voteService = voteService;
     }
 
     @GetMapping
     public List<VoteHistory> getAll() {
         log.info("Getting All Votes_History");
-        return voteHistoryService.getAll();
+
+        // getting List of Votes
+        List<Vote> allVotes = voteService.getAll();
+        // calculating VoteHistory
+        return VoteCalculator.calculateVoteHistory(allVotes);
     }
 }

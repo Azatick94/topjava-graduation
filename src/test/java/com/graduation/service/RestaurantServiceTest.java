@@ -1,15 +1,10 @@
 package com.graduation.service;
 
-import com.graduation.TestData.RestaurantData;
-import com.graduation.model.Restaurant;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
+import com.graduation.AbstractTest;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-class RestaurantServiceTest extends AbstractServiceTest {
+class RestaurantServiceTest extends AbstractTest {
 //
 //    @Autowired
 //    private RestaurantService service;

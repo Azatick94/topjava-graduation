@@ -22,6 +22,11 @@ public class VoteHistory extends AbstractBaseEntity {
     @Column(name = "date")
     private LocalDate date;
 
+    public VoteHistory(Integer restaurant_id, LocalDate date) {
+        this.restaurant_id = restaurant_id;
+        this.date = date;
+    }
+
     public VoteHistory(Integer id, Integer restaurant_id, LocalDate date) {
         super(id);
         this.restaurant_id = restaurant_id;

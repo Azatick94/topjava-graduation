@@ -1,16 +1,10 @@
 package com.graduation.service;
 
-import com.graduation.model.Lunch;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.graduation.AbstractTest;
 
-import java.time.LocalDate;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-class LunchServiceImplTest extends AbstractServiceTest {
+class LunchServiceTest extends AbstractTest {
 //
 //    @Autowired
 //    BaseService lunchService;

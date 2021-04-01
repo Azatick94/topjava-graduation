@@ -1,12 +1,13 @@
 package com.graduation.web;
 
-import com.graduation.model.Restaurant;
 import com.graduation.model.Vote;
 import com.graduation.service.VoteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @RestController
@@ -32,17 +33,46 @@ public class VoteController {
         return voteService.getById(id);
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public Vote save(@RequestBody Vote vote) {
         log.info("Saving Vote");
-        return voteService.save(vote);
+
+        Integer voteUserId = vote.getUserId();
+        LocalDate voteDate = vote.getVoteDateTime().toLocalDate();
+
+        // get vote from DB by User and Date
+        Vote voteFromDb = voteService.getByUserIdAndDate(voteUserId, voteDate);
+
+        // did user vote?
+        if (voteFromDb == null) { // User didn't vote
+            return voteService.save(vote);
+        } else {
+            return null; // it is not saving, but updating
+        }
     }
 
     @PutMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody Vote vote, @PathVariable int id) {
+    public Vote update(@RequestBody Vote vote, @PathVariable Integer id) {
         log.info("Updating Vote");
-        voteService.update(vote, id);
+
+        Vote voteFromDb = voteService.getById(id);
+
+        // did user vote?
+        if (voteFromDb == null) { // User didn't vote
+            return null; // it is not updating, it is saving
+        } else {
+            LocalTime time = vote.getVoteDateTime().toLocalTime();
+            if (time.isAfter(LocalTime.of(11, 0, 0))) {
+                // After 11. Too late, User can't change his decision
+                return null;
+            } else {
+                // Before 11. User decided to change his mind
+                vote.setId(id);
+                return voteService.save(vote);
+            }
+        }
     }
+
 
     @DeleteMapping("{id}")
     public void delete(@PathVariable int id) {

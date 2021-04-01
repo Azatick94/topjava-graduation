@@ -4,11 +4,12 @@ import com.graduation.model.Vote;
 import com.graduation.repository.VoteRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class VoteService implements BaseService<Vote> {
+public class VoteService {
 
     private final VoteRepository voteRepository;
 
@@ -16,27 +17,26 @@ public class VoteService implements BaseService<Vote> {
         this.voteRepository = voteRepository;
     }
 
-    @Override
     public List<Vote> getAll() {
         return voteRepository.getAll();
     }
 
-    @Override
     public Vote getById(int id) {
         return voteRepository.getById(id);
     }
 
-    @Override
+    public Vote getByUserId(int userId) {
+        return voteRepository.getByUserId(userId);
+    }
+
+    public Vote getByUserIdAndDate(int userID, LocalDate date) {
+        return voteRepository.getByUserIdAndDate(userID, date);
+    }
+
     public Vote save(Vote vote) {
-        return voteRepository.create(vote);
+        return voteRepository.save(vote);
     }
 
-    @Override
-    public void update(Vote vote, int id) {
-        voteRepository.update(vote, id);
-    }
-
-    @Override
     public void delete(int id) {
         voteRepository.delete(id);
     }

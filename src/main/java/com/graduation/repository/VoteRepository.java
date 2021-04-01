@@ -5,11 +5,12 @@ import com.graduation.repository.crud.CrudVoteRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public class VoteRepository implements BaseRepository<Vote> {
+public class VoteRepository {
 
     private final CrudVoteRepository voteRepository;
 
@@ -17,33 +18,30 @@ public class VoteRepository implements BaseRepository<Vote> {
         this.voteRepository = voteRepository;
     }
 
-    @Override
     public List<Vote> getAll() {
         return (List<Vote>) voteRepository.findAll();
     }
 
-    @Override
     public Vote getById(int id) {
         return voteRepository.getById(id);
     }
 
-    @Override
+    public Vote getByUserId(int userId) {
+        return voteRepository.getByUserId(userId);
+    }
+
+    public Vote getByUserIdAndDate(int userId, LocalDate date) {
+        return voteRepository.getByUserIdAndDate(userId, date);
+    }
+
     @Transactional
     public void delete(int id) {
         voteRepository.delete(id);
     }
 
-    @Override
     @Transactional
-    public Vote create(Vote vote) {
+    public Vote save(Vote vote) {
         return voteRepository.save(vote);
-    }
-
-    @Override
-    @Transactional
-    public void update(Vote vote, int id) {
-        vote.setId(id);
-        voteRepository.save(vote);
     }
 
     public List<Vote> getBetweenDatesIncluding(LocalDateTime startDateTime, LocalDateTime endDateTime) {

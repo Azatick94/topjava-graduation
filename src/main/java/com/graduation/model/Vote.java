@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -24,6 +25,9 @@ public class Vote extends AbstractBaseEntity {
 
     @Column(name = "vote_date_time")
     private LocalDateTime voteDateTime;
+
+    @Column(name = "vote_date")
+    private LocalDate voteDate;
 
     public Vote(Integer id, Integer userId, Integer restaurantId, LocalDateTime voteDateTime) {
         super(id);
