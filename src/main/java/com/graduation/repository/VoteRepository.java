@@ -42,7 +42,7 @@ public class VoteRepository implements BaseRepository<Vote> {
     @Override
     @Transactional
     public void update(Vote vote, int id) {
-        vote.setVoteId(id);
+        vote.setId(id);
         voteRepository.save(vote);
     }
 

@@ -1,28 +1,25 @@
 package com.graduation.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "restaurants")
-@Data
+@Setter
+@Getter
+@ToString
 @NoArgsConstructor
-@AllArgsConstructor
-public class Restaurant {
-
-    @Id
-    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = 100000)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
-    @Column(name = "id")
-    Integer id;
+public class Restaurant extends AbstractBaseEntity {
 
     @Column(name = "restaurant_name")
     String restaurantName;
 
-    public boolean isNew() {
-        return this.id == null;
+    public Restaurant(Integer id, String restaurantName) {
+        super(id);
+        this.restaurantName = restaurantName;
     }
 }

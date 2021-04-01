@@ -18,7 +18,7 @@ CREATE TABLE restaurants
 -- LUNCHES WHICH SHOULD BE UPDATED EACH DAY BY ADMIN
 CREATE TABLE lunches
 (
-    lunch_id        INTEGER DEFAULT GLOBAL_SEQ.nextval PRIMARY KEY,
+    id        INTEGER DEFAULT GLOBAL_SEQ.nextval PRIMARY KEY,
     date_registered DATE    DEFAULT now() NOT NULL,
     restaurant_id   VARCHAR(100)          NOT NULL,
     lunch_name      VARCHAR               NOT NULL,
@@ -29,14 +29,14 @@ CREATE TABLE lunches
 -- USER_ROLES - roles present in webapp
 CREATE TABLE roles
 (
-    role_id INTEGER DEFAULT GLOBAL_SEQ.nextval PRIMARY KEY,
+    id INTEGER DEFAULT GLOBAL_SEQ.nextval PRIMARY KEY,
     role    VARCHAR
 );
 
 -- USERS TABLES with infos
 CREATE TABLE users
 (
-    user_id  INTEGER      DEFAULT GLOBAL_SEQ.nextval PRIMARY KEY,
+    id  INTEGER      DEFAULT GLOBAL_SEQ.nextval PRIMARY KEY,
     name     VARCHAR(100) NOT NULL,
     surname  VARCHAR(100) NOT NULL,
     email    VARCHAR(100) DEFAULT NULL,
@@ -46,12 +46,12 @@ CREATE TABLE users
 -- VOTES TABLE
 CREATE TABLE votes
 (
-    vote_id        INTEGER DEFAULT GLOBAL_SEQ.nextval PRIMARY KEY,
+    id        INTEGER DEFAULT GLOBAL_SEQ.nextval PRIMARY KEY,
     user_id        INTEGER   NOT NULL,
     restaurant_id  INTEGER   NOT NULL,
     vote_date_time TIMESTAMP NOT NULL,
     vote_date      DATE AS CAST(vote_date_time AS DATE), // calculated column for user_id+vote_date Uniqueness
-    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
     FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE
 );
 CREATE UNIQUE INDEX votes_unique_id_vote_date ON votes (user_id, vote_date);

@@ -42,7 +42,7 @@ public class LunchRepository implements BaseRepository<Lunch> {
     @Transactional
     @Override
     public void update(Lunch lunch, int id) {
-        lunch.setLunchId(id);
+        lunch.setId(id);
         crudRepo.save(lunch);
     }
 

@@ -14,7 +14,7 @@ public interface CrudVoteRepository extends CrudRepository<Vote, Integer> {
     @Query("SELECT v FROM Vote v WHERE v.voteDateTime >= :startDateTime AND v.voteDateTime <= :endDateTime")
     List<Vote> getBetweenDatesIncluding(@Param("startDateTime") LocalDateTime startDateTime, @Param("endDateTime") LocalDateTime endDateTime);
 
-    Vote getByVoteId(int lunchId);
+    Vote getByVoteId(int id);
 
     @Modifying
     @Query("DELETE FROM Vote v WHERE v.voteId=:vote_id")

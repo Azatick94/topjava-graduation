@@ -1,6 +1,9 @@
 package com.graduation.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -9,16 +12,11 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "lunches")
-@Data
+@Setter
+@Getter
+@ToString
 @NoArgsConstructor
-@AllArgsConstructor
-public class Lunch {
-
-    @Id
-    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = 100000)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
-    @Column(name = "lunch_id")
-    private Integer lunchId;
+public class Lunch extends AbstractBaseEntity {
 
     @Column(name = "date_registered")
     private LocalDate dateRegistered;
@@ -34,7 +32,11 @@ public class Lunch {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
 
-    public boolean isNew() {
-        return this.lunchId == null;
+    public Lunch(Integer id, LocalDate dateRegistered, String lunchName, int price, Restaurant restaurant) {
+        super(id);
+        this.dateRegistered = dateRegistered;
+        this.lunchName = lunchName;
+        this.price = price;
+        this.restaurant = restaurant;
     }
 }
