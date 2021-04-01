@@ -48,8 +48,4 @@ public class LunchService implements BaseService<Lunch> {
     public List<Lunch> getBetweenDatesIncluding(LocalDate startDate, LocalDate endDate) {
         return repository.getBetweenDatesIncluding(startDate, endDate);
     }
-
-    public List<Lunch> getByRestaurantNameBetweenDates(String restaurantName, LocalDate startDate, LocalDate endDate) {
-        return repository.getByRestaurantNameBetweenDates(restaurantName, startDate, endDate);
-    }
 }

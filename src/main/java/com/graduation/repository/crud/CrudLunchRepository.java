@@ -22,9 +22,9 @@ public interface CrudLunchRepository extends CrudRepository<Lunch, Integer> {
                                                           @Param("startDate") LocalDate startDate,
                                                           @Param("endDate") LocalDate endDate);
 
-    Lunch getByLunchId(int lunchId);
+    Lunch getById(int lunchId);
 
     @Modifying
-    @Query("DELETE FROM Lunch l WHERE l.lunchId=:lunch_id")
-    int delete(@Param("lunch_id") int lunchId);
+    @Query("DELETE FROM Lunch l WHERE l.id=:id")
+    int delete(@Param("id") int id);
 }

@@ -17,34 +17,30 @@ public class UserService implements BaseService<User> {
 
     @Override
     public List<User> getAll() {
-        return null;
-//        return (List<User>) repository.findAll();
+        return repository.getAll();
     }
 
     @Override
     public User getById(int id) {
-        return null;
-//        return repository.findById(id).orElse(null);
+        return repository.getById(id);
     }
 
     @Override
     public User save(User user) {
-        return null;
-//        return repository.save(user);
+        return repository.create(user);
     }
 
     @Override
     public void update(User user, int id) {
-//        repository.save(user);
+        repository.update(user, id);
     }
 
     @Override
     public void delete(int id) {
-//        repository.delete(id);
+        repository.delete(id);
     }
 
     public List<User> getByName(String name) {
-//        return repository.findByName(name);
-        return null;
+        return repository.getByName(name);
     }
 }

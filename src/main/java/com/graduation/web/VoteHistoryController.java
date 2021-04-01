@@ -1,10 +1,8 @@
 package com.graduation.web;
 
-import com.graduation.model.Vote;
 import com.graduation.model.VoteHistory;
 import com.graduation.service.VoteHistoryService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

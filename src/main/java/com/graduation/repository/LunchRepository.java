@@ -24,7 +24,7 @@ public class LunchRepository implements BaseRepository<Lunch> {
 
     @Override
     public Lunch getById(int id) {
-        return crudRepo.getByLunchId(id);
+        return crudRepo.getById(id);
     }
 
     @Override

@@ -24,7 +24,7 @@ public class VoteRepository implements BaseRepository<Vote> {
 
     @Override
     public Vote getById(int id) {
-        return voteRepository.getByVoteId(id);
+        return voteRepository.getById(id);
     }
 
     @Override

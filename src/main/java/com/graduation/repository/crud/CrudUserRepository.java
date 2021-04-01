@@ -9,9 +9,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface CrudUserRepository extends CrudRepository<User, Integer> {
-    List<User> findByName(String name);
+    List<User> getByName(String name);
 
     @Modifying
-    @Query("DELETE FROM User u WHERE u.userId=:id")
+    @Query("DELETE FROM User u WHERE u.id=:id")
     int delete(@Param("id") int id);
 }

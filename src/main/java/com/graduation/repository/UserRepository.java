@@ -1,5 +1,6 @@
 package com.graduation.repository;
 
+import com.graduation.model.Restaurant;
 import com.graduation.model.User;
 import com.graduation.repository.crud.CrudUserRepository;
 import org.springframework.stereotype.Repository;
@@ -41,6 +42,10 @@ public class UserRepository implements BaseRepository<User> {
     @Transactional
     @Override
     public void update(User user, int id) {
-//        crudRepo.save(user);
+        crudRepo.save(user);
+    }
+
+    public List<User> getByName(String name) {
+        return crudRepo.getByName(name);
     }
 }
