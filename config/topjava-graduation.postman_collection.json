@@ -1,0 +1,450 @@
+{
+	"info": {
+		"_postman_id": "6ceebfeb-9a4d-43c7-b649-9bb80087380e",
+		"name": "topjava-graduation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Restaurant_Controller",
+			"item": [
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest_restaurant}}",
+							"host": [
+								"{{rest_restaurant}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest_restaurant}}/:id",
+							"host": [
+								"{{rest_restaurant}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "100006"
+								}
+							]
+						},
+						"description": "Should be Anderson\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"restaurantName\": \"New_Restaurant\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest_restaurant}}",
+							"host": [
+								"{{rest_restaurant}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"restaurantName\": \"Russian Updated Pub\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest_restaurant}}/:id",
+							"host": [
+								"{{rest_restaurant}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "100007",
+									"description": "Updating Russian Pub"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{rest_restaurant}}/:id",
+							"host": [
+								"{{rest_restaurant}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "100010",
+									"description": "Deleting Bardak"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LunchController",
+			"item": [
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest_lunch}}",
+							"host": [
+								"{{rest_lunch}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest_lunch}}/100013",
+							"host": [
+								"{{rest_lunch}}"
+							],
+							"path": [
+								"100013"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByRestaurantName",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest_lunch}}/by_name/Russian Pub",
+							"host": [
+								"{{rest_lunch}}"
+							],
+							"path": [
+								"by_name",
+								"Russian Pub"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBetweenDatesIncluding",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest_lunch}}/filter?startDate=2021-01-02&endDate=2021-01-02",
+							"host": [
+								"{{rest_lunch}}"
+							],
+							"path": [
+								"filter"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2021-01-02"
+								},
+								{
+									"key": "endDate",
+									"value": "2021-01-02"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "saveExistingRestaurant",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dateRegistered\": \"2021-03-31\",\r\n    \"lunchName\": \"New Lunch\",\r\n    \"price\": 1111,\r\n    \"restaurant\": {\r\n        \"id\": 100006\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest_lunch}}",
+							"host": [
+								"{{rest_lunch}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dateRegistered\": \"2021-03-31\",\r\n    \"lunchName\": \"Updated Lunch\",\r\n    \"price\": 444,\r\n    \"restaurant\": {\r\n        \"id\": 100010\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest_lunch}}/100031",
+							"host": [
+								"{{rest_lunch}}"
+							],
+							"path": [
+								"100031"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{rest_lunch}}/100022",
+							"host": [
+								"{{rest_lunch}}"
+							],
+							"path": [
+								"100022"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vote_Controller",
+			"item": [
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest_vote}}",
+							"host": [
+								"{{rest_vote}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest_vote}}/:id",
+							"host": [
+								"{{rest_vote}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "100032"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{rest_vote}}/100033",
+							"host": [
+								"{{rest_vote}}"
+							],
+							"path": [
+								"100033"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "vote_save_should_be_saved",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 100002,\r\n    \"restaurantId\": 100009,\r\n    \"voteDateTime\": \"2021-01-03T05:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest_vote}}",
+							"host": [
+								"{{rest_vote}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "vote_Update_Before_11",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 100004,\r\n    \"restaurantId\": 100009,\r\n    \"voteDateTime\": \"2021-01-01T12:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest_vote}}/:id",
+							"host": [
+								"{{rest_vote}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "100032"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "VoteHistory_Controller",
+			"item": [
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest_vote_history}}",
+							"host": [
+								"{{rest_vote_history}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "rest_restaurant",
+			"value": "http://localhost:8080/rest/restaurant"
+		},
+		{
+			"key": "rest_lunch",
+			"value": "http://localhost:8080/rest/lunch"
+		},
+		{
+			"key": "rest_vote",
+			"value": "http://localhost:8080/rest/vote"
+		},
+		{
+			"key": "rest_vote_history",
+			"value": "http://localhost:8080/rest/vote_history"
+		}
+	]
+}

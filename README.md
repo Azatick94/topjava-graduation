@@ -1,6 +1,7 @@
 # topjava-graduation
 topjava-graduation project
 
+---
 # Project requirements
 
 Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot) without frontend.
@@ -26,4 +27,11 @@ P.S.: Make sure everything works with latest version that is on github :)
 
 P.P.S.: Assume that your API will be used by a frontend developer to build frontend on top of that.
 
+
 ---
+# Results
+
+- [Link to Postman Project File](config/topjava-graduation.postman_collection.json)
+
+---
+## List of curl commands:
