@@ -5,24 +5,31 @@ import lombok.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
 @Setter
 @Getter
-@ToString
+@ToString(callSuper = true, exclude = {"password"})
 @NoArgsConstructor
 public class User extends AbstractBaseEntity {
 
+    @Size(max = 100)
     @Column(name = "name")
     private String name;
 
+    @Size(max = 100)
     @Column(name = "surname")
     private String surname;
 
+    @Email
+    @Size(max = 100)
     @Column(name = "email")
     private String email;
 
+    @Size(max = 100)
     @Column(name = "password")
     private String password;
 

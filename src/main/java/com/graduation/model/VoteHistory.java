@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Table(name = "votes_history")
 @Setter
 @Getter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 public class VoteHistory extends AbstractBaseEntity {
 

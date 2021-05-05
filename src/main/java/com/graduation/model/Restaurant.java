@@ -6,15 +6,17 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "restaurants")
 @Setter
 @Getter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 public class Restaurant extends AbstractBaseEntity {
 
+    @Size(max = 100)
     @Column(name = "restaurant_name")
     String restaurantName;
 
