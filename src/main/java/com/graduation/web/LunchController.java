@@ -33,7 +33,7 @@ public class LunchController {
         return lunchService.getById(id);
     }
 
-    @GetMapping("/by_name/{name}")
+    @GetMapping("/by_restaurant/{name}")
     public List<Lunch> getByRestaurantName(@PathVariable String name) {
         log.info("Getting Lunch By Name: " + name);
         return lunchService.getByRestaurantName(name);
