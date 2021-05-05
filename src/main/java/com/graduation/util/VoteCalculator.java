@@ -4,9 +4,7 @@ import com.graduation.model.Vote;
 import com.graduation.model.VoteHistory;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class VoteCalculator {
@@ -29,8 +27,13 @@ public class VoteCalculator {
                     .filter(v -> v.getVoteDateTime().toLocalDate().equals(date))
                     .map(Vote::getRestaurantId).collect(Collectors.toList());
             // count occurences
-            Map<Integer, Long> counts = filteredByDate.stream().collect(Collectors.groupingBy(e -> e, Collectors.counting()));
-            Integer mostVotedRestaurantId = (Integer) counts.keySet().toArray()[0];
+            Map<Integer, Long> counts = filteredByDate.stream()
+                    .collect(Collectors.groupingBy(e -> e, Collectors.counting()));
+
+            List<Map.Entry<Integer, Long>> sortedCounts = new ArrayList<>(counts.entrySet());
+            sortedCounts.sort((e1, e2) -> e2.getValue().compareTo(e1.getValue()));
+            Integer mostVotedRestaurantId = sortedCounts.get(0).getKey();
+
             voteHistory.add(new VoteHistory(mostVotedRestaurantId, date));
         }
         return voteHistory;

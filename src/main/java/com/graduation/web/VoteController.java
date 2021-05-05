@@ -47,7 +47,9 @@ public class VoteController {
         if (voteFromDb == null) { // User didn't vote
             return voteService.save(vote);
         } else {
-            return null; // it is not saving, but updating
+            // TODO
+            // custom message. it is not saving, but updating
+            return null;
         }
     }
 
@@ -58,11 +60,14 @@ public class VoteController {
         Vote voteFromDb = voteService.getById(id);
 
         // did user vote?
-        if (voteFromDb == null) { // User didn't vote
-            return null; // it is not updating, it is saving
+        if (voteFromDb == null) {
+            // TODO
+            // User didn't vote, it is not updating, it is saving
+            return null;
         } else {
             LocalTime time = vote.getVoteDateTime().toLocalTime();
             if (time.isAfter(LocalTime.of(11, 0, 0))) {
+                // TODO some custom message here
                 // After 11. Too late, User can't change his decision
                 return null;
             } else {
@@ -72,7 +77,6 @@ public class VoteController {
             }
         }
     }
-
 
     @DeleteMapping("{id}")
     public void delete(@PathVariable int id) {
