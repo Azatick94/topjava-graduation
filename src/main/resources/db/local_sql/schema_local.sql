@@ -1,9 +1,9 @@
-DROP TABLE IF EXISTS roles;
-DROP TABLE IF EXISTS lunches;
-DROP TABLE IF EXISTS votes;
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS votes_history;
-DROP TABLE IF EXISTS restaurants;
+DROP TABLE IF EXISTS roles CASCADE;
+DROP TABLE IF EXISTS lunches CASCADE;
+DROP TABLE IF EXISTS votes CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS votes_history CASCADE;
+DROP TABLE IF EXISTS restaurants CASCADE;
 DROP SEQUENCE IF EXISTS global_seq;
 
 CREATE SEQUENCE global_seq START WITH 100000;
@@ -50,7 +50,7 @@ CREATE TABLE votes
     user_id        INTEGER   NOT NULL,
     restaurant_id  INTEGER   NOT NULL,
     vote_date_time TIMESTAMP NOT NULL,
-    vote_date      DATE AS CAST(vote_date_time AS DATE), // calculated column for user_id+vote_date Uniqueness
+    vote_date      DATE AS CAST(vote_date_time AS DATE),
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
     FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE
 );
