@@ -1,6 +1,5 @@
 package com.graduation.repository;
 
-import com.graduation.model.Restaurant;
 import com.graduation.model.User;
 import com.graduation.repository.crud.CrudUserRepository;
 import org.springframework.stereotype.Repository;
