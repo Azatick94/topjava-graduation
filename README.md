@@ -1,4 +1,7 @@
 # topjava-graduation
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/4e46105892fe4b779679a35b1e631376)](https://app.codacy.com/gh/Azatick94/topjava-graduation?utm_source=github.com&utm_medium=referral&utm_content=Azatick94/topjava-graduation&utm_campaign=Badge_Grade_Settings)
+
 topjava-graduation project
 
 ---
