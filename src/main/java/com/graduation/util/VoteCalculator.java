@@ -1,7 +1,7 @@
 package com.graduation.util;
 
 import com.graduation.model.Vote;
-import com.graduation.model.VoteHistory;
+import com.graduation.to.VoteHistory;
 
 import java.time.LocalDate;
 import java.util.*;

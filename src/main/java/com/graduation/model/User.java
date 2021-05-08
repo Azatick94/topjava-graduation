@@ -1,5 +1,6 @@
 package com.graduation.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,6 +31,7 @@ public class User extends AbstractBaseEntity implements Serializable {
     private String email;
 
     @Size(max = 100)
+    @JsonIgnore
     @Column(name = "password")
     private String password;
 
@@ -41,6 +43,7 @@ public class User extends AbstractBaseEntity implements Serializable {
         this.password = password;
     }
 
+    @JsonIgnore
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role"}, name = "user_roles_unique")})
     @Column(name = "role")

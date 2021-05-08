@@ -1,7 +1,7 @@
 package com.graduation.web;
 
 import com.graduation.model.Vote;
-import com.graduation.model.VoteHistory;
+import com.graduation.to.VoteHistory;
 import com.graduation.service.VoteService;
 import com.graduation.util.VoteCalculator;
 import lombok.extern.slf4j.Slf4j;

@@ -8,8 +8,6 @@ DELETE
 FROM USER_ROLES;
 DELETE
 FROM VOTES;
-DELETE
-FROM VOTES_HISTORY;
 
 INSERT INTO USERS (ID, NAME, SURNAME, EMAIL, PASSWORD)
 VALUES (NEXT VALUE FOR global_seq, 'Azat', 'Burkhanov', 'azburhanov@mail.ru', '{noop}password'),

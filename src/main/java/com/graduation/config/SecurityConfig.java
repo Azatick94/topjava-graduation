@@ -1,6 +1,5 @@
 package com.graduation.config;
 
-//import com.graduation.AuthUser;
 import com.graduation.AuthUser;
 import com.graduation.model.User;
 import com.graduation.repository.UserRepository;
@@ -10,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -45,16 +43,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService())
                 .passwordEncoder(PasswordEncoderFactories.createDelegatingPasswordEncoder());
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                // Anyone can see vote history
-                .antMatchers("/rest/vote_history").permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .httpBasic();
     }
 }

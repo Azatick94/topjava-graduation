@@ -58,14 +58,3 @@ CREATE TABLE votes
 );
 CREATE UNIQUE INDEX votes_unique_id_vote_date ON votes (user_id, vote_date);
 
--- VOTES HISTORY
-CREATE TABLE votes_history
-(
-    id            INTEGER PRIMARY KEY,
-    restaurant_id INTEGER     NOT NULL,
-    date          DATE UNIQUE NOT NULL,
-    FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE
-)
-
-
-

@@ -1,7 +1,7 @@
 package com.graduation.util;
 
 import com.graduation.model.Vote;
-import com.graduation.model.VoteHistory;
+import com.graduation.to.VoteHistory;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -17,7 +17,7 @@ class VoteCalculatorTest {
     void calculateVoteHistory() {
 
         // Creating List with Votes;
-        List<Vote> lstVotes = new ArrayList();
+        List<Vote> lstVotes = new ArrayList<>();
         lstVotes.add(new Vote(100032, 100004, 100009, LocalDateTime.of(2021, 1, 1, 11, 0)));
         lstVotes.add(new Vote(100033, 100003, 100009, LocalDateTime.of(2021, 1, 1, 15, 0)));
         lstVotes.add(new Vote(100036, 100003, 100010, LocalDateTime.of(2021, 1, 1, 15, 0)));
