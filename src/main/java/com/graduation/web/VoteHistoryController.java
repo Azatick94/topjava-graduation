@@ -23,7 +23,6 @@ public class VoteHistoryController {
     @GetMapping
     public List<VoteHistory> getAll() {
         log.info("Getting All Votes_History");
-
         // getting List of Votes
         List<Vote> allVotes = voteService.getAll();
         // calculating VoteHistory

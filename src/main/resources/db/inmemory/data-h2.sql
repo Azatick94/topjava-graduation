@@ -10,8 +10,8 @@ DELETE
 FROM VOTES;
 
 INSERT INTO USERS (ID, NAME, SURNAME, EMAIL, PASSWORD)
-VALUES (NEXT VALUE FOR global_seq, 'Azat', 'Burkhanov', 'azburhanov@mail.ru', '{noop}password'),
-       (NEXT VALUE FOR global_seq, 'Vadim', 'Demchenko', 'demo@gmail.com', '{noop}qwerty'),
+VALUES (NEXT VALUE FOR global_seq, 'Azat', 'Burkhanov', 'admin@mail.ru', '{noop}admin'),
+       (NEXT VALUE FOR global_seq, 'Vadim', 'Demchenko', 'user@mail.ru', '{noop}user'),
        (NEXT VALUE FOR global_seq, 'Petr', 'Petrov', 'petrov_petr@mail.ru', '{noop}qwerty123'),
        (NEXT VALUE FOR global_seq, 'Elena', 'Barinova', 'lena_barinova@gmail.com', '{noop}123qwerty');
 
