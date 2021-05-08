@@ -30,8 +30,8 @@ public class User extends AbstractBaseEntity implements Serializable {
     @Column(name = "email")
     private String email;
 
-    @Size(max = 100)
     @JsonIgnore
+    @Size(max = 100)
     @Column(name = "password")
     private String password;
 
