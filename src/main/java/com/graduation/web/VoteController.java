@@ -4,6 +4,7 @@ import com.graduation.model.Vote;
 import com.graduation.service.VoteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -22,12 +23,14 @@ public class VoteController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public List<Vote> getAll() {
         log.info("Getting All Votes");
         return voteService.getAll();
     }
 
     @GetMapping("{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public Vote getById(@PathVariable int id) {
         log.info("Getting Vote By Id: " + id);
         return voteService.getById(id);
@@ -79,6 +82,7 @@ public class VoteController {
     }
 
     @DeleteMapping("{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable int id) {
         log.info("Deleting Vote");
         voteService.delete(id);

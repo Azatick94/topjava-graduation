@@ -2,11 +2,11 @@ package com.graduation.model;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 @Getter
 @ToString(callSuper = true, exclude = {"password"})
 @NoArgsConstructor
-public class User extends AbstractBaseEntity {
+public class User extends AbstractBaseEntity implements Serializable {
 
     @Size(max = 100)
     @Column(name = "name")
@@ -40,4 +40,10 @@ public class User extends AbstractBaseEntity {
         this.email = email;
         this.password = password;
     }
+
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role"}, name = "user_roles_unique")})
+    @Column(name = "role")
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<Role> roles;
 }

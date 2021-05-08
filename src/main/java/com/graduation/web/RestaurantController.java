@@ -4,6 +4,7 @@ import com.graduation.model.Restaurant;
 import com.graduation.service.RestaurantService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,18 +33,21 @@ public class RestaurantController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public Restaurant save(@RequestBody Restaurant restaurant) {
         log.info("Saving restaurant");
         return restaurantService.save(restaurant);
     }
 
     @PutMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ADMIN')")
     public void update(@RequestBody Restaurant restaurant, @PathVariable int id) {
         log.info("Updating Restaurant");
         restaurantService.update(restaurant, id);
     }
 
     @DeleteMapping("{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable int id) {
         log.info("Deleting Restaurant");
         restaurantService.delete(id);

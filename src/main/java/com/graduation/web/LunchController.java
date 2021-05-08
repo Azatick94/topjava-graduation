@@ -5,6 +5,7 @@ import com.graduation.service.LunchService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -47,18 +48,21 @@ public class LunchController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public Lunch save(@RequestBody Lunch lunch) {
         log.info("Saving Lunch");
         return lunchService.save(lunch);
     }
 
     @PutMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ADMIN')")
     public void update(@RequestBody Lunch lunch, @PathVariable int id) {
         log.info("Updating Lunch");
         lunchService.update(lunch, id);
     }
 
     @DeleteMapping("{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable int id) {
         log.info("Deleting Lunch");
         lunchService.delete(id);

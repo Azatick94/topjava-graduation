@@ -1,7 +1,7 @@
-DROP TABLE IF EXISTS roles;
+DROP TABLE IF EXISTS user_roles;
+DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS lunches;
 DROP TABLE IF EXISTS votes;
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS votes_history;
 DROP TABLE IF EXISTS restaurants;
 DROP SEQUENCE IF EXISTS global_seq;
@@ -26,13 +26,6 @@ CREATE TABLE lunches
     FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE
 );
 
--- USER_ROLES - roles present in webapp
-CREATE TABLE roles
-(
-    id   INTEGER PRIMARY KEY,
-    role VARCHAR
-);
-
 -- USERS TABLES with infos
 CREATE TABLE users
 (
@@ -41,6 +34,15 @@ CREATE TABLE users
     surname  VARCHAR(100) NOT NULL,
     email    VARCHAR(100) DEFAULT NULL,
     password VARCHAR(100) NOT NULL
+);
+
+-- USER_ROLES - roles present in webapp
+CREATE TABLE user_roles
+(
+    id   INTEGER PRIMARY KEY,
+    role VARCHAR,
+    user_id INTEGER,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
 -- VOTES TABLE

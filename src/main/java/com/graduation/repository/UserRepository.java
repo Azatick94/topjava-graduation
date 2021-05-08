@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserRepository implements BaseRepository<User> {
@@ -47,4 +48,9 @@ public class UserRepository implements BaseRepository<User> {
     public List<User> getByName(String name) {
         return crudRepo.getByName(name);
     }
+
+    public Optional<User> findByEmailIgnoreCase(String email) {
+        return crudRepo.findByEmailIgnoreCase(email);
+    }
+
 }

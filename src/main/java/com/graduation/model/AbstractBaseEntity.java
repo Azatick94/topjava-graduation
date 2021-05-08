@@ -1,6 +1,7 @@
 package com.graduation.model;
 
 import lombok.*;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 
@@ -21,4 +22,10 @@ public abstract class AbstractBaseEntity {
     public boolean isNew() {
         return this.id == null;
     }
+
+    public int id() {
+        Assert.notNull(id, "Entity must have id");
+        return id;
+    }
+
 }
