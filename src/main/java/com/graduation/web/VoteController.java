@@ -2,6 +2,7 @@ package com.graduation.web;
 
 import com.graduation.model.Vote;
 import com.graduation.service.VoteService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,6 +25,7 @@ public class VoteController {
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary="Get All Votes")
     public List<Vote> getAll() {
         log.info("Getting All Votes");
         return voteService.getAll();
@@ -31,12 +33,14 @@ public class VoteController {
 
     @GetMapping("{id}")
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary="Get Vote By Id")
     public Vote getById(@PathVariable int id) {
         log.info("Getting Vote By Id: " + id);
         return voteService.getById(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary="Save New Vote")
     public Vote save(@RequestBody Vote vote) {
         log.info("Saving Vote");
 
@@ -57,6 +61,7 @@ public class VoteController {
     }
 
     @PutMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary="Update Existing Vote")
     public Vote update(@RequestBody Vote vote, @PathVariable Integer id) {
         log.info("Updating Vote");
 
@@ -83,6 +88,7 @@ public class VoteController {
 
     @DeleteMapping("{id}")
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary="Delete Vote By Id")
     public void delete(@PathVariable int id) {
         log.info("Deleting Vote");
         voteService.delete(id);

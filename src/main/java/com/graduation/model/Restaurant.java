@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -17,6 +18,7 @@ import javax.validation.constraints.Size;
 public class Restaurant extends AbstractBaseEntity {
 
     @Size(max = 100)
+    @NotBlank
     @Column(name = "restaurant_name")
     String restaurantName;
 

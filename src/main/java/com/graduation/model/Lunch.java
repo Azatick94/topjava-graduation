@@ -6,10 +6,10 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
@@ -24,12 +24,12 @@ public class Lunch extends AbstractBaseEntity {
     @Column(name = "date_registered")
     private LocalDate dateRegistered;
 
-    @Size(max = 200)
     @Column(name = "lunch_name")
+    @Size(max = 200)
+    @NotBlank
     private String lunchName;
 
-    @Min(0)
-    @Max(999999)
+    @Range(min = 0, max = 999999)
     @Column(name = "price")
     private int price;
 

@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Set;
@@ -18,19 +19,23 @@ import java.util.Set;
 public class User extends AbstractBaseEntity implements Serializable {
 
     @Size(max = 100)
+    @NotBlank
     @Column(name = "name")
     private String name;
 
     @Size(max = 100)
+    @NotBlank
     @Column(name = "surname")
     private String surname;
 
     @Email
+    @NotBlank
     @Size(max = 100)
     @Column(name = "email")
     private String email;
 
     @JsonIgnore
+    @NotBlank
     @Size(max = 100)
     @Column(name = "password")
     private String password;

@@ -2,6 +2,7 @@ package com.graduation.web;
 
 import com.graduation.model.User;
 import com.graduation.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,18 +25,21 @@ public class UserController {
     }
 
     @GetMapping
+    @Operation(summary="Get All Users")
     public List<User> getAll() {
         log.info("RUNNING getUsers method");
         return userService.getAll();
     }
 
     @GetMapping("/by/name")
+    @Operation(summary="Get User By Name")
     public List<User> getByName(@RequestParam String name) {
         log.info("RUNNING getByName method");
         return userService.getByName(name);
     }
 
     @GetMapping("/by/id")
+    @Operation(summary="Get User By Id")
     public User getById(@RequestParam int id) {
         log.info("RUNNING getById method");
         return userService.getById(id);
