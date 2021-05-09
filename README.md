@@ -5,6 +5,7 @@
 topjava-graduation project
 
 ---
+
 # Project requirements
 
 Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot) without frontend.
@@ -13,37 +14,132 @@ The task is:
 
 Build a voting system for deciding where to have lunch.
 
-- [x] 2 types of users: admin and regular user
-- [x] Admin can input a restaurant and it's lunch menu of the day (2-5 items usually, just a dish name and price)
-- [x] Menu changes each day (admins do the updates)
-- [x] Users can vote on which restaurant they want to have lunch at
+- [ ] 2 types of users: admin and regular user
+- [ ] Admin can input a restaurant and it's lunch menu of the day (2-5 items usually, just a dish name and price)
+- [ ] Menu changes each day (admins do the updates)
+- [ ] Users can vote on which restaurant they want to have lunch at
 - [ ] Only one vote counted per user
 - [ ] If user votes again the same day:
     - [ ] If it is before 11:00 we assume that he changed his mind.
-    - [ ] If it is after 11:00 then it is too late, vote can't be changed
-      Each restaurant provides a new menu each day.
+    - [ ] If it is after 11:00 then it is too late, vote can't be changed Each restaurant provides a new menu each day.
 
-As a result, provide a link to github repository. It should contain the code, README.md with API documentation and couple curl commands to test it.
+As a result, provide a link to github repository. It should contain the code, README.md with API documentation and
+couple curl commands to test it.
 
 ---
 P.S.: Make sure everything works with latest version that is on github :)
 
 P.P.S.: Assume that your API will be used by a frontend developer to build frontend on top of that.
 
+---
+
+#    * RESULTS
 
 ---
-# Results
 
-- [Link to Postman Project File](config/topjava-graduation.postman_collection.json)
+##    * SWAGGER documentation
 
----
-## List of curl commands:
-
----
-## SWAGGER documentation
 * Json Format documentation
-http://localhost:8080/api-docs/
+  http://localhost:8080/api-docs/
 * Swagger UI documentation
-http://localhost:8080/swagger-ui.html
+  http://localhost:8080/swagger-ui.html
 
+---
+
+##    * SECURITY CONFIGS
+
+### ADMIN: <br>
+
+admin@mail.ru : admin
+
+### USER: <br>
+
+user@mail.ru : user
+
+---
+
+##    * DATABASE MODEL STRUCTURE
+
+![alt text](src/main/resources/static/images/voting_app_diagram.png)
+
+[comment]: <> (- [Link to Postman Project File]&#40;config/topjava-graduation.postman_collection.json&#41;)
+
+---
+
+##    * LIST of CURL Commands:
+
+### RESTAURANT_CONTROLLER
+
+<i>- Get All Restaurants (user+admin):</i>
+
+    curl -L -X GET 'http://localhost:8080/rest/restaurant' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
+
+<i>- Get Restaurant With ID = 100009 (user+admin):</i>
+
+    curl -L -X GET 'http://localhost:8080/rest/restaurant/100009' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
+
+<i>- Save New Restaurant with Name="New_Restaurant" (admin):</i>
+
+    curl -L -X POST 'http://localhost:8080/rest/restaurant' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg==' -H '
+    Content-Type: application/json' --data-raw '{
+    "restaurantName": "New_Restaurant"
+    }'
+
+<i>- Update Restaurant With ID = 100009: (admin)</i>
+
+    curl -L -X PUT 'http://localhost:8080/rest/restaurant/100009' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg==' -H 'Content-Type: application/json' --data-raw '{
+    "restaurantName": "Russian Pub New Name"
+    }'
+
+<i>- Delete Restaurant With ID = 100010: (admin)</i>
+
+    curl -L -X DELETE 'http://localhost:8080/rest/restaurant/100010' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg=='
+
+### USER_CONTROLLER
+
+<i>- Get All Users (admin):</i>
+
+    curl -L -X GET 'http://localhost:8080/rest/users' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg=='
+
+<i>- Find User By Name="Azat" (admin):</i>
+
+    curl -L -X GET 'http://localhost:8080/rest/users/by/name?name=Azat' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg=='
+
+<i>- Get User By Id=100000 (admin):</i>
+
+    curl -L -X GET 'http://localhost:8080/rest/users/by/id?id=100000' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg=='
+
+### LUNCH_CONTROLLER
+
+<i>- Get All Lunches (admin+user):</i>
+
+<i>- Get Lunch By Id =  (admin+user):</i>
+
+<i>- Get List of Lunches By RestaurantName =  (admin+user):</i>
+
+<i>- Get List of Lunches Between Dates =  (admin+user):</i>
+
+<i>- Save New Lunch With Name =  (admin):</i>
+
+<i>- Update Existing Lunch With Id =  (admin):</i>
+
+<i>- Delete Lunch With Id =   (admin):</i>
+
+### VOTE_CONTROLLER
+
+<i>- Get All Votes (user):</i>
+
+<i>- Get Vote By Id =  (user):</i>
+
+<i>- Save New Vote =  (admin+user):</i>
+
+<i>- Update Existing Vote With Id =  (admin+user):</i>
+
+<i>- Delete Vote With Id =   (admin+user):</i>
+
+### VOTE_HISTORY_CONTROLLER
+
+<i>- Get Restaurant Voting Results (admin+user):</i>
+
+    curl -L -X GET 'http://localhost:8080/rest/vote_history' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
 
