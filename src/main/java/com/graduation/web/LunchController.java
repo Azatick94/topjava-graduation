@@ -24,28 +24,28 @@ public class LunchController {
     }
 
     @GetMapping
-    @Operation(summary="Get All Lunches")
+    @Operation(summary = "Get All Lunches")
     public List<Lunch> getAll() {
         log.info("Getting All Lunches");
         return lunchService.getAll();
     }
 
     @GetMapping("{id}")
-    @Operation(summary="Get Lunch By Id")
+    @Operation(summary = "Get Lunch By Id")
     public Lunch getById(@PathVariable int id) {
         log.info("Getting Lunch By Id: " + id);
         return lunchService.getById(id);
     }
 
     @GetMapping("/by_restaurant/{name}")
-    @Operation(summary="Get List of Lunches By RestaurantName")
+    @Operation(summary = "Get List of Lunches By RestaurantName")
     public List<Lunch> getByRestaurantName(@PathVariable String name) {
         log.info("Getting Lunch By Name: " + name);
         return lunchService.getByRestaurantName(name);
     }
 
     @GetMapping("/filter")
-    @Operation(summary="Get List of Lunches Between Dates")
+    @Operation(summary = "Get List of Lunches Between Dates")
     public List<Lunch> getBetweenDatesIncluding(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
                                                 @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         log.info("Getting Lunch Between Dates");
@@ -54,7 +54,7 @@ public class LunchController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary="Save New Lunch")
+    @Operation(summary = "Save New Lunch")
     public Lunch save(@RequestBody Lunch lunch) {
         log.info("Saving Lunch");
         return lunchService.save(lunch);
@@ -62,7 +62,7 @@ public class LunchController {
 
     @PutMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary="Update Existing Lunch")
+    @Operation(summary = "Update Existing Lunch")
     public void update(@RequestBody Lunch lunch, @PathVariable int id) {
         log.info("Updating Lunch");
         lunchService.update(lunch, id);
@@ -70,7 +70,7 @@ public class LunchController {
 
     @DeleteMapping("{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary="Delete Lunch By Id")
+    @Operation(summary = "Delete Lunch By Id")
     public void delete(@PathVariable int id) {
         log.info("Deleting Lunch");
         lunchService.delete(id);

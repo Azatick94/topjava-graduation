@@ -2,6 +2,7 @@ package com.graduation.repository;
 
 import com.graduation.model.Restaurant;
 import com.graduation.repository.crud.CrudRestaurantRepository;
+import com.graduation.to.RestaurantToSave;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,8 +40,20 @@ public class RestaurantRepository implements BaseRepository<Restaurant> {
     }
 
     @Transactional
+    public Restaurant create(RestaurantToSave restaurantToSave) {
+        Restaurant restaurant = new Restaurant(null, restaurantToSave.getRestaurantName());
+        return crudRepo.save(restaurant);
+    }
+
+    @Transactional
     public void update(Restaurant restaurant, int id) {
         restaurant.setId(id);
+        crudRepo.save(restaurant);
+    }
+
+    @Transactional
+    public void update(RestaurantToSave restaurantToSave, int id) {
+        Restaurant restaurant = new Restaurant(id, restaurantToSave.getRestaurantName());
         crudRepo.save(restaurant);
     }
 

@@ -25,21 +25,21 @@ public class UserController {
     }
 
     @GetMapping
-    @Operation(summary="Get All Users")
+    @Operation(summary = "Get All Users")
     public List<User> getAll() {
         log.info("RUNNING getUsers method");
         return userService.getAll();
     }
 
     @GetMapping("/by/name")
-    @Operation(summary="Get User By Name")
+    @Operation(summary = "Get User By Name")
     public List<User> getByName(@RequestParam String name) {
         log.info("RUNNING getByName method");
         return userService.getByName(name);
     }
 
     @GetMapping("/by/id")
-    @Operation(summary="Get User By Id")
+    @Operation(summary = "Get User By Id")
     public User getById(@RequestParam int id) {
         log.info("RUNNING getById method");
         return userService.getById(id);

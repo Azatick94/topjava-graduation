@@ -20,7 +20,7 @@ public class Restaurant extends AbstractBaseEntity {
     @Size(max = 100)
     @NotBlank
     @Column(name = "restaurant_name")
-    String restaurantName;
+    private String restaurantName;
 
     public Restaurant(Integer id, String restaurantName) {
         super(id);

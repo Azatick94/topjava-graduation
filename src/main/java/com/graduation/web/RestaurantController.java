@@ -2,6 +2,7 @@ package com.graduation.web;
 
 import com.graduation.model.Restaurant;
 import com.graduation.service.RestaurantService;
+import com.graduation.to.RestaurantToSave;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -22,14 +23,14 @@ public class RestaurantController {
     }
 
     @GetMapping
-    @Operation(summary="Get All Restaurants")
+    @Operation(summary = "Get All Restaurants")
     public List<Restaurant> getAll() {
         log.info("Getting All Restaurants");
         return restaurantService.getAll();
     }
 
     @GetMapping("{id}")
-    @Operation(summary="Get Restaurants By Id")
+    @Operation(summary = "Get Restaurants By Id")
     public Restaurant getById(@PathVariable int id) {
         log.info("Getting Restaurant By Id: " + id);
         return restaurantService.getById(id);
@@ -37,23 +38,23 @@ public class RestaurantController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary="Save New Restaurant")
-    public Restaurant save(@RequestBody Restaurant restaurant) {
+    @Operation(summary = "Save New Restaurant")
+    public Restaurant save(@RequestBody RestaurantToSave restaurantToSave) {
         log.info("Saving restaurant");
-        return restaurantService.save(restaurant);
+        return restaurantService.save(restaurantToSave);
     }
 
     @PutMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary="Update Existing Restaurant By Id")
-    public void update(@RequestBody Restaurant restaurant, @PathVariable int id) {
+    @Operation(summary = "Update Existing Restaurant By Id")
+    public void update(@RequestBody RestaurantToSave restaurantToSave, @PathVariable int id) {
         log.info("Updating Restaurant");
-        restaurantService.update(restaurant, id);
+        restaurantService.update(restaurantToSave, id);
     }
 
     @DeleteMapping("{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary="Delete Restaurant By Id")
+    @Operation(summary = "Delete Restaurant By Id")
     public void delete(@PathVariable int id) {
         log.info("Deleting Restaurant");
         restaurantService.delete(id);
