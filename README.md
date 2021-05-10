@@ -62,6 +62,7 @@ user@mail.ru : user
 
 ![alt text](src/main/resources/static/images/voting_app_diagram.png)
 
+[comment]: <> (# TODO)
 [comment]: <> (- [Link to Postman Project File]&#40;config/topjava-graduation.postman_collection.json&#41;)
 
 ---
@@ -113,29 +114,55 @@ user@mail.ru : user
 
 <i>- Get All Lunches (admin+user):</i>
 
-<i>- Get Lunch By Id =  (admin+user):</i>
+    curl -L -X GET 'http://localhost:8080/rest/lunch' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
 
-<i>- Get List of Lunches By RestaurantName =  (admin+user):</i>
+<i>- Get Lunch By Id = 100014 (admin+user):</i>
+
+    curl -L -X GET 'http://localhost:8080/rest/lunch/100014' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
+
+<i>- Get List of Lunches By RestaurantName = "AnderSon" (admin+user):</i>
+
+    curl -L -X GET 'http://localhost:8080/rest/lunch/by_restaurant/AnderSon' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI=' 
 
 <i>- Get List of Lunches Between Dates =  (admin+user):</i>
 
+    curl -L -X GET 'http://localhost:8080/rest/lunch/filter?startDate=2021-01-02&endDate=2021-01-02' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
+
 <i>- Save New Lunch With Name =  (admin):</i>
+
+
 
 <i>- Update Existing Lunch With Id =  (admin):</i>
 
+
+
 <i>- Delete Lunch With Id =   (admin):</i>
+
+    curl -L -X DELETE 'http://localhost:8080/rest/lunch/100015' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg=='
+
 
 ### VOTE_CONTROLLER
 
-<i>- Get All Votes (user):</i>
+<i>- Get All Votes (user+admin):</i>
 
-<i>- Get Vote By Id =  (user):</i>
+    curl -L -X GET 'http://localhost:8080/rest/vote' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
+
+<i>- Get Vote By Id = 100034 (user+admin):</i>
+
+    curl -L -X GET 'http://localhost:8080/rest/vote/100034' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
 
 <i>- Save New Vote =  (admin+user):</i>
 
+
+
 <i>- Update Existing Vote With Id =  (admin+user):</i>
 
+
+
 <i>- Delete Vote With Id =   (admin+user):</i>
+
+    curl -L -X DELETE 'http://localhost:8080/rest/vote/100035' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg=='
+
 
 ### VOTE_HISTORY_CONTROLLER
 

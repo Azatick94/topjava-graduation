@@ -24,7 +24,6 @@ public class VoteController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Get All Votes")
     public List<Vote> getAll() {
         log.info("Getting All Votes");
@@ -32,7 +31,6 @@ public class VoteController {
     }
 
     @GetMapping("{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Get Vote By Id")
     public Vote getById(@PathVariable int id) {
         log.info("Getting Vote By Id: " + id);

@@ -2,7 +2,7 @@ package com.graduation.web;
 
 import com.graduation.model.Restaurant;
 import com.graduation.service.RestaurantService;
-import com.graduation.to.RestaurantToSave;
+import com.graduation.to.RestaurantSaveTo;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -39,17 +39,17 @@ public class RestaurantController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Save New Restaurant")
-    public Restaurant save(@RequestBody RestaurantToSave restaurantToSave) {
+    public Restaurant save(@RequestBody RestaurantSaveTo restaurantSaveTo) {
         log.info("Saving restaurant");
-        return restaurantService.save(restaurantToSave);
+        return restaurantService.save(restaurantSaveTo);
     }
 
     @PutMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Update Existing Restaurant By Id")
-    public void update(@RequestBody RestaurantToSave restaurantToSave, @PathVariable int id) {
+    public void update(@RequestBody RestaurantSaveTo restaurantSaveTo, @PathVariable int id) {
         log.info("Updating Restaurant");
-        restaurantService.update(restaurantToSave, id);
+        restaurantService.update(restaurantSaveTo, id);
     }
 
     @DeleteMapping("{id}")

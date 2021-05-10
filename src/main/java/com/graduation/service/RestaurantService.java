@@ -2,7 +2,7 @@ package com.graduation.service;
 
 import com.graduation.model.Restaurant;
 import com.graduation.repository.RestaurantRepository;
-import com.graduation.to.RestaurantToSave;
+import com.graduation.to.RestaurantSaveTo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,8 +31,8 @@ public class RestaurantService implements BaseService<Restaurant> {
         return repository.create(restaurant);
     }
 
-    public Restaurant save(RestaurantToSave restaurantToSave) {
-        return repository.create(restaurantToSave);
+    public Restaurant save(RestaurantSaveTo restaurantSaveTo) {
+        return repository.create(restaurantSaveTo);
     }
 
     @Override
@@ -40,8 +40,8 @@ public class RestaurantService implements BaseService<Restaurant> {
         repository.update(restaurant, id);
     }
 
-    public void update(RestaurantToSave restaurantToSave, int id) {
-        repository.update(restaurantToSave, id);
+    public void update(RestaurantSaveTo restaurantSaveTo, int id) {
+        repository.update(restaurantSaveTo, id);
     }
 
     @Override
