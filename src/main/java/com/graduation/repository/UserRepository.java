@@ -27,6 +27,14 @@ public class UserRepository implements BaseRepository<User> {
         return crudRepo.findById(id).orElse(null);
     }
 
+    public Optional<User> findByEmailIgnoreCase(String email) {
+        return crudRepo.findByEmailIgnoreCase(email);
+    }
+
+    public List<User> getByName(String name) {
+        return crudRepo.getByName(name);
+    }
+
     @Transactional
     @Override
     public void delete(int id) {
@@ -35,22 +43,13 @@ public class UserRepository implements BaseRepository<User> {
 
     @Transactional
     @Override
-    public User create(User user) {
-        return crudRepo.save(user);
-    }
-
-    @Transactional
-    @Override
     public void update(User user, int id) {
         crudRepo.save(user);
     }
 
-    public List<User> getByName(String name) {
-        return crudRepo.getByName(name);
+    @Transactional
+    @Override
+    public User create(User user) {
+        return crudRepo.save(user);
     }
-
-    public Optional<User> findByEmailIgnoreCase(String email) {
-        return crudRepo.findByEmailIgnoreCase(email);
-    }
-
 }

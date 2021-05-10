@@ -1,13 +1,17 @@
 package com.graduation.web;
 
+import com.graduation.model.User;
 import com.graduation.model.Vote;
+import com.graduation.repository.UserRepository;
 import com.graduation.service.VoteService;
+import com.graduation.to.VoteTo;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -19,8 +23,11 @@ public class VoteController {
 
     private final VoteService voteService;
 
-    public VoteController(VoteService voteService) {
+    private final UserRepository userRepository;
+
+    public VoteController(VoteService voteService, UserRepository userRepository) {
         this.voteService = voteService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping
@@ -38,48 +45,37 @@ public class VoteController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Save New Vote")
-    public Vote save(@RequestBody Vote vote) {
-        log.info("Saving Vote");
+    @Operation(summary = "Save/Update Vote")
+    @PreAuthorize("hasRole('USER')")
+    public Vote save(@RequestBody VoteTo voteTo, Principal principal) {
+        log.info("Saving/Updating Vote");
 
-        Integer voteUserId = vote.getUserId();
-        LocalDate voteDate = vote.getVoteDateTime().toLocalDate();
+        String userEmail = principal.getName();
+        User userByEmail = userRepository.findByEmailIgnoreCase(userEmail).orElse(null);
 
-        // get vote from DB by User and Date
-        Vote voteFromDb = voteService.getByUserIdAndDate(voteUserId, voteDate);
-
-        // did user vote?
-        if (voteFromDb == null) { // User didn't vote
-            return voteService.save(vote);
-        } else {
-            // TODO
-            // custom message. it is not saving, but updating
-            return null;
-        }
-    }
-
-    @PutMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Update Existing Vote")
-    public Vote update(@RequestBody Vote vote, @PathVariable Integer id) {
-        log.info("Updating Vote");
-
-        Vote voteFromDb = voteService.getById(id);
-
-        // did user vote?
-        if (voteFromDb == null) {
-            // TODO
-            // User didn't vote, it is not updating, it is saving
+        if (userByEmail == null) {
             return null;
         } else {
-            LocalTime time = vote.getVoteDateTime().toLocalTime();
-            if (time.isAfter(LocalTime.of(11, 0, 0))) {
-                // TODO some custom message here
-                // After 11. Too late, User can't change his decision
-                return null;
+            Integer userId = userByEmail.getId();
+
+            LocalDate voteDate = voteTo.getVoteDateTime().toLocalDate();
+            // get vote from DB by User and Date
+            Vote voteFromDb = voteService.getByUserIdAndDate(userId, voteDate);
+
+            if (voteFromDb == null) {
+                log.info("Saving vote");
+                return voteService.save(voteTo, userId);
             } else {
-                // Before 11. User decided to change his mind
-                vote.setId(id);
-                return voteService.save(vote);
+                LocalTime time = voteTo.getVoteDateTime().toLocalTime();
+                if (time.isAfter(LocalTime.of(11, 0, 0))) {
+                    // After 11. Too late, User can't change his decision
+                    log.info("Vote wasn't updated because User can't change hist decision after 11 a.m.");
+                    return null;
+                } else {
+                    // Before 11. User decided to change his mind
+                    log.info("Vote was updated");
+                    return voteService.update(voteTo, userId, voteFromDb.getId());
+                }
             }
         }
     }

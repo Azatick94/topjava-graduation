@@ -2,6 +2,7 @@ package com.graduation.repository;
 
 import com.graduation.model.Lunch;
 import com.graduation.repository.crud.CrudLunchRepository;
+import com.graduation.to.LunchTo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

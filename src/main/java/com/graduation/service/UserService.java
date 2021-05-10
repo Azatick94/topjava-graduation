@@ -25,6 +25,10 @@ public class UserService implements BaseService<User> {
         return repository.getById(id);
     }
 
+    public List<User> getByName(String name) {
+        return repository.getByName(name);
+    }
+
     @Override
     public User save(User user) {
         return repository.create(user);
@@ -40,7 +44,5 @@ public class UserService implements BaseService<User> {
         repository.delete(id);
     }
 
-    public List<User> getByName(String name) {
-        return repository.getByName(name);
-    }
+
 }

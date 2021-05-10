@@ -33,11 +33,11 @@ P.P.S.: Assume that your API will be used by a frontend developer to build front
 
 ---
 
-#    * RESULTS
+#     * RESULTS
 
 ---
 
-##    * SWAGGER documentation
+##     * SWAGGER documentation
 
 * Json Format documentation
   http://localhost:8080/api-docs/
@@ -46,7 +46,7 @@ P.P.S.: Assume that your API will be used by a frontend developer to build front
 
 ---
 
-##    * SECURITY CONFIGS
+##     * SECURITY CONFIGS
 
 ### ADMIN: <br>
 
@@ -58,16 +58,17 @@ user@mail.ru : user
 
 ---
 
-##    * DATABASE MODEL STRUCTURE
+##     * DATABASE MODEL STRUCTURE
 
 ![alt text](src/main/resources/static/images/voting_app_diagram.png)
 
 [comment]: <> (# TODO)
+
 [comment]: <> (- [Link to Postman Project File]&#40;config/topjava-graduation.postman_collection.json&#41;)
 
 ---
 
-##    * LIST of CURL Commands:
+##     * LIST of CURL Commands:
 
 ### RESTAURANT_CONTROLLER
 
@@ -128,18 +129,33 @@ user@mail.ru : user
 
     curl -L -X GET 'http://localhost:8080/rest/lunch/filter?startDate=2021-01-02&endDate=2021-01-02' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
 
-<i>- Save New Lunch With Name =  (admin):</i>
+<i>- Save New Lunch (admin):</i>
 
-
+    curl -L -X POST 'http://localhost:8080/rest/lunch' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg==' -H 'Content-Type: application/json' --data-raw '{
+    "dateRegistered": "2021-05-10",
+    "lunchName": "New Lunch",
+    "price": 777,
+    "restaurant": {
+    "id": 100008,
+    "restaurantName": "AnderSon"
+    }
+    }'
 
 <i>- Update Existing Lunch With Id =  (admin):</i>
 
+    curl -L -X PUT 'http://localhost:8080/rest/lunch/100014' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg==' -H 'Content-Type: application/json' --data-raw '{
+    "dateRegistered": "2021-01-01",
+    "lunchName": "Стейк лосося с ризотто из булгура и томатами №2",
+    "price": 710,
+    "restaurant": {
+    "id": 100008,
+    "restaurantName": "AnderSon"
+    }
+    }'
 
-
-<i>- Delete Lunch With Id =   (admin):</i>
+<i>- Delete Lunch With Id = 100015 (admin):</i>
 
     curl -L -X DELETE 'http://localhost:8080/rest/lunch/100015' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg=='
-
 
 ### VOTE_CONTROLLER
 
@@ -151,18 +167,25 @@ user@mail.ru : user
 
     curl -L -X GET 'http://localhost:8080/rest/vote/100034' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
 
-<i>- Save New Vote =  (admin+user):</i>
+<i>- Save New Vote  (user):</i>
+    
+    curl -L -X POST 'http://localhost:8080/rest/vote' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI=' -H 'Content-Type: application/json' --data-raw '{
+    "restaurantId": 100009,
+    "voteDateTime": "2021-05-10T09:00:00"
+    }'
 
 
+<i>- Update Existing Vote By User Before 11 Clock =  (user):</i>
 
-<i>- Update Existing Vote With Id =  (admin+user):</i>
+    curl -L -X POST 'http://localhost:8080/rest/vote' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI=' -H 'Content-Type: application/json' --data-raw '{
+    "restaurantId": 100010,
+    "voteDateTime": "2021-05-10T10:30:00"
+    }'
 
 
-
-<i>- Delete Vote With Id =   (admin+user):</i>
+<i>- Delete Vote With Id = 100035 (admin):</i>
 
     curl -L -X DELETE 'http://localhost:8080/rest/vote/100035' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg=='
-
 
 ### VOTE_HISTORY_CONTROLLER
 

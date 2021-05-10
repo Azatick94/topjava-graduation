@@ -26,10 +26,6 @@ public class VoteRepository {
         return voteRepository.getById(id);
     }
 
-    public Vote getByUserId(int userId) {
-        return voteRepository.getByUserId(userId);
-    }
-
     public Vote getByUserIdAndDate(int userId, LocalDate date) {
         return voteRepository.getByUserIdAndDate(userId, date);
     }

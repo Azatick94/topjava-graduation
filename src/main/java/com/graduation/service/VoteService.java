@@ -2,6 +2,7 @@ package com.graduation.service;
 
 import com.graduation.model.Vote;
 import com.graduation.repository.VoteRepository;
+import com.graduation.to.VoteTo;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -25,15 +26,17 @@ public class VoteService {
         return voteRepository.getById(id);
     }
 
-    public Vote getByUserId(int userId) {
-        return voteRepository.getByUserId(userId);
-    }
-
     public Vote getByUserIdAndDate(int userID, LocalDate date) {
         return voteRepository.getByUserIdAndDate(userID, date);
     }
 
-    public Vote save(Vote vote) {
+    public Vote save(VoteTo voteTo, Integer userId) {
+        Vote vote = new Vote(null, userId, voteTo.getRestaurantId(), voteTo.getVoteDateTime());
+        return voteRepository.save(vote);
+    }
+
+    public Vote update(VoteTo voteTo, Integer userId, Integer voteId) {
+        Vote vote = new Vote(voteId, userId, voteTo.getRestaurantId(), voteTo.getVoteDateTime());
         return voteRepository.save(vote);
     }
 

@@ -2,6 +2,7 @@ package com.graduation.web;
 
 import com.graduation.model.Lunch;
 import com.graduation.service.LunchService;
+import com.graduation.to.LunchTo;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -55,17 +56,17 @@ public class LunchController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Save New Lunch")
-    public Lunch save(@RequestBody Lunch lunch) {
+    public Lunch save(@RequestBody LunchTo lunchTo) {
         log.info("Saving Lunch");
-        return lunchService.save(lunch);
+        return lunchService.save(lunchTo);
     }
 
     @PutMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Update Existing Lunch")
-    public void update(@RequestBody Lunch lunch, @PathVariable int id) {
+    public void update(@RequestBody LunchTo lunchTo, @PathVariable int id) {
         log.info("Updating Lunch");
-        lunchService.update(lunch, id);
+        lunchService.update(lunchTo, id);
     }
 
     @DeleteMapping("{id}")
