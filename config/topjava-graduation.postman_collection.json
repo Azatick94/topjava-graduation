@@ -11,6 +11,21 @@
 				{
 					"name": "getAll",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user@mail.ru",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -25,6 +40,21 @@
 				{
 					"name": "getById",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user@mail.ru",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -38,7 +68,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "100006"
+									"value": "100009"
 								}
 							]
 						},
@@ -49,6 +79,21 @@
 				{
 					"name": "save",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin@mail.ru",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -72,11 +117,26 @@
 				{
 					"name": "update",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin@mail.ru",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"restaurantName\": \"Russian Updated Pub\"\r\n}",
+							"raw": "{\r\n    \"restaurantName\": \"Russian Pub New Name\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -94,8 +154,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "100007",
-									"description": "Updating Russian Pub"
+									"value": "100009"
 								}
 							]
 						}
@@ -105,6 +164,21 @@
 				{
 					"name": "delete",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin@mail.ru",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
@@ -129,11 +203,144 @@
 			]
 		},
 		{
+			"name": "User_Controller",
+			"item": [
+				{
+					"name": "getAll",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin@mail.ru",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest_user}}",
+							"host": [
+								"{{rest_user}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByName",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin@mail.ru",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{rest_user}}/by/name?name=Azat",
+							"host": [
+								"{{rest_user}}"
+							],
+							"path": [
+								"by",
+								"name"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Azat"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin@mail.ru",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest_user}}/by/id?id=100000",
+							"host": [
+								"{{rest_user}}"
+							],
+							"path": [
+								"by",
+								"id"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "100000"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "LunchController",
 			"item": [
 				{
 					"name": "getAll",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user@mail.ru",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -148,15 +355,30 @@
 				{
 					"name": "getById",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user@mail.ru",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{rest_lunch}}/100013",
+							"raw": "{{rest_lunch}}/100014",
 							"host": [
 								"{{rest_lunch}}"
 							],
 							"path": [
-								"100013"
+								"100014"
 							]
 						}
 					},
@@ -165,16 +387,31 @@
 				{
 					"name": "getByRestaurantName",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user@mail.ru",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{rest_lunch}}/by_name/Russian Pub",
+							"raw": "{{rest_lunch}}/by_restaurant/AnderSon",
 							"host": [
 								"{{rest_lunch}}"
 							],
 							"path": [
-								"by_name",
-								"Russian Pub"
+								"by_restaurant",
+								"AnderSon"
 							]
 						}
 					},
@@ -183,6 +420,21 @@
 				{
 					"name": "getBetweenDatesIncluding",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user@mail.ru",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -208,13 +460,28 @@
 					"response": []
 				},
 				{
-					"name": "saveExistingRestaurant",
+					"name": "save",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin@mail.ru",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"dateRegistered\": \"2021-03-31\",\r\n    \"lunchName\": \"New Lunch\",\r\n    \"price\": 1111,\r\n    \"restaurant\": {\r\n        \"id\": 100006\r\n    }\r\n}",
+							"raw": "{\r\n  \"dateRegistered\": \"2021-05-10\",\r\n  \"lunchName\": \"New Lunch\",\r\n  \"price\": 777,\r\n  \"restaurant\": {\r\n    \"id\": 100008,\r\n    \"restaurantName\": \"AnderSon\"\r\n  }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -233,11 +500,26 @@
 				{
 					"name": "update",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin@mail.ru",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"dateRegistered\": \"2021-03-31\",\r\n    \"lunchName\": \"Updated Lunch\",\r\n    \"price\": 444,\r\n    \"restaurant\": {\r\n        \"id\": 100010\r\n    }\r\n}",
+							"raw": "{\r\n  \"dateRegistered\": \"2021-01-01\",\r\n  \"lunchName\": \"Стейк лосося с ризотто из булгура и томатами №2\",\r\n  \"price\": 710,\r\n  \"restaurant\": {\r\n    \"id\": 100008,\r\n    \"restaurantName\": \"AnderSon\"\r\n  }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -245,12 +527,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{rest_lunch}}/100031",
+							"raw": "{{rest_lunch}}/100014",
 							"host": [
 								"{{rest_lunch}}"
 							],
 							"path": [
-								"100031"
+								"100014"
 							]
 						}
 					},
@@ -259,15 +541,30 @@
 				{
 					"name": "delete",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin@mail.ru",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{rest_lunch}}/100022",
+							"raw": "{{rest_lunch}}/100015",
 							"host": [
 								"{{rest_lunch}}"
 							],
 							"path": [
-								"100022"
+								"100015"
 							]
 						}
 					},
@@ -281,6 +578,21 @@
 				{
 					"name": "getAll",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user@mail.ru",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -295,6 +607,21 @@
 				{
 					"name": "getById",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user@mail.ru",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -308,7 +635,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "100032"
+									"value": "100034"
 								}
 							]
 						}
@@ -318,28 +645,58 @@
 				{
 					"name": "delete",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin@mail.ru",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{rest_vote}}/100033",
+							"raw": "{{rest_vote}}/100035",
 							"host": [
 								"{{rest_vote}}"
 							],
 							"path": [
-								"100033"
+								"100035"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "vote_save_should_be_saved",
+					"name": "save_new",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user@mail.ru",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userId\": 100002,\r\n    \"restaurantId\": 100009,\r\n    \"voteDateTime\": \"2021-01-03T05:00:00\"\r\n}",
+							"raw": "{\r\n    \"restaurantId\": 100009,\r\n    \"voteDateTime\": \"2021-05-10T09:00:00\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -356,13 +713,28 @@
 					"response": []
 				},
 				{
-					"name": "vote_Update_Before_11",
+					"name": "update_Before_11",
 					"request": {
-						"method": "PUT",
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user@mail.ru",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userId\": 100004,\r\n    \"restaurantId\": 100009,\r\n    \"voteDateTime\": \"2021-01-01T12:00:00\"\r\n}",
+							"raw": "{\r\n    \"restaurantId\": 100011,\r\n    \"voteDateTime\": \"2021-05-10T10:30:00\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -370,18 +742,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{rest_vote}}/:id",
+							"raw": "{{rest_vote}}",
 							"host": [
 								"{{rest_vote}}"
-							],
-							"path": [
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "100032"
-								}
 							]
 						}
 					},
@@ -395,6 +758,21 @@
 				{
 					"name": "getAll",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user@mail.ru",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -445,6 +823,10 @@
 		{
 			"key": "rest_vote_history",
 			"value": "http://localhost:8080/rest/vote_history"
+		},
+		{
+			"key": "rest_user",
+			"value": "http://localhost:8080/rest/users"
 		}
 	]
 }
