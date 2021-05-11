@@ -1,8 +1,8 @@
 package com.graduation.web;
 
-import com.graduation.model.Vote;
 import com.graduation.to.VoteHistory;
 import com.graduation.service.VoteService;
+import com.graduation.to.VoteQueryByDateTo;
 import com.graduation.util.VoteCalculator;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
@@ -22,12 +22,16 @@ public class VoteHistoryController {
     }
 
     @GetMapping
-    @Operation(summary="Get Restaurant Voting Results")
+    @Operation(summary = "Get Restaurant Voting Results")
     public List<VoteHistory> getAll() {
         log.info("Getting All Votes_History");
-        // getting List of Votes
-        List<Vote> allVotes = voteService.getAll();
-        // calculating VoteHistory
-        return VoteCalculator.calculateVoteHistory(allVotes);
+        return VoteCalculator.calculateVoteHistory(voteService.getAll());
+    }
+
+    @GetMapping("{date}")
+    @Operation(summary = "Get Restaurant Voting Results by Certain Date")
+    public List<VoteQueryByDateTo> getByDate(@PathVariable String date) {
+        log.info("Getting Voting Results by Date");
+        return voteService.getVoteResultByDate(date);
     }
 }

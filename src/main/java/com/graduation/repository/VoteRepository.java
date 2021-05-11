@@ -30,9 +30,12 @@ public class VoteRepository {
         return voteRepository.getByUserIdAndDate(userId, date);
     }
 
-    @Transactional
-    public void delete(int id) {
-        voteRepository.delete(id);
+    public List<Vote> getBetweenDatesIncluding(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        return voteRepository.getBetweenDatesIncluding(startDateTime, endDateTime);
+    }
+
+    public List<Object[]> getVoteResultByDate(String date) {
+        return voteRepository.getVoteResultByDate(date);
     }
 
     @Transactional
@@ -40,7 +43,8 @@ public class VoteRepository {
         return voteRepository.save(vote);
     }
 
-    public List<Vote> getBetweenDatesIncluding(LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        return voteRepository.getBetweenDatesIncluding(startDateTime, endDateTime);
+    @Transactional
+    public void delete(int id) {
+        voteRepository.delete(id);
     }
 }

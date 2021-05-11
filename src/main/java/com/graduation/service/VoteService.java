@@ -2,7 +2,9 @@ package com.graduation.service;
 
 import com.graduation.model.Vote;
 import com.graduation.repository.VoteRepository;
+import com.graduation.to.VoteQueryByDateTo;
 import com.graduation.to.VoteTo;
+import com.graduation.util.Converters;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -28,6 +30,15 @@ public class VoteService {
 
     public Vote getByUserIdAndDate(int userID, LocalDate date) {
         return voteRepository.getByUserIdAndDate(userID, date);
+    }
+
+    public List<VoteQueryByDateTo> getVoteResultByDate(String date) {
+        List<Object[]> result = voteRepository.getVoteResultByDate(date);
+        if (result == null) {
+            return null;
+        } else {
+            return Converters.ObjectListToVoteQueryByDateTo(result);
+        }
     }
 
     public Vote save(VoteTo voteTo, Integer userId) {

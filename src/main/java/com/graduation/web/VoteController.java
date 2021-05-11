@@ -68,11 +68,9 @@ public class VoteController {
             } else {
                 LocalTime time = voteTo.getVoteDateTime().toLocalTime();
                 if (time.isAfter(LocalTime.of(11, 0, 0))) {
-                    // After 11. Too late, User can't change his decision
-                    log.info("Vote wasn't updated because User can't change hist decision after 11 a.m.");
+                    log.info("Vote wasn't updated because User can't change his decision after 11 a.m.");
                     return null;
                 } else {
-                    // Before 11. User decided to change his mind
                     log.info("Vote was updated");
                     return voteService.update(voteTo, userId, voteFromDb.getId());
                 }
