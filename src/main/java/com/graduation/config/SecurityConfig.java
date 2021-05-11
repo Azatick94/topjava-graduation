@@ -2,7 +2,7 @@ package com.graduation.config;
 
 import com.graduation.AuthUser;
 import com.graduation.model.User;
-import com.graduation.repository.UserRepository;
+import com.graduation.repository.crud.CrudUserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,9 +24,9 @@ import java.util.Optional;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserRepository userRepository;
+    private final CrudUserRepository userRepository;
 
-    public SecurityConfig(UserRepository userRepository) {
+    public SecurityConfig(CrudUserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

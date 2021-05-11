@@ -1,48 +1,47 @@
 package com.graduation.service;
 
 import com.graduation.model.User;
-import com.graduation.repository.UserRepository;
+import com.graduation.repository.crud.CrudUserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-public class UserService implements BaseService<User> {
+public class UserService {
 
-    private final UserRepository repository;
+    private final CrudUserRepository userRepo;
 
-    public UserService(UserRepository repository) {
-        this.repository = repository;
+    public UserService(CrudUserRepository userRepo) {
+        this.userRepo = userRepo;
     }
 
-    @Override
     public List<User> getAll() {
-        return repository.getAll();
+        return (List<User>) userRepo.findAll();
     }
 
-    @Override
     public User getById(int id) {
-        return repository.getById(id);
+        return userRepo.findById(id).orElse(null);
     }
 
     public List<User> getByName(String name) {
-        return repository.getByName(name);
+        return userRepo.getByName(name);
     }
 
-    @Override
+    @Transactional
     public User save(User user) {
-        return repository.create(user);
+        user.setId(null);
+        return userRepo.save(user);
     }
 
-    @Override
+    @Transactional
     public void update(User user, int id) {
-        repository.update(user, id);
+        user.setId(id);
+        userRepo.save(user);
     }
 
-    @Override
+    @Transactional
     public void delete(int id) {
-        repository.delete(id);
+        userRepo.delete(id);
     }
-
-
 }

@@ -2,7 +2,7 @@ package com.graduation.web;
 
 import com.graduation.model.User;
 import com.graduation.model.Vote;
-import com.graduation.repository.UserRepository;
+import com.graduation.repository.crud.CrudUserRepository;
 import com.graduation.service.VoteService;
 import com.graduation.to.VoteTo;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,9 +23,9 @@ public class VoteController {
 
     private final VoteService voteService;
 
-    private final UserRepository userRepository;
+    private final CrudUserRepository userRepository;
 
-    public VoteController(VoteService voteService, UserRepository userRepository) {
+    public VoteController(VoteService voteService, CrudUserRepository userRepository) {
         this.voteService = voteService;
         this.userRepository = userRepository;
     }

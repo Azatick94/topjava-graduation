@@ -5,11 +5,13 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Repository
 public interface CrudVoteRepository extends CrudRepository<Vote, Integer> {
 
     @Query("SELECT v FROM Vote v WHERE v.voteDateTime >= :startDateTime AND v.voteDateTime <= :endDateTime")
@@ -35,6 +37,15 @@ public interface CrudVoteRepository extends CrudRepository<Vote, Integer> {
             "             WHERE VOTE_DATE=:date\n" +
             "             GROUP BY RESTAURANT_ID))",
             nativeQuery = true)
-    List<Object[]> getVoteResultByDate(@Param("date") String date);
+    List<Object[]> getVoteWinnersByDate(@Param("date") String date);
+
+
+    @Query(value = "SELECT RESTAURANT_ID, RESTAURANT_NAME, VOTE_DATE, COUNT(RESTAURANT_ID) AS COUNT FROM VOTES v" +
+            " LEFT JOIN RESTAURANTS r ON v.RESTAURANT_ID = r.ID\n" +
+            "GROUP BY VOTE_DATE, RESTAURANT_ID\n" +
+            "ORDER BY VOTE_DATE DESC, COUNT DESC",
+            nativeQuery = true)
+    List<Object[]> getAllGroupedVoteResults();
+
 
 }

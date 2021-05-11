@@ -1,9 +1,7 @@
 package com.graduation.web;
 
-import com.graduation.to.VoteHistory;
 import com.graduation.service.VoteService;
-import com.graduation.to.VoteQueryByDateTo;
-import com.graduation.util.VoteCalculator;
+import com.graduation.to.VotingResultsTo;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -23,15 +21,15 @@ public class VoteHistoryController {
 
     @GetMapping
     @Operation(summary = "Get Restaurant Voting Results")
-    public List<VoteHistory> getAll() {
+    public List<VotingResultsTo> getAll() {
         log.info("Getting All Votes_History");
-        return VoteCalculator.calculateVoteHistory(voteService.getAll());
+        return voteService.getAllGroupedVoteResults();
     }
 
     @GetMapping("{date}")
     @Operation(summary = "Get Restaurant Voting Results by Certain Date")
-    public List<VoteQueryByDateTo> getByDate(@PathVariable String date) {
+    public List<VotingResultsTo> getByDate(@PathVariable String date) {
         log.info("Getting Voting Results by Date");
-        return voteService.getVoteResultByDate(date);
+        return voteService.getVoteWinnersByDate(date);
     }
 }

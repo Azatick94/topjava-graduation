@@ -1,11 +1,12 @@
 package com.graduation.service;
 
 import com.graduation.model.Vote;
-import com.graduation.repository.VoteRepository;
-import com.graduation.to.VoteQueryByDateTo;
+import com.graduation.repository.crud.CrudVoteRepository;
+import com.graduation.to.VotingResultsTo;
 import com.graduation.to.VoteTo;
 import com.graduation.util.Converters;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,26 +15,31 @@ import java.util.List;
 @Service
 public class VoteService {
 
-    private final VoteRepository voteRepository;
 
-    public VoteService(VoteRepository voteRepository) {
-        this.voteRepository = voteRepository;
+    private final CrudVoteRepository crudRepo;
+
+    public VoteService(CrudVoteRepository crudVoteRepository) {
+        this.crudRepo = crudVoteRepository;
     }
 
     public List<Vote> getAll() {
-        return voteRepository.getAll();
+        return (List<Vote>) crudRepo.findAll();
     }
 
     public Vote getById(int id) {
-        return voteRepository.getById(id);
+        return crudRepo.getById(id);
     }
 
     public Vote getByUserIdAndDate(int userID, LocalDate date) {
-        return voteRepository.getByUserIdAndDate(userID, date);
+        return crudRepo.getByUserIdAndDate(userID, date);
     }
 
-    public List<VoteQueryByDateTo> getVoteResultByDate(String date) {
-        List<Object[]> result = voteRepository.getVoteResultByDate(date);
+    public List<Vote> getBetweenDatesIncluding(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        return crudRepo.getBetweenDatesIncluding(startDateTime, endDateTime);
+    }
+
+    public List<VotingResultsTo> getVoteWinnersByDate(String date) {
+        List<Object[]> result = crudRepo.getVoteWinnersByDate(date);
         if (result == null) {
             return null;
         } else {
@@ -41,21 +47,29 @@ public class VoteService {
         }
     }
 
+    public List<VotingResultsTo> getAllGroupedVoteResults() {
+        List<Object[]> result = crudRepo.getAllGroupedVoteResults();
+        if (result == null) {
+            return null;
+        } else {
+            return Converters.ObjectListToVoteQueryByDateTo(result);
+        }
+    }
+
+    @Transactional
     public Vote save(VoteTo voteTo, Integer userId) {
         Vote vote = new Vote(null, userId, voteTo.getRestaurantId(), voteTo.getVoteDateTime());
-        return voteRepository.save(vote);
+        return crudRepo.save(vote);
     }
 
+    @Transactional
     public Vote update(VoteTo voteTo, Integer userId, Integer voteId) {
         Vote vote = new Vote(voteId, userId, voteTo.getRestaurantId(), voteTo.getVoteDateTime());
-        return voteRepository.save(vote);
+        return crudRepo.save(vote);
     }
 
+    @Transactional
     public void delete(int id) {
-        voteRepository.delete(id);
-    }
-
-    public List<Vote> getBetweenDatesIncluding(LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        return voteRepository.getBetweenDatesIncluding(startDateTime, endDateTime);
+        crudRepo.delete(id);
     }
 }

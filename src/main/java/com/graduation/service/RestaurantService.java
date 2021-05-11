@@ -1,44 +1,48 @@
 package com.graduation.service;
 
 import com.graduation.model.Restaurant;
-import com.graduation.repository.RestaurantRepository;
+import com.graduation.repository.crud.CrudRestaurantRepository;
 import com.graduation.to.RestaurantSaveTo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 public class RestaurantService {
 
-    private final RestaurantRepository repository;
+    private final CrudRestaurantRepository crudRepo;
 
-    public RestaurantService(RestaurantRepository repository) {
-        this.repository = repository;
+    public RestaurantService(CrudRestaurantRepository crudRepo) {
+        this.crudRepo = crudRepo;
     }
 
     public List<Restaurant> getAll() {
-        return repository.getAll();
+        return (List<Restaurant>) crudRepo.findAll();
     }
 
     public Restaurant getById(int id) {
-        return repository.getById(id);
+        return crudRepo.findById(id).orElse(null);
     }
 
     public Restaurant getByName(String restaurantName) {
-        return repository.getByRestaurantName(restaurantName);
+        return crudRepo.getByRestaurantName(restaurantName);
     }
 
+    @Transactional
     public Restaurant save(RestaurantSaveTo restaurantSaveTo) {
         Restaurant restaurant = new Restaurant(null, restaurantSaveTo.getRestaurantName());
-        return repository.create(restaurant);
+        return crudRepo.save(restaurant);
     }
 
+    @Transactional
     public void update(RestaurantSaveTo restaurantSaveTo, int id) {
         Restaurant restaurant = new Restaurant(id, restaurantSaveTo.getRestaurantName());
-        repository.update(restaurant, id);
+        crudRepo.save(restaurant);
     }
 
+    @Transactional
     public void delete(int id) {
-        repository.delete(id);
+        crudRepo.delete(id);
     }
 }

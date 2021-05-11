@@ -1,7 +1,6 @@
 package com.graduation.util;
 
 import com.graduation.model.Vote;
-import com.graduation.to.VoteHistory;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

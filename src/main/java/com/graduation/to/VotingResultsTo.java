@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @ToString()
-public class VoteQueryByDateTo {
+public class VotingResultsTo {
 
     private Integer restaurantId;
 
