@@ -21,5 +21,5 @@ public interface CrudLunchRepository extends CrudRepository<Lunch, Integer> {
 
     @Modifying
     @Query("DELETE FROM Lunch l WHERE l.id=:id")
-    int delete(@Param("id") int id);
+    Integer delete(@Param("id") Integer id);
 }

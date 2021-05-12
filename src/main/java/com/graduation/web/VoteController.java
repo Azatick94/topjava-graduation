@@ -2,17 +2,19 @@ package com.graduation.web;
 
 import com.graduation.model.User;
 import com.graduation.model.Vote;
+import com.graduation.repository.crud.CrudRestaurantRepository;
 import com.graduation.repository.crud.CrudUserRepository;
 import com.graduation.service.VoteService;
 import com.graduation.to.VoteTo;
+import com.graduation.util.exception.CustomMessageException;
+import com.graduation.util.exception.IdNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -27,9 +29,12 @@ public class VoteController {
 
     private final CrudUserRepository userRepository;
 
-    public VoteController(VoteService voteService, CrudUserRepository userRepository) {
+    private final CrudRestaurantRepository restaurantRepository;
+
+    public VoteController(VoteService voteService, CrudUserRepository userRepository, CrudRestaurantRepository restaurantRepository) {
         this.voteService = voteService;
         this.userRepository = userRepository;
+        this.restaurantRepository = restaurantRepository;
     }
 
     @GetMapping
@@ -41,7 +46,7 @@ public class VoteController {
 
     @GetMapping("{id}")
     @Operation(summary = "Get Vote By Id")
-    public Vote getById(@PathVariable int id) {
+    public Vote getById(@PathVariable Integer id) {
         log.info("Getting Vote By Id: " + id);
         return voteService.getById(id);
     }
@@ -49,15 +54,19 @@ public class VoteController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Save/Update Vote")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<Vote> save(@RequestBody VoteTo voteTo, Principal principal) {
+    public Vote save(@Valid @RequestBody VoteTo voteTo, Principal principal) {
         log.info("Saving/Updating Vote");
+
+        // check restaurantId presence in DB
+        Integer restaurantId = voteTo.getRestaurantId();
+        restaurantRepository.findById(restaurantId).orElseThrow(() -> new IdNotFoundException(restaurantId));
 
         // getting Email of logged person
         String userEmail = principal.getName();
         User userByEmail = userRepository.findByEmailIgnoreCase(userEmail).orElse(null);
 
         if (userByEmail == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new CustomMessageException("Authorization Problems");
         } else {
             Integer userId = userByEmail.getId();
 
@@ -66,16 +75,13 @@ public class VoteController {
             Vote voteFromDb = voteService.getByUserIdAndDate(userId, voteDate);
 
             if (voteFromDb == null) {
-                log.info("Saving vote");
-                return new ResponseEntity<>(voteService.save(voteTo, userId), HttpStatus.OK);
+                return voteService.save(voteTo, userId);
             } else {
                 LocalTime time = voteTo.getVoteDateTime().toLocalTime();
                 if (time.isAfter(LocalTime.of(11, 0, 0))) {
-                    log.info("Vote wasn't updated because User can't change his decision after 11 a.m.");
-                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                    throw new CustomMessageException("Vote can't be updated because User can't change his decision after 11 a.m.");
                 } else {
-                    log.info("Vote was updated");
-                    return new ResponseEntity<>(voteService.update(voteTo, userId, voteFromDb.getId()), HttpStatus.OK);
+                    return voteService.update(voteTo, userId, voteFromDb.getId());
                 }
             }
         }
@@ -84,7 +90,7 @@ public class VoteController {
     @DeleteMapping("{id}")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Delete Vote By Id")
-    public void delete(@PathVariable int id) {
+    public void delete(@PathVariable Integer id) {
         log.info("Deleting Vote");
         voteService.delete(id);
     }

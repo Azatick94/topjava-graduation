@@ -31,14 +31,14 @@ public class Lunch extends AbstractBaseEntity {
 
     @Range(min = 0, max = 999999)
     @Column(name = "price")
-    private int price;
+    private Integer price;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
 
-    public Lunch(Integer id, LocalDate dateRegistered, String lunchName, int price, Restaurant restaurant) {
+    public Lunch(Integer id, LocalDate dateRegistered, String lunchName, Integer price, Restaurant restaurant) {
         super(id);
         this.dateRegistered = dateRegistered;
         this.lunchName = lunchName;

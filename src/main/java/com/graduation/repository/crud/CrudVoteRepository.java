@@ -22,7 +22,7 @@ public interface CrudVoteRepository extends CrudRepository<Vote, Integer> {
 
     @Modifying
     @Query("DELETE FROM Vote v WHERE v.id=:id")
-    int delete(@Param("id") int id);
+    Integer delete(@Param("id") Integer id);
 
     @Query(value = "SELECT RESTAURANT_ID, RESTAURANT_NAME, VOTE_DATE, COUNT(RESTAURANT_ID) AS COUNTS FROM VOTES v LEFT JOIN RESTAURANTS r ON v.RESTAURANT_ID = r.ID\n" +
             "WHERE VOTE_DATE=:date\n" +

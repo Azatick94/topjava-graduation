@@ -2,13 +2,14 @@ package com.graduation.web;
 
 import com.graduation.model.Restaurant;
 import com.graduation.service.RestaurantService;
-import com.graduation.to.RestaurantSaveTo;
+import com.graduation.to.RestaurantTo;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -39,17 +40,17 @@ public class RestaurantController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Save New Restaurant")
-    public Restaurant save(@RequestBody RestaurantSaveTo restaurantSaveTo) {
+    public Restaurant save(@Valid @RequestBody RestaurantTo restaurantTo) {
         log.info("Saving restaurant");
-        return restaurantService.save(restaurantSaveTo);
+        return restaurantService.save(restaurantTo);
     }
 
     @PutMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Update Existing Restaurant By Id")
-    public void update(@RequestBody RestaurantSaveTo restaurantSaveTo, @PathVariable int id) {
+    public void update(@Valid @RequestBody RestaurantTo restaurantTo, @PathVariable int id) {
         log.info("Updating Restaurant");
-        restaurantService.update(restaurantSaveTo, id);
+        restaurantService.update(restaurantTo, id);
     }
 
     @DeleteMapping("{id}")

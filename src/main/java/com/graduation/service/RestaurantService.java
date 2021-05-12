@@ -2,8 +2,8 @@ package com.graduation.service;
 
 import com.graduation.model.Restaurant;
 import com.graduation.repository.crud.CrudRestaurantRepository;
-import com.graduation.to.RestaurantSaveTo;
-import com.graduation.util.error_handling.IdNotFoundException;
+import com.graduation.to.RestaurantTo;
+import com.graduation.util.exception.IdNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,19 +31,19 @@ public class RestaurantService {
     }
 
     @Transactional
-    public Restaurant save(RestaurantSaveTo restaurantSaveTo) {
-        Restaurant restaurant = new Restaurant(null, restaurantSaveTo.getRestaurantName());
+    public Restaurant save(RestaurantTo restaurantTo) {
+        Restaurant restaurant = new Restaurant(null, restaurantTo.getRestaurantName());
         return crudRepo.save(restaurant);
     }
 
     @Transactional
-    public void update(RestaurantSaveTo restaurantSaveTo, Integer id) {
-        Restaurant restaurant = new Restaurant(id, restaurantSaveTo.getRestaurantName());
+    public void update(RestaurantTo restaurantTo, Integer id) {
+        Restaurant restaurant = new Restaurant(id, restaurantTo.getRestaurantName());
         crudRepo.save(restaurant);
     }
 
     @Transactional
-    public void delete(int id) {
+    public void delete(Integer id) {
         crudRepo.delete(id);
     }
 }

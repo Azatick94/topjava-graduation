@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RestaurantSaveTo {
+public class RestaurantTo {
 
     @Size(max = 100)
     @NotBlank

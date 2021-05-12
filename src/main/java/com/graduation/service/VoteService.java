@@ -5,7 +5,7 @@ import com.graduation.repository.crud.CrudVoteRepository;
 import com.graduation.to.VotingResultsTo;
 import com.graduation.to.VoteTo;
 import com.graduation.util.Converters;
-import com.graduation.util.error_handling.IdNotFoundException;
+import com.graduation.util.exception.IdNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,7 +61,7 @@ public class VoteService {
     }
 
     @Transactional
-    public void delete(int id) {
+    public void delete(Integer id) {
         crudRepo.delete(id);
     }
 }

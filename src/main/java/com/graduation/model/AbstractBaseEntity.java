@@ -23,7 +23,7 @@ public abstract class AbstractBaseEntity {
         return this.id == null;
     }
 
-    public int id() {
+    public Integer id() {
         Assert.notNull(id, "Entity must have id");
         return id;
     }

@@ -6,7 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Min;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -19,13 +19,14 @@ import java.time.LocalDateTime;
 public class Vote extends AbstractBaseEntity {
 
     @Column(name = "user_id")
+    @Min(0)
     private Integer userId;
 
     @Column(name = "restaurant_id")
+    @Min(0)
     private Integer restaurantId;
 
     @Column(name = "vote_date_time")
-    @NotNull
     private LocalDateTime voteDateTime;
 
     @Column(name = "vote_date")

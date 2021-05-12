@@ -1,4 +1,4 @@
-package com.graduation.util.error_handling;
+package com.graduation.util.exception;
 
 public class IdNotFoundException extends RuntimeException {
 

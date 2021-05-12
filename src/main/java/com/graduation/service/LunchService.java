@@ -1,12 +1,15 @@
 package com.graduation.service;
 
 import com.graduation.model.Lunch;
+import com.graduation.model.Restaurant;
 import com.graduation.repository.crud.CrudLunchRepository;
+import com.graduation.repository.crud.CrudRestaurantRepository;
 import com.graduation.to.LunchTo;
-import com.graduation.util.error_handling.IdNotFoundException;
+import com.graduation.util.exception.IdNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.Id;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -15,8 +18,11 @@ public class LunchService {
 
     private final CrudLunchRepository crudRepo;
 
-    public LunchService(CrudLunchRepository crudLunchRepo) {
+    private final CrudRestaurantRepository crudRestaurantRepo;
+
+    public LunchService(CrudLunchRepository crudLunchRepo, CrudRestaurantRepository crudRestaurantRepo) {
         this.crudRepo = crudLunchRepo;
+        this.crudRestaurantRepo = crudRestaurantRepo;
     }
 
     public List<Lunch> getAll() {
@@ -37,20 +43,27 @@ public class LunchService {
 
     @Transactional
     public Lunch save(LunchTo lunchTo) {
+        Integer restaurantId = lunchTo.getRestaurantId();
+        Restaurant restaurant = crudRestaurantRepo.findById(restaurantId).orElseThrow(() -> new IdNotFoundException(restaurantId));
+
         Lunch lunch = new Lunch(null, lunchTo.getDateRegistered(), lunchTo.getLunchName(),
-                lunchTo.getPrice(), lunchTo.getRestaurant());
+                lunchTo.getPrice(), restaurant);
+
         return crudRepo.save(lunch);
     }
 
     @Transactional
     public void update(LunchTo lunchTo, Integer id) {
+        Integer restaurantId = lunchTo.getRestaurantId();
+        Restaurant restaurant = crudRestaurantRepo.findById(restaurantId).orElseThrow(() -> new IdNotFoundException(restaurantId));
+
         Lunch lunch = new Lunch(id, lunchTo.getDateRegistered(), lunchTo.getLunchName(),
-                lunchTo.getPrice(), lunchTo.getRestaurant());
+                lunchTo.getPrice(), restaurant);
         crudRepo.save(lunch);
     }
 
     @Transactional
-    public void delete(int id) {
+    public void delete(Integer id) {
         crudRepo.delete(id);
     }
 }

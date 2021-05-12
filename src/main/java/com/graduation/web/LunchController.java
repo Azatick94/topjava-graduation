@@ -8,8 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -56,15 +58,16 @@ public class LunchController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Save New Lunch")
-    public Lunch save(@RequestBody LunchTo lunchTo) {
+    public Lunch save(@Valid @RequestBody LunchTo lunchTo) {
         log.info("Saving Lunch");
+
         return lunchService.save(lunchTo);
     }
 
     @PutMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Update Existing Lunch")
-    public void update(@RequestBody LunchTo lunchTo, @PathVariable int id) {
+    public void update(@Valid @RequestBody LunchTo lunchTo, @PathVariable int id) {
         log.info("Updating Lunch");
         lunchService.update(lunchTo, id);
     }
