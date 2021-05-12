@@ -20,7 +20,7 @@ public class UserService {
         return (List<User>) userRepo.findAll();
     }
 
-    public User getById(int id) {
+    public User getById(Integer id) {
         return userRepo.findById(id).orElse(null);
     }
 
@@ -35,7 +35,7 @@ public class UserService {
     }
 
     @Transactional
-    public void update(User user, int id) {
+    public void update(User user, Integer id) {
         user.setId(id);
         userRepo.save(user);
     }

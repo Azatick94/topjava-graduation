@@ -19,8 +19,6 @@ public interface CrudLunchRepository extends CrudRepository<Lunch, Integer> {
     @Query("SELECT l FROM Lunch l WHERE l.dateRegistered >= :startDate AND l.dateRegistered <= :endDate")
     List<Lunch> getBetweenDatesIncluding(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
-    Lunch getById(int lunchId);
-
     @Modifying
     @Query("DELETE FROM Lunch l WHERE l.id=:id")
     int delete(@Param("id") int id);

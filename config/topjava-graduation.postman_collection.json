@@ -783,6 +783,44 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "getByDate",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user@mail.ru",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest_vote_history}}/:date",
+							"host": [
+								"{{rest_vote_history}}"
+							],
+							"path": [
+								":date"
+							],
+							"variable": [
+								{
+									"key": "date",
+									"value": "2021-01-01"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

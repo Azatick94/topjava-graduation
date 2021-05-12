@@ -70,7 +70,7 @@ user@mail.ru : user
 
 ##     * LIST of CURL Commands:
 
-### RESTAURANT_CONTROLLER
+### RESTAURANT CONTROLLER
 
 <i>- Get All Restaurants (user+admin):</i>
 
@@ -97,7 +97,7 @@ user@mail.ru : user
 
     curl -L -X DELETE 'http://localhost:8080/rest/restaurant/100010' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg=='
 
-### USER_CONTROLLER
+### USER CONTROLLER
 
 <i>- Get All Users (admin):</i>
 
@@ -111,7 +111,7 @@ user@mail.ru : user
 
     curl -L -X GET 'http://localhost:8080/rest/users/by/id?id=100000' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg=='
 
-### LUNCH_CONTROLLER
+### LUNCH CONTROLLER
 
 <i>- Get All Lunches (admin+user):</i>
 
@@ -157,7 +157,7 @@ user@mail.ru : user
 
     curl -L -X DELETE 'http://localhost:8080/rest/lunch/100015' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg=='
 
-### VOTE_CONTROLLER
+### VOTE CONTROLLER
 
 <i>- Get All Votes (user+admin):</i>
 
@@ -187,9 +187,12 @@ user@mail.ru : user
 
     curl -L -X DELETE 'http://localhost:8080/rest/vote/100035' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg=='
 
-### VOTE_HISTORY_CONTROLLER
+### VOTE HISTORY_CONTROLLER
 
 <i>- Get Restaurant Voting Results (admin+user):</i>
 
     curl -L -X GET 'http://localhost:8080/rest/vote_history' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
 
+<i>- Get Restaurant Voting Results By Date (admin+user):</i>
+
+    curl -L -X GET 'http://localhost:8080/rest/vote_history/2021-01-01' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='

@@ -5,6 +5,7 @@ import com.graduation.repository.crud.CrudVoteRepository;
 import com.graduation.to.VotingResultsTo;
 import com.graduation.to.VoteTo;
 import com.graduation.util.Converters;
+import com.graduation.util.error_handling.IdNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +15,6 @@ import java.util.List;
 
 @Service
 public class VoteService {
-
 
     private final CrudVoteRepository crudRepo;
 
@@ -26,11 +26,11 @@ public class VoteService {
         return (List<Vote>) crudRepo.findAll();
     }
 
-    public Vote getById(int id) {
-        return crudRepo.getById(id);
+    public Vote getById(Integer id) {
+        return crudRepo.findById(id).orElseThrow(() -> new IdNotFoundException(id));
     }
 
-    public Vote getByUserIdAndDate(int userID, LocalDate date) {
+    public Vote getByUserIdAndDate(Integer userID, LocalDate date) {
         return crudRepo.getByUserIdAndDate(userID, date);
     }
 
@@ -40,20 +40,12 @@ public class VoteService {
 
     public List<VotingResultsTo> getVoteWinnersByDate(String date) {
         List<Object[]> result = crudRepo.getVoteWinnersByDate(date);
-        if (result == null) {
-            return null;
-        } else {
-            return Converters.ObjectListToVoteQueryByDateTo(result);
-        }
+        return Converters.ObjectListToVoteQueryByDateTo(result);
     }
 
     public List<VotingResultsTo> getAllGroupedVoteResults() {
         List<Object[]> result = crudRepo.getAllGroupedVoteResults();
-        if (result == null) {
-            return null;
-        } else {
-            return Converters.ObjectListToVoteQueryByDateTo(result);
-        }
+        return Converters.ObjectListToVoteQueryByDateTo(result);
     }
 
     @Transactional

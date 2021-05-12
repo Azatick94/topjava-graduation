@@ -3,6 +3,7 @@ package com.graduation.service;
 import com.graduation.model.Lunch;
 import com.graduation.repository.crud.CrudLunchRepository;
 import com.graduation.to.LunchTo;
+import com.graduation.util.error_handling.IdNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,8 +23,8 @@ public class LunchService {
         return (List<Lunch>) crudRepo.findAll();
     }
 
-    public Lunch getById(int id) {
-        return crudRepo.getById(id);
+    public Lunch getById(Integer id) {
+        return crudRepo.findById(id).orElseThrow(() -> new IdNotFoundException(id));
     }
 
     public List<Lunch> getByRestaurantName(String name) {
@@ -42,7 +43,7 @@ public class LunchService {
     }
 
     @Transactional
-    public void update(LunchTo lunchTo, int id) {
+    public void update(LunchTo lunchTo, Integer id) {
         Lunch lunch = new Lunch(id, lunchTo.getDateRegistered(), lunchTo.getLunchName(),
                 lunchTo.getPrice(), lunchTo.getRestaurant());
         crudRepo.save(lunch);

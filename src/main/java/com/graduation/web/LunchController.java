@@ -33,7 +33,7 @@ public class LunchController {
 
     @GetMapping("{id}")
     @Operation(summary = "Get Lunch By Id")
-    public Lunch getById(@PathVariable int id) {
+    public Lunch getById(@PathVariable Integer id) {
         log.info("Getting Lunch By Id: " + id);
         return lunchService.getById(id);
     }

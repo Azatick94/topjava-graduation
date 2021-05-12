@@ -7,7 +7,9 @@ import com.graduation.service.VoteService;
 import com.graduation.to.VoteTo;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,14 +49,15 @@ public class VoteController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Save/Update Vote")
     @PreAuthorize("hasRole('USER')")
-    public Vote save(@RequestBody VoteTo voteTo, Principal principal) {
+    public ResponseEntity<Vote> save(@RequestBody VoteTo voteTo, Principal principal) {
         log.info("Saving/Updating Vote");
 
+        // getting Email of logged person
         String userEmail = principal.getName();
         User userByEmail = userRepository.findByEmailIgnoreCase(userEmail).orElse(null);
 
         if (userByEmail == null) {
-            return null;
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
             Integer userId = userByEmail.getId();
 
@@ -64,15 +67,15 @@ public class VoteController {
 
             if (voteFromDb == null) {
                 log.info("Saving vote");
-                return voteService.save(voteTo, userId);
+                return new ResponseEntity<>(voteService.save(voteTo, userId), HttpStatus.OK);
             } else {
                 LocalTime time = voteTo.getVoteDateTime().toLocalTime();
                 if (time.isAfter(LocalTime.of(11, 0, 0))) {
                     log.info("Vote wasn't updated because User can't change his decision after 11 a.m.");
-                    return null;
+                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
                 } else {
                     log.info("Vote was updated");
-                    return voteService.update(voteTo, userId, voteFromDb.getId());
+                    return new ResponseEntity<>(voteService.update(voteTo, userId, voteFromDb.getId()), HttpStatus.OK);
                 }
             }
         }
