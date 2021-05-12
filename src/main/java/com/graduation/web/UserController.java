@@ -27,21 +27,21 @@ public class UserController {
     @GetMapping
     @Operation(summary = "Get All Users")
     public List<User> getAll() {
-        log.info("RUNNING getUsers method");
+        log.info("Getting All Users");
         return userService.getAll();
     }
 
     @GetMapping("/by/name")
     @Operation(summary = "Get User By Name")
     public List<User> getByName(@RequestParam String name) {
-        log.info("RUNNING getByName method");
+        log.info("Getting User With Name = " + name);
         return userService.getByName(name);
     }
 
     @GetMapping("/by/id")
     @Operation(summary = "Get User By Id")
     public User getById(@RequestParam int id) {
-        log.info("RUNNING getById method");
+        log.info("Getting User With Id = " + id);
         return userService.getById(id);
     }
 }

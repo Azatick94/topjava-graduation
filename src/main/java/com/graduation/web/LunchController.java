@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -36,14 +35,14 @@ public class LunchController {
     @GetMapping("{id}")
     @Operation(summary = "Get Lunch By Id")
     public Lunch getById(@PathVariable Integer id) {
-        log.info("Getting Lunch By Id: " + id);
+        log.info("Getting Lunch With Id = " + id);
         return lunchService.getById(id);
     }
 
     @GetMapping("/by_restaurant/{name}")
     @Operation(summary = "Get List of Lunches By RestaurantName")
     public List<Lunch> getByRestaurantName(@PathVariable String name) {
-        log.info("Getting Lunch By Name: " + name);
+        log.info("Getting Lunch With Name = " + name);
         return lunchService.getByRestaurantName(name);
     }
 
@@ -51,7 +50,7 @@ public class LunchController {
     @Operation(summary = "Get List of Lunches Between Dates")
     public List<Lunch> getBetweenDatesIncluding(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
                                                 @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        log.info("Getting Lunch Between Dates");
+        log.info("Getting Lunch Between Dates " + startDate + " - " + endDate);
         return lunchService.getBetweenDatesIncluding(startDate, endDate);
     }
 
@@ -60,7 +59,6 @@ public class LunchController {
     @Operation(summary = "Save New Lunch")
     public Lunch save(@Valid @RequestBody LunchTo lunchTo) {
         log.info("Saving Lunch");
-
         return lunchService.save(lunchTo);
     }
 
@@ -68,7 +66,7 @@ public class LunchController {
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Update Existing Lunch")
     public void update(@Valid @RequestBody LunchTo lunchTo, @PathVariable int id) {
-        log.info("Updating Lunch");
+        log.info("Updating Lunch With Id = " + id);
         lunchService.update(lunchTo, id);
     }
 
@@ -76,7 +74,7 @@ public class LunchController {
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Delete Lunch By Id")
     public void delete(@PathVariable int id) {
-        log.info("Deleting Lunch");
+        log.info("Deleting Lunch With Id = " + id);
         lunchService.delete(id);
     }
 }

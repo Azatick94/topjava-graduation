@@ -26,9 +26,7 @@ import java.util.List;
 public class VoteController {
 
     private final VoteService voteService;
-
     private final CrudUserRepository userRepository;
-
     private final CrudRestaurantRepository restaurantRepository;
 
     public VoteController(VoteService voteService, CrudUserRepository userRepository, CrudRestaurantRepository restaurantRepository) {
@@ -47,7 +45,7 @@ public class VoteController {
     @GetMapping("{id}")
     @Operation(summary = "Get Vote By Id")
     public Vote getById(@PathVariable Integer id) {
-        log.info("Getting Vote By Id: " + id);
+        log.info("Getting Vote With Id: " + id);
         return voteService.getById(id);
     }
 
@@ -91,7 +89,7 @@ public class VoteController {
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Delete Vote By Id")
     public void delete(@PathVariable Integer id) {
-        log.info("Deleting Vote");
+        log.info("Deleting Vote With Id = " + id);
         voteService.delete(id);
     }
 }

@@ -33,7 +33,7 @@ public class RestaurantController {
     @GetMapping("{id}")
     @Operation(summary = "Get Restaurants By Id")
     public Restaurant getById(@PathVariable int id) {
-        log.info("Getting Restaurant By Id: " + id);
+        log.info("Getting Restaurant With Id = " + id);
         return restaurantService.getById(id);
     }
 
@@ -49,7 +49,7 @@ public class RestaurantController {
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Update Existing Restaurant By Id")
     public void update(@Valid @RequestBody RestaurantTo restaurantTo, @PathVariable int id) {
-        log.info("Updating Restaurant");
+        log.info("Updating Restaurant With Id = " + id);
         restaurantService.update(restaurantTo, id);
     }
 
@@ -57,7 +57,7 @@ public class RestaurantController {
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Delete Restaurant By Id")
     public void delete(@PathVariable int id) {
-        log.info("Deleting Restaurant");
+        log.info("Deleting Restaurant With Id = " + id);
         restaurantService.delete(id);
     }
 }

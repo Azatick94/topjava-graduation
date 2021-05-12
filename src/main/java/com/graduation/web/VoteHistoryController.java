@@ -22,14 +22,14 @@ public class VoteHistoryController {
     @GetMapping
     @Operation(summary = "Get Restaurant Voting Results")
     public List<VotingResultsTo> getAll() {
-        log.info("Getting All Votes_History");
+        log.info("Getting All Votes Results");
         return voteService.getAllGroupedVoteResults();
     }
 
     @GetMapping("{date}")
     @Operation(summary = "Get Restaurant Voting Results by Certain Date")
     public List<VotingResultsTo> getByDate(@PathVariable String date) {
-        log.info("Getting Voting Results by Date");
+        log.info("Getting Voting Results by Date = " + date);
         return voteService.getVoteWinnersByDate(date);
     }
 }
