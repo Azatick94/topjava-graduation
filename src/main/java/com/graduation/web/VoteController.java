@@ -9,6 +9,7 @@ import com.graduation.to.VoteTo;
 import com.graduation.util.exception.CustomMessageException;
 import com.graduation.util.exception.IdNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,6 +22,8 @@ import java.time.LocalTime;
 import java.util.List;
 
 @RestController
+@Tag(name = "Votes", description = "Votes API")
+@PreAuthorize("isAuthenticated()")
 @Slf4j
 @RequestMapping("/rest/vote")
 public class VoteController {

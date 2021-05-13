@@ -4,6 +4,7 @@ import com.graduation.model.Restaurant;
 import com.graduation.service.RestaurantService;
 import com.graduation.to.RestaurantTo;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,6 +14,8 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@Tag(name = "Restaurants", description = "Restaurants API")
+@PreAuthorize("isAuthenticated()")
 @Slf4j
 @RequestMapping("/rest/restaurant")
 public class RestaurantController {

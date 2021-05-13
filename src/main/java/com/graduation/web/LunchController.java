@@ -4,6 +4,7 @@ import com.graduation.model.Lunch;
 import com.graduation.service.LunchService;
 import com.graduation.to.LunchTo;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
@@ -15,6 +16,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
+@Tag(name = "Dishes", description = "Dishes API")
+@PreAuthorize("isAuthenticated()")
 @Slf4j
 @RequestMapping("/rest/lunch")
 public class LunchController {
