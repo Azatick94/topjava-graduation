@@ -6,6 +6,8 @@ import com.graduation.to.LunchTo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -30,6 +32,7 @@ public class LunchController {
 
     @GetMapping
     @Operation(summary = "Get All Lunches")
+    @Cacheable(value = "lunches")
     public List<Lunch> getAll() {
         log.info("Getting All Lunches");
         return lunchService.getAll();
@@ -60,6 +63,7 @@ public class LunchController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Save New Lunch")
+    @CacheEvict(value="lunches", allEntries = true)
     public Lunch save(@Valid @RequestBody LunchTo lunchTo) {
         log.info("Saving Lunch");
         return lunchService.save(lunchTo);
@@ -68,6 +72,7 @@ public class LunchController {
     @PutMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Update Existing Lunch")
+    @CacheEvict(value="lunches", allEntries = true)
     public void update(@Valid @RequestBody LunchTo lunchTo, @PathVariable int id) {
         log.info("Updating Lunch With Id = " + id);
         lunchService.update(lunchTo, id);
@@ -76,6 +81,7 @@ public class LunchController {
     @DeleteMapping("{id}")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Delete Lunch By Id")
+    @CacheEvict(value="lunches", allEntries = true)
     public void delete(@PathVariable int id) {
         log.info("Deleting Lunch With Id = " + id);
         lunchService.delete(id);

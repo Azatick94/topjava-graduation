@@ -11,6 +11,8 @@ import com.graduation.util.exception.IdNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +41,7 @@ public class VoteController {
     }
 
     @GetMapping
+    @Cacheable(value = "votes")
     @Operation(summary = "Get All Votes")
     public List<Vote> getAll() {
         log.info("Getting All Votes");
@@ -55,6 +58,7 @@ public class VoteController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Save/Update Vote")
     @PreAuthorize("hasRole('USER')")
+    @CacheEvict(value = "votes", allEntries = true)
     public Vote save(@Valid @RequestBody VoteTo voteTo, Principal principal) {
         log.info("Saving/Updating Vote");
 
@@ -91,6 +95,7 @@ public class VoteController {
     @DeleteMapping("{id}")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Delete Vote By Id")
+    @CacheEvict(value = "votes", allEntries = true)
     public void delete(@PathVariable Integer id) {
         log.info("Deleting Vote With Id = " + id);
         voteService.delete(id);

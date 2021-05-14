@@ -5,6 +5,7 @@ import com.graduation.to.VotingResultsTo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +26,7 @@ public class VoteHistoryController {
 
     @GetMapping
     @Operation(summary = "Get Restaurant Voting Results")
+    @Cacheable(value = "votes")
     public List<VotingResultsTo> getAll() {
         log.info("Getting All Votes Results");
         return voteService.getAllGroupedVoteResults();
@@ -32,6 +34,7 @@ public class VoteHistoryController {
 
     @GetMapping("{date}")
     @Operation(summary = "Get Restaurant Voting Results by Certain Date")
+    @Cacheable(value = "votes")
     public List<VotingResultsTo> getByDate(@PathVariable String date) {
         log.info("Getting Voting Results by Date = " + date);
         return voteService.getVoteWinnersByDate(date);
