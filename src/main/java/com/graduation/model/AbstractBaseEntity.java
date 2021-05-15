@@ -1,5 +1,6 @@
 package com.graduation.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.util.Assert;
 
@@ -19,6 +20,7 @@ public abstract class AbstractBaseEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     protected Integer id;
 
+    @JsonIgnore
     public boolean isNew() {
         return this.id == null;
     }

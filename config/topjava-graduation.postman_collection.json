@@ -481,7 +481,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"dateRegistered\": \"2021-05-10\",\r\n  \"lunchName\": \"New Lunch\",\r\n  \"price\": 777,\r\n  \"restaurant\": {\r\n    \"id\": 100008,\r\n    \"restaurantName\": \"AnderSon\"\r\n  }\r\n}",
+							"raw": "{\r\n  \"dateRegistered\": \"2021-05-10\",\r\n  \"lunchName\": \"New Lunch\",\r\n  \"price\": 777,\r\n  \"restaurantId\": 100008\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -519,7 +519,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"dateRegistered\": \"2021-01-01\",\r\n  \"lunchName\": \"Стейк лосося с ризотто из булгура и томатами №2\",\r\n  \"price\": 710,\r\n  \"restaurant\": {\r\n    \"id\": 100008,\r\n    \"restaurantName\": \"AnderSon\"\r\n  }\r\n}",
+							"raw": "{\r\n    \"dateRegistered\": \"2021-01-01\",\r\n    \"lunchName\": \"New Description\",\r\n    \"price\": 710,\r\n    \"restaurantId\": 100008\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
