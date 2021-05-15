@@ -14,7 +14,7 @@ class UserControllerTest extends AbstractMockMvcTest {
      * Get All Users Logging as Admin. Should be Successful result
      *
      */
-    @WithMockUser(username = SECURITY_ADMIN_LOGIN, roles = "ADMIN")
+    @WithMockUser(username = SECURITY_ADMIN_LOGIN, roles = SECURITY_ADMIN_ROLE)
     @Test
     void getAllAdminTest() throws Exception {
         this.mockMvc
@@ -27,7 +27,7 @@ class UserControllerTest extends AbstractMockMvcTest {
      * Get All Users Logging as USER. Should be Security Exception
      *
      */
-    @WithMockUser(username = SECURITY_USER_LOGIN)
+    @WithMockUser(username = SECURITY_USER_LOGIN, roles = SECURITY_USER_ROLE)
     @Test
     void getAllUserTest() throws Exception {
         this.mockMvc

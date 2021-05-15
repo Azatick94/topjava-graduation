@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class VoteControllerTest extends AbstractMockMvcTest {
 
-    @WithMockUser(username = SECURITY_USER_LOGIN, roles = "USER")
+    @WithMockUser(username = SECURITY_USER_LOGIN, roles = SECURITY_USER_ROLE)
     @Test
     void getByIdTest() throws Exception {
         this.mockMvc
@@ -27,7 +27,7 @@ class VoteControllerTest extends AbstractMockMvcTest {
     /**
      * Delete Vote as Admin, Should be Successful result
      */
-    @WithMockUser(username = SECURITY_ADMIN_LOGIN, roles = "ADMIN")
+    @WithMockUser(username = SECURITY_ADMIN_LOGIN, roles = SECURITY_ADMIN_ROLE)
     @Test
     void deleteAdminTest() throws Exception {
         this.mockMvc.perform(delete(VOTE_REST + "/100035"));
@@ -40,7 +40,7 @@ class VoteControllerTest extends AbstractMockMvcTest {
     /**
      * Delete Vote as Admin, Should be Security Exception
      */
-    @WithMockUser(username = SECURITY_USER_LOGIN)
+    @WithMockUser(username = SECURITY_USER_LOGIN, roles = SECURITY_USER_ROLE)
     @Test
     void deleteUserTest() throws Exception {
         this.mockMvc
