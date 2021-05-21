@@ -24,7 +24,7 @@ import java.util.List;
 @Tag(name = "Restaurants", description = "Restaurants API")
 @PreAuthorize("isAuthenticated()")
 @Slf4j
-@RequestMapping("/rest/restaurant")
+@RequestMapping("/rest/restaurants")
 public class RestaurantController {
 
     private final RestaurantService restaurantService;

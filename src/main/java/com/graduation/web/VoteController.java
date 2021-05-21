@@ -33,7 +33,7 @@ import java.util.List;
 @Tag(name = "Votes", description = "Votes API")
 @PreAuthorize("isAuthenticated()")
 @Slf4j
-@RequestMapping("/rest/vote")
+@RequestMapping("/rest/votes")
 public class VoteController {
 
     private final VoteService voteService;

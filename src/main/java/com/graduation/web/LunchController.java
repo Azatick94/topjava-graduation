@@ -29,7 +29,7 @@ import java.util.List;
 @Tag(name = "Dishes", description = "Dishes API")
 @PreAuthorize("isAuthenticated()")
 @Slf4j
-@RequestMapping("/rest/lunch")
+@RequestMapping("/rest/lunches")
 public class LunchController {
 
     private final LunchService lunchService;

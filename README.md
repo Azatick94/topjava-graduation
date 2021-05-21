@@ -84,23 +84,23 @@ user@mail.ru : user
 
 <i>- Get All Restaurants (user+admin):</i>
 
-    curl -L -X GET 'http://localhost:8080/rest/restaurant' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
+    curl -L -X GET 'http://localhost:8080/rest/restaurants' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
 
 <i>- Get Restaurant With ID = 100009 (user+admin):</i>
 
-    curl -L -X GET 'http://localhost:8080/rest/restaurant/100009' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
+    curl -L -X GET 'http://localhost:8080/rest/restaurants/100009' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
 
 <i>- Save New Restaurant with Name="New_Restaurant" (admin):</i>
 
-    curl -L -X POST 'http://localhost:8080/rest/restaurant' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg==' -H 'Content-Type: application/json' -H 'Cookie: JSESSIONID=ED2EF19218EF675163B90826D499A1EA' --data-raw '{"restaurantName": "New_Restaurant"}'
+    curl -L -X POST 'http://localhost:8080/rest/restaurants' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg==' -H 'Content-Type: application/json' -H 'Cookie: JSESSIONID=ED2EF19218EF675163B90826D499A1EA' --data-raw '{"restaurantName": "New_Restaurant"}'
 
 <i>- Update Restaurant With ID = 100009: (admin)</i>
 
-    curl -L -X PUT 'http://localhost:8080/rest/restaurant/100009' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg==' -H 'Content-Type: application/json' --data-raw '{"restaurantName": "Russian Pub New Name"}'
+    curl -L -X PUT 'http://localhost:8080/rest/restaurants/100009' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg==' -H 'Content-Type: application/json' --data-raw '{"restaurantName": "Russian Pub New Name"}'
 
 <i>- Delete Restaurant With ID = 100010: (admin)</i>
 
-    curl -L -X DELETE 'http://localhost:8080/rest/restaurant/100010' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg=='
+    curl -L -X DELETE 'http://localhost:8080/rest/restaurants/100010' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg=='
 
 ### USER CONTROLLER
 
@@ -120,57 +120,57 @@ user@mail.ru : user
 
 <i>- Get All Lunches (admin+user):</i>
 
-    curl -L -X GET 'http://localhost:8080/rest/lunch' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
+    curl -L -X GET 'http://localhost:8080/rest/lunches' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
 
 <i>- Get Lunch By Id = 100014 (admin+user):</i>
 
-    curl -L -X GET 'http://localhost:8080/rest/lunch/100014' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
+    curl -L -X GET 'http://localhost:8080/rest/lunches/100014' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
 
 <i>- Get List of Lunches By RestaurantId = 100008 (admin+user):</i>
 
-    curl -L -X GET 'http://localhost:8080/rest/lunch/by_restaurant/100008' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
+    curl -L -X GET 'http://localhost:8080/rest/lunches/by_restaurant/100008' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
 
 <i>- Get List of Lunches Between Dates =  (admin+user):</i>
 
-    curl -L -X GET 'http://localhost:8080/rest/lunch/filter?startDate=2021-01-02&endDate=2021-01-02' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
+    curl -L -X GET 'http://localhost:8080/rest/lunches/filter?startDate=2021-01-02&endDate=2021-01-02' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
 
 <i>- Get List of Lunches By Date = 2021-01-02 =  (admin+user):</i>
 
-    curl -L -X GET 'http://localhost:8080/rest/lunch/filter/2021-01-02' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
+    curl -L -X GET 'http://localhost:8080/rest/lunches/filter/2021-01-02' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
 
 <i>- Save New Lunch (admin):</i>
 
-    curl -L -X POST 'http://localhost:8080/rest/lunch' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg==' -H 'Content-Type: application/json' --data-raw '{"dateRegistered": "2021-05-10", "lunchName": "New Lunch", "price": 777, "restaurantId": 100008}'
+    curl -L -X POST 'http://localhost:8080/rest/lunches' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg==' -H 'Content-Type: application/json' --data-raw '{"dateRegistered": "2021-05-10", "lunchName": "New Lunch", "price": 777, "restaurantId": 100008}'
 
 <i>- Update Existing Lunch With Id = 100014 (admin):</i>
 
-    curl -L -X PUT 'http://localhost:8080/rest/lunch/100014' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg==' -H 'Content-Type: application/json' --data-raw '{"dateRegistered": "2021-01-01","lunchName": "New Description","price": 710,"restaurantId": 100008}'
+    curl -L -X PUT 'http://localhost:8080/rest/lunches/100014' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg==' -H 'Content-Type: application/json' --data-raw '{"dateRegistered": "2021-01-01","lunchName": "New Description","price": 710,"restaurantId": 100008}'
 
 <i>- Delete Lunch With Id = 100015 (admin):</i>
 
-    curl -L -X DELETE 'http://localhost:8080/rest/lunch/100015' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg=='
+    curl -L -X DELETE 'http://localhost:8080/rest/lunches/100015' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg=='
 
 ### VOTE CONTROLLER
 
 <i>- Get All Votes (user+admin):</i>
 
-    curl -L -X GET 'http://localhost:8080/rest/vote' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
+    curl -L -X GET 'http://localhost:8080/rest/votes' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
 
 <i>- Get Vote By Id = 100034 (user+admin):</i>
 
-    curl -L -X GET 'http://localhost:8080/rest/vote/100034' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
+    curl -L -X GET 'http://localhost:8080/rest/votes/100034' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
 
 <i>- Save New Vote  (user):</i>
 
-    curl -L -X POST 'http://localhost:8080/rest/vote' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI=' -H 'Content-Type: application/json' --data-raw '{"restaurantId": 100009,"voteDateTime": "2021-05-10T09:00:00"}'
+    curl -L -X POST 'http://localhost:8080/rest/votes' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI=' -H 'Content-Type: application/json' --data-raw '{"restaurantId": 100009,"voteDateTime": "2021-05-10T09:00:00"}'
 
 <i>- Update Existing Vote By User Before 11 Clock =  (user):</i>
 
-    curl -L -X POST 'http://localhost:8080/rest/vote' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI=' -H 'Content-Type: application/json' --data-raw '{"restaurantId": 100010,"voteDateTime": "2021-05-10T10:30:00"}'
+    curl -L -X POST 'http://localhost:8080/rest/votes' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI=' -H 'Content-Type: application/json' --data-raw '{"restaurantId": 100010,"voteDateTime": "2021-05-10T10:30:00"}'
 
 <i>- Delete Vote With Id = 100035 (admin):</i>
 
-    curl -L -X DELETE 'http://localhost:8080/rest/vote/100035' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg=='
+    curl -L -X DELETE 'http://localhost:8080/rest/votes/100035' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg=='
 
 ### VOTE HISTORY_CONTROLLER
 
