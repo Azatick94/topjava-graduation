@@ -13,17 +13,19 @@ CREATE TABLE restaurants
     id              INTEGER PRIMARY KEY,
     restaurant_name VARCHAR(100) UNIQUE NOT NULL
 );
+CREATE UNIQUE INDEX restaurants_unique_id_restaurant_name ON restaurants (id, restaurant_name);
 
 -- LUNCHES WHICH SHOULD BE UPDATED EACH DAY BY ADMIN
 CREATE TABLE lunches
 (
     id              INTEGER PRIMARY KEY,
     date_registered DATE DEFAULT now() NOT NULL,
-    restaurant_id   VARCHAR(100)       NOT NULL,
+    restaurant_id   INTEGER            NOT NULL,
     lunch_name      VARCHAR            NOT NULL,
     price           INTEGER            NOT NULL,
     FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE
 );
+CREATE UNIQUE INDEX lunches_unique_restaurant_id_lunch_name ON lunches (restaurant_id, lunch_name);
 
 -- USERS TABLES with infos
 CREATE TABLE users
@@ -38,8 +40,8 @@ CREATE TABLE users
 -- USER_ROLES - roles present in webapp
 CREATE TABLE user_roles
 (
-    id   INTEGER PRIMARY KEY,
-    role VARCHAR,
+    id      INTEGER PRIMARY KEY,
+    role    VARCHAR,
     user_id INTEGER,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );

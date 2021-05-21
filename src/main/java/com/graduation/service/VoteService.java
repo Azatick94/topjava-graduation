@@ -1,7 +1,7 @@
 package com.graduation.service;
 
 import com.graduation.model.Vote;
-import com.graduation.repository.crud.CrudVoteRepository;
+import com.graduation.repository.CrudVoteRepository;
 import com.graduation.to.VotingResultsTo;
 import com.graduation.to.VoteTo;
 import com.graduation.util.Converters;
@@ -22,30 +22,36 @@ public class VoteService {
         this.crudRepo = crudVoteRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<Vote> getAll() {
         return (List<Vote>) crudRepo.findAll();
     }
 
+    @Transactional(readOnly = true)
     public Vote getById(Integer id) {
         return crudRepo.findById(id).orElseThrow(() -> new IdNotFoundException(id));
     }
 
+    @Transactional(readOnly = true)
     public Vote getByUserIdAndDate(Integer userID, LocalDate date) {
         return crudRepo.getByUserIdAndDate(userID, date);
     }
 
+    @Transactional(readOnly = true)
     public List<Vote> getBetweenDatesIncluding(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         return crudRepo.getBetweenDatesIncluding(startDateTime, endDateTime);
     }
 
+    @Transactional(readOnly = true)
     public List<VotingResultsTo> getVoteWinnersByDate(String date) {
         List<Object[]> result = crudRepo.getVoteWinnersByDate(date);
-        return Converters.ObjectListToVoteQueryByDateTo(result);
+        return Converters.ObjectToVotingResultsTo(result);
     }
 
+    @Transactional(readOnly = true)
     public List<VotingResultsTo> getAllGroupedVoteResults() {
         List<Object[]> result = crudRepo.getAllGroupedVoteResults();
-        return Converters.ObjectListToVoteQueryByDateTo(result);
+        return Converters.ObjectToVotingResultsTo(result);
     }
 
     @Transactional

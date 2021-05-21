@@ -1,4 +1,4 @@
-package com.graduation.repository.crud;
+package com.graduation.repository;
 
 import com.graduation.model.Restaurant;
 import org.springframework.data.jpa.repository.Modifying;

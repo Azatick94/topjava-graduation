@@ -2,7 +2,7 @@ package com.graduation.config;
 
 import com.graduation.AuthUser;
 import com.graduation.model.User;
-import com.graduation.repository.crud.CrudUserRepository;
+import com.graduation.repository.CrudUserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

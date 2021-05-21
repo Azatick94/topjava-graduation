@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Converters {
 
-    public static List<VotingResultsTo> ObjectListToVoteQueryByDateTo(List<Object[]> queryResult) {
+    public static List<VotingResultsTo> ObjectToVotingResultsTo(List<Object[]> queryResult) {
         List<VotingResultsTo> lst = new ArrayList<>();
 
         for (Object[] item : queryResult) {

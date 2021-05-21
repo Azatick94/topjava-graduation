@@ -2,8 +2,8 @@ package com.graduation.web;
 
 import com.graduation.model.User;
 import com.graduation.model.Vote;
-import com.graduation.repository.crud.CrudRestaurantRepository;
-import com.graduation.repository.crud.CrudUserRepository;
+import com.graduation.repository.CrudRestaurantRepository;
+import com.graduation.repository.CrudUserRepository;
 import com.graduation.service.VoteService;
 import com.graduation.to.VoteTo;
 import com.graduation.util.exception.CustomMessageException;
@@ -15,7 +15,13 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.security.Principal;

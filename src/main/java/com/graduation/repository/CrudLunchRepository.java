@@ -1,4 +1,4 @@
-package com.graduation.repository.crud;
+package com.graduation.repository;
 
 import com.graduation.model.Lunch;
 import org.springframework.data.jpa.repository.Modifying;
@@ -13,8 +13,8 @@ import java.util.List;
 @Repository
 public interface CrudLunchRepository extends CrudRepository<Lunch, Integer> {
 
-    @Query("SELECT l FROM Lunch l WHERE l.restaurant.restaurantName=:restaurantName")
-    List<Lunch> getByRestaurantName(@Param("restaurantName") String restaurantName);
+    @Query("SELECT l FROM Lunch l WHERE l.restaurant.id=:restaurantId")
+    List<Lunch> getByRestaurantId(@Param("restaurantId") Integer restaurantId);
 
     @Query("SELECT l FROM Lunch l WHERE l.dateRegistered >= :startDate AND l.dateRegistered <= :endDate")
     List<Lunch> getBetweenDatesIncluding(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);

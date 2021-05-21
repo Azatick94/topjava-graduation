@@ -1,7 +1,7 @@
 package com.graduation.service;
 
 import com.graduation.model.User;
-import com.graduation.repository.crud.CrudUserRepository;
+import com.graduation.repository.CrudUserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,14 +16,17 @@ public class UserService {
         this.userRepo = userRepo;
     }
 
+    @Transactional(readOnly = true)
     public List<User> getAll() {
         return (List<User>) userRepo.findAll();
     }
 
+    @Transactional(readOnly = true)
     public User getById(Integer id) {
         return userRepo.findById(id).orElse(null);
     }
 
+    @Transactional(readOnly = true)
     public List<User> getByName(String name) {
         return userRepo.getByName(name);
     }

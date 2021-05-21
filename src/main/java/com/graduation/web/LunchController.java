@@ -11,7 +11,15 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -45,11 +53,11 @@ public class LunchController {
         return lunchService.getById(id);
     }
 
-    @GetMapping("/by_restaurant/{name}")
-    @Operation(summary = "Get List of Lunches By RestaurantName")
-    public List<Lunch> getByRestaurantName(@PathVariable String name) {
-        log.info("Getting Lunch With Name = " + name);
-        return lunchService.getByRestaurantName(name);
+    @GetMapping("/by_restaurant/{id}")
+    @Operation(summary = "Get List of Lunches By Restaurant Id")
+    public List<Lunch> getByRestaurantId(@PathVariable Integer id) {
+        log.info("Getting Lunches With Restaurant Id = " + id);
+        return lunchService.getByRestaurantId(id);
     }
 
     @GetMapping("/filter")
@@ -63,7 +71,7 @@ public class LunchController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Save New Lunch")
-    @CacheEvict(value="lunches", allEntries = true)
+    @CacheEvict(value = "lunches", allEntries = true)
     public Lunch save(@Valid @RequestBody LunchTo lunchTo) {
         log.info("Saving Lunch");
         return lunchService.save(lunchTo);
@@ -72,7 +80,7 @@ public class LunchController {
     @PutMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Update Existing Lunch")
-    @CacheEvict(value="lunches", allEntries = true)
+    @CacheEvict(value = "lunches", allEntries = true)
     public void update(@Valid @RequestBody LunchTo lunchTo, @PathVariable int id) {
         log.info("Updating Lunch With Id = " + id);
         lunchService.update(lunchTo, id);
@@ -81,7 +89,7 @@ public class LunchController {
     @DeleteMapping("{id}")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Delete Lunch By Id")
-    @CacheEvict(value="lunches", allEntries = true)
+    @CacheEvict(value = "lunches", allEntries = true)
     public void delete(@PathVariable int id) {
         log.info("Deleting Lunch With Id = " + id);
         lunchService.delete(id);
