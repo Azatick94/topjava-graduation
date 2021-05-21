@@ -44,6 +44,11 @@ public class LunchService {
         return crudRepo.getBetweenDatesIncluding(startDate, endDate);
     }
 
+    @Transactional(readOnly = true)
+    public List<Lunch> getByDate(LocalDate date) {
+        return crudRepo.getByDate(date);
+    }
+
     @Transactional
     public Lunch save(LunchTo lunchTo) {
         Integer restaurantId = lunchTo.getRestaurantId();

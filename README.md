@@ -134,6 +134,10 @@ user@mail.ru : user
 
     curl -L -X GET 'http://localhost:8080/rest/lunch/filter?startDate=2021-01-02&endDate=2021-01-02' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
 
+<i>- Get List of Lunches By Date = 2021-01-02 =  (admin+user):</i>
+
+    curl -L -X GET 'http://localhost:8080/rest/lunch/filter/2021-01-02' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
+
 <i>- Save New Lunch (admin):</i>
 
     curl -L -X POST 'http://localhost:8080/rest/lunch' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg==' -H 'Content-Type: application/json' --data-raw '{"dateRegistered": "2021-05-10", "lunchName": "New Lunch", "price": 777, "restaurantId": 100008}'

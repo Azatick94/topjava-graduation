@@ -49,7 +49,7 @@ public class LunchController {
     @GetMapping("{id}")
     @Operation(summary = "Get Lunch By Id")
     public Lunch getById(@PathVariable Integer id) {
-        log.info("Getting Lunch With Id = " + id);
+        log.info("Getting Lunches With Id = " + id);
         return lunchService.getById(id);
     }
 
@@ -64,8 +64,15 @@ public class LunchController {
     @Operation(summary = "Get List of Lunches Between Dates")
     public List<Lunch> getBetweenDatesIncluding(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
                                                 @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        log.info("Getting Lunch Between Dates " + startDate + " - " + endDate);
+        log.info("Getting Lunches Between Dates " + startDate + " - " + endDate);
         return lunchService.getBetweenDatesIncluding(startDate, endDate);
+    }
+
+    @GetMapping("/filter/{date}")
+    @Operation(summary = "Get List of Lunches By Date")
+    public List<Lunch> getByDate(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        log.info("Getting Lunches By Date =" + date);
+        return lunchService.getByDate(date);
     }
 
     @PostMapping
