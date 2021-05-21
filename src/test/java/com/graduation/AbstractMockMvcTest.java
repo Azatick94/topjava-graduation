@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 public abstract class AbstractMockMvcTest {
 
     protected final String VOTE_HISTORY_REST = "/rest/vote_history";
-    protected final String VOTE_REST = "/rest/vote";
+    protected final String VOTE_REST = "/rest/votes";
     protected final String USER_REST = "/rest/users";
 
     protected final String SECURITY_USER_LOGIN = "user@mail.ru";
