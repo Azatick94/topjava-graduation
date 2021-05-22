@@ -17,7 +17,7 @@ public class Converters {
             voteQuery.setRestaurantId((Integer) item[0]);
             voteQuery.setRestaurantName((String) item[1]);
             voteQuery.setVoteDate(LocalDate.parse(item[2].toString()));
-            voteQuery.setCounts(((BigInteger) item[3]).intValue());
+            voteQuery.setCounts(((BigInteger) item[3]).longValue());
 
             lst.add(voteQuery);
         }

@@ -34,9 +34,9 @@ public class VoteService {
         return crudRepo.getByUserIdAndDate(userID, date);
     }
 
-    public List<VotingResultsTo> getVoteWinnersByDate(String date) {
-        List<Object[]> result = crudRepo.getVoteWinnersByDate(date);
-        return Converters.ObjectToVotingResultsTo(result);
+    public List<VotingResultsTo> getVoteWinnersByDate(LocalDate date) {
+        List<VotingResultsTo> result = crudRepo.getVoteWinnersByDate(date);
+        return result;
     }
 
     public List<VotingResultsTo> getAllGroupedVoteResults() {

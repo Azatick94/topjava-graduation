@@ -1,14 +1,13 @@
 package com.graduation.to;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
 @Setter
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class VotingResultsTo {
@@ -19,5 +18,5 @@ public class VotingResultsTo {
 
     private LocalDate voteDate;
 
-    private Integer counts;
+    private Long counts;
 }

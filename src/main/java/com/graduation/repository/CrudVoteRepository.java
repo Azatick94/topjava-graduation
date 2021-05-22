@@ -1,6 +1,7 @@
 package com.graduation.repository;
 
 import com.graduation.model.Vote;
+import com.graduation.to.VotingResultsTo;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -26,19 +27,25 @@ public interface CrudVoteRepository extends CrudRepository<Vote, Integer> {
     Vote getByUserIdAndDate(@Param("userId") Integer userId, @Param("voteDate") LocalDate voteDate);
 
     @Transactional(readOnly = true)
-    @Query(value = "SELECT RESTAURANT_ID, RESTAURANT_NAME, VOTE_DATE, COUNT(RESTAURANT_ID) AS COUNTS FROM VOTES v LEFT JOIN RESTAURANTS r ON v.RESTAURANT_ID = r.ID\n" +
-            "WHERE VOTE_DATE=:date\n" +
-            "GROUP BY RESTAURANT_ID, VOTE_DATE\n" +
-            "HAVING COUNTS = (\n" +
-            "    SELECT MAX(COUNT)\n" +
-            "    FROM (\n" +
-            "             SELECT COUNT(RESTAURANT_ID) AS COUNT\n" +
-            "             FROM VOTES\n" +
-            "             WHERE VOTE_DATE=:date\n" +
-            "             GROUP BY RESTAURANT_ID))" +
-            "ORDER BY VOTE_DATE DESC, COUNTS DESC",
-            nativeQuery = true)
-    List<Object[]> getVoteWinnersByDate(@Param("date") String date);
+    @Query("SELECT NEW com.graduation.to.VotingResultsTo(v.restaurantId, v.restaurant.restaurantName, v.voteDate, COUNT(v.restaurantId)) FROM Vote v " +
+            "WHERE v.voteDate=:date " +
+            "GROUP BY v.restaurantId ORDER BY v.voteDate DESC")
+    List<VotingResultsTo> getVoteWinnersByDate(@Param("date") LocalDate date);
+
+//    @Transactional(readOnly = true)
+//    @Query(value = "SELECT RESTAURANT_ID, RESTAURANT_NAME, VOTE_DATE, COUNT(RESTAURANT_ID) AS COUNTS FROM VOTES v LEFT JOIN RESTAURANTS r ON v.RESTAURANT_ID = r.ID\n" +
+//            "WHERE VOTE_DATE=:date\n" +
+//            "GROUP BY RESTAURANT_ID, VOTE_DATE\n" +
+//            "HAVING COUNTS = (\n" +
+//            "    SELECT MAX(COUNT)\n" +
+//            "    FROM (\n" +
+//            "             SELECT COUNT(RESTAURANT_ID) AS COUNT\n" +
+//            "             FROM VOTES\n" +
+//            "             WHERE VOTE_DATE=:date\n" +
+//            "             GROUP BY RESTAURANT_ID))" +
+//            "ORDER BY VOTE_DATE DESC, COUNTS DESC",
+//            nativeQuery = true)
+//    List<Object[]> getVoteWinnersByDate(@Param("date") String date);
 
     @Transactional(readOnly = true)
     @Query(value = "SELECT RESTAURANT_ID, RESTAURANT_NAME, VOTE_DATE, COUNT(RESTAURANT_ID) AS COUNTS FROM VOTES v" +

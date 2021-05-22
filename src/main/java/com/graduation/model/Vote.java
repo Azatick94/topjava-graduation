@@ -1,13 +1,14 @@
 package com.graduation.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Column;
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,7 +25,7 @@ public class Vote extends AbstractBaseEntity {
     @Min(0)
     private Integer userId;
 
-    @Column(name = "restaurant_id")
+    @Column(name = "restaurant_id", insertable = false, updatable = false)
     @Min(0)
     private Integer restaurantId;
 
@@ -33,6 +34,12 @@ public class Vote extends AbstractBaseEntity {
 
     @Column(name = "vote_date")
     private LocalDate voteDate;
+
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Restaurant restaurant;
 
     public Vote(Integer id, Integer userId, Integer restaurantId, LocalDateTime voteDateTime) {
         super(id);
