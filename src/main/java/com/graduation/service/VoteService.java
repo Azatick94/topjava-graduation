@@ -5,13 +5,13 @@ import com.graduation.repository.CrudVoteRepository;
 import com.graduation.to.VotingResultsTo;
 import com.graduation.to.VoteTo;
 import com.graduation.util.Converters;
-import com.graduation.util.exception.IdNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
+
+import static com.graduation.util.MainUtil.findByIdThrowExceptionIfNotFound;
 
 @Service
 public class VoteService {
@@ -24,22 +24,17 @@ public class VoteService {
 
     @Transactional(readOnly = true)
     public List<Vote> getAll() {
-        return (List<Vote>) crudRepo.findAll();
+        return crudRepo.findAll();
     }
 
     @Transactional(readOnly = true)
     public Vote getById(Integer id) {
-        return crudRepo.findById(id).orElseThrow(() -> new IdNotFoundException(id));
+        return findByIdThrowExceptionIfNotFound(crudRepo, id);
     }
 
     @Transactional(readOnly = true)
     public Vote getByUserIdAndDate(Integer userID, LocalDate date) {
         return crudRepo.getByUserIdAndDate(userID, date);
-    }
-
-    @Transactional(readOnly = true)
-    public List<Vote> getBetweenDatesIncluding(LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        return crudRepo.getBetweenDatesIncluding(startDateTime, endDateTime);
     }
 
     @Transactional(readOnly = true)
@@ -64,10 +59,5 @@ public class VoteService {
     public Vote update(VoteTo voteTo, Integer userId, Integer voteId) {
         Vote vote = new Vote(voteId, userId, voteTo.getRestaurantId(), voteTo.getVoteDateTime());
         return crudRepo.save(vote);
-    }
-
-    @Transactional
-    public void delete(Integer id) {
-        crudRepo.delete(id);
     }
 }

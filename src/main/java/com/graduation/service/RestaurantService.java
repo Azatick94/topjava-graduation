@@ -3,11 +3,12 @@ package com.graduation.service;
 import com.graduation.model.Restaurant;
 import com.graduation.repository.CrudRestaurantRepository;
 import com.graduation.to.RestaurantTo;
-import com.graduation.util.exception.IdNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static com.graduation.util.MainUtil.findByIdThrowExceptionIfNotFound;
 
 @Service
 public class RestaurantService {
@@ -20,17 +21,12 @@ public class RestaurantService {
 
     @Transactional(readOnly = true)
     public List<Restaurant> getAll() {
-        return (List<Restaurant>) crudRepo.findAll();
+        return crudRepo.findAll();
     }
 
     @Transactional(readOnly = true)
     public Restaurant getById(Integer id) {
-        return crudRepo.findById(id).orElseThrow(() -> new IdNotFoundException(id));
-    }
-
-    @Transactional(readOnly = true)
-    public Restaurant getByName(String restaurantName) {
-        return crudRepo.getByRestaurantName(restaurantName);
+        return findByIdThrowExceptionIfNotFound(crudRepo, id);
     }
 
     @Transactional

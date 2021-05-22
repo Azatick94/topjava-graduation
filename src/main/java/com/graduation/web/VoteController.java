@@ -97,13 +97,4 @@ public class VoteController {
             }
         }
     }
-
-    @DeleteMapping("{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Delete Vote By Id")
-    @CacheEvict(value = "votes", allEntries = true)
-    public void delete(@PathVariable Integer id) {
-        log.info("Deleting Vote With Id = " + id);
-        voteService.delete(id);
-    }
 }

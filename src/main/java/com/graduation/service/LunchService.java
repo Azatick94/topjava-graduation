@@ -5,12 +5,13 @@ import com.graduation.model.Restaurant;
 import com.graduation.repository.CrudLunchRepository;
 import com.graduation.repository.CrudRestaurantRepository;
 import com.graduation.to.LunchTo;
-import com.graduation.util.exception.IdNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import static com.graduation.util.MainUtil.findByIdThrowExceptionIfNotFound;
 
 @Service
 public class LunchService {
@@ -26,12 +27,12 @@ public class LunchService {
 
     @Transactional(readOnly = true)
     public List<Lunch> getAll() {
-        return (List<Lunch>) crudRepo.findAll();
+        return crudRepo.findAll();
     }
 
     @Transactional(readOnly = true)
     public Lunch getById(Integer id) {
-        return crudRepo.findById(id).orElseThrow(() -> new IdNotFoundException(id));
+        return findByIdThrowExceptionIfNotFound(crudRepo, id);
     }
 
     @Transactional(readOnly = true)
@@ -51,27 +52,33 @@ public class LunchService {
 
     @Transactional
     public Lunch save(LunchTo lunchTo) {
-        Integer restaurantId = lunchTo.getRestaurantId();
-        Restaurant restaurant = crudRestaurantRepo.findById(restaurantId).orElseThrow(() -> new IdNotFoundException(restaurantId));
-
-        Lunch lunch = new Lunch(null, lunchTo.getDateRegistered(), lunchTo.getLunchName(),
-                lunchTo.getPrice(), restaurant);
-
+        Lunch lunch = saveOrUpdate(lunchTo, null);
         return crudRepo.save(lunch);
     }
 
     @Transactional
     public void update(LunchTo lunchTo, Integer id) {
-        Integer restaurantId = lunchTo.getRestaurantId();
-        Restaurant restaurant = crudRestaurantRepo.findById(restaurantId).orElseThrow(() -> new IdNotFoundException(restaurantId));
-
-        Lunch lunch = new Lunch(id, lunchTo.getDateRegistered(), lunchTo.getLunchName(),
-                lunchTo.getPrice(), restaurant);
+        Lunch lunch = saveOrUpdate(lunchTo, id);
         crudRepo.save(lunch);
     }
 
     @Transactional
     public void delete(Integer id) {
         crudRepo.delete(id);
+    }
+
+    private Lunch saveOrUpdate(LunchTo lunchTo, Integer id) {
+        Integer restaurantId = lunchTo.getRestaurantId();
+        Restaurant restaurant = findByIdThrowExceptionIfNotFound(crudRestaurantRepo, restaurantId);
+
+        Lunch lunch;
+        if (id == null) {
+            lunch = new Lunch(null, lunchTo.getDateRegistered(), lunchTo.getLunchName(),
+                    lunchTo.getPrice(), restaurant);
+        } else {
+            lunch = new Lunch(id, lunchTo.getDateRegistered(), lunchTo.getLunchName(),
+                    lunchTo.getPrice(), restaurant);
+        }
+        return lunch;
     }
 }

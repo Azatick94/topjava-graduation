@@ -168,10 +168,6 @@ user@mail.ru : user
 
     curl -L -X POST 'http://localhost:8080/rest/votes' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI=' -H 'Content-Type: application/json' --data-raw '{"restaurantId": 100010,"voteDateTime": "2021-05-10T10:30:00"}'
 
-<i>- Delete Vote With Id = 100035 (admin):</i>
-
-    curl -L -X DELETE 'http://localhost:8080/rest/votes/100035' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg=='
-
 ### VOTE HISTORY_CONTROLLER
 
 <i>- Get Restaurant Voting Results (admin+user):</i>

@@ -13,6 +13,8 @@ import java.util.List;
 @Repository
 public interface CrudLunchRepository extends CrudRepository<Lunch, Integer> {
 
+    List<Lunch> findAll();
+
     @Query("SELECT l FROM Lunch l WHERE l.restaurant.id=:restaurantId")
     List<Lunch> getByRestaurantId(@Param("restaurantId") Integer restaurantId);
 

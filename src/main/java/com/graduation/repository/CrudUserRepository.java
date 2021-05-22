@@ -12,6 +12,9 @@ import java.util.Optional;
 
 @Repository
 public interface CrudUserRepository extends CrudRepository<User, Integer> {
+
+    List<User> findAll();
+
     List<User> getByName(String name);
 
     @Modifying

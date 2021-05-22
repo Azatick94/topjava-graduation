@@ -14,15 +14,13 @@ import java.util.List;
 @Repository
 public interface CrudVoteRepository extends CrudRepository<Vote, Integer> {
 
+    List<Vote> findAll();
+
     @Query("SELECT v FROM Vote v WHERE v.voteDateTime >= :startDateTime AND v.voteDateTime <= :endDateTime")
     List<Vote> getBetweenDatesIncluding(@Param("startDateTime") LocalDateTime startDateTime, @Param("endDateTime") LocalDateTime endDateTime);
 
     @Query("SELECT v FROM Vote v WHERE v.voteDate=:voteDate AND v.userId=:userId")
     Vote getByUserIdAndDate(@Param("userId") Integer userId, @Param("voteDate") LocalDate voteDate);
-
-    @Modifying
-    @Query("DELETE FROM Vote v WHERE v.id=:id")
-    Integer delete(@Param("id") Integer id);
 
     @Query(value = "SELECT RESTAURANT_ID, RESTAURANT_NAME, VOTE_DATE, COUNT(RESTAURANT_ID) AS COUNTS FROM VOTES v LEFT JOIN RESTAURANTS r ON v.RESTAURANT_ID = r.ID\n" +
             "WHERE VOTE_DATE=:date\n" +
@@ -45,6 +43,4 @@ public interface CrudVoteRepository extends CrudRepository<Vote, Integer> {
             "ORDER BY VOTE_DATE DESC, COUNTS DESC",
             nativeQuery = true)
     List<Object[]> getAllGroupedVoteResults();
-
-
 }

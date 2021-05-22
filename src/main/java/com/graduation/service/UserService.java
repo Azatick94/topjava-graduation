@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.graduation.util.MainUtil.findByIdThrowExceptionIfNotFound;
+
 @Service
 public class UserService {
 
@@ -18,12 +20,12 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public List<User> getAll() {
-        return (List<User>) userRepo.findAll();
+        return userRepo.findAll();
     }
 
     @Transactional(readOnly = true)
     public User getById(Integer id) {
-        return userRepo.findById(id).orElse(null);
+        return findByIdThrowExceptionIfNotFound(userRepo, id);
     }
 
     @Transactional(readOnly = true)
@@ -35,12 +37,6 @@ public class UserService {
     public User save(User user) {
         user.setId(null);
         return userRepo.save(user);
-    }
-
-    @Transactional
-    public void update(User user, Integer id) {
-        user.setId(id);
-        userRepo.save(user);
     }
 
     @Transactional
