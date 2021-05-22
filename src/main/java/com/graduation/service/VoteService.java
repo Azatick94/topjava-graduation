@@ -22,28 +22,23 @@ public class VoteService {
         this.crudRepo = crudVoteRepository;
     }
 
-    @Transactional(readOnly = true)
     public List<Vote> getAll() {
         return crudRepo.findAll();
     }
 
-    @Transactional(readOnly = true)
     public Vote getById(Integer id) {
         return findByIdThrowExceptionIfNotFound(crudRepo, id);
     }
 
-    @Transactional(readOnly = true)
     public Vote getByUserIdAndDate(Integer userID, LocalDate date) {
         return crudRepo.getByUserIdAndDate(userID, date);
     }
 
-    @Transactional(readOnly = true)
     public List<VotingResultsTo> getVoteWinnersByDate(String date) {
         List<Object[]> result = crudRepo.getVoteWinnersByDate(date);
         return Converters.ObjectToVotingResultsTo(result);
     }
 
-    @Transactional(readOnly = true)
     public List<VotingResultsTo> getAllGroupedVoteResults() {
         List<Object[]> result = crudRepo.getAllGroupedVoteResults();
         return Converters.ObjectToVotingResultsTo(result);

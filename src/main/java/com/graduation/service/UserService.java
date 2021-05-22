@@ -18,17 +18,14 @@ public class UserService {
         this.userRepo = userRepo;
     }
 
-    @Transactional(readOnly = true)
     public List<User> getAll() {
         return userRepo.findAll();
     }
 
-    @Transactional(readOnly = true)
     public User getById(Integer id) {
         return findByIdThrowExceptionIfNotFound(userRepo, id);
     }
 
-    @Transactional(readOnly = true)
     public List<User> getByName(String name) {
         return userRepo.getByName(name);
     }

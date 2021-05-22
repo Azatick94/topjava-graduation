@@ -19,12 +19,10 @@ public class RestaurantService {
         this.crudRepo = crudRepo;
     }
 
-    @Transactional(readOnly = true)
     public List<Restaurant> getAll() {
         return crudRepo.findAll();
     }
 
-    @Transactional(readOnly = true)
     public Restaurant getById(Integer id) {
         return findByIdThrowExceptionIfNotFound(crudRepo, id);
     }

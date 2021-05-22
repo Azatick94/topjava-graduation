@@ -25,27 +25,22 @@ public class LunchService {
         this.crudRestaurantRepo = crudRestaurantRepo;
     }
 
-    @Transactional(readOnly = true)
     public List<Lunch> getAll() {
         return crudRepo.findAll();
     }
 
-    @Transactional(readOnly = true)
     public Lunch getById(Integer id) {
         return findByIdThrowExceptionIfNotFound(crudRepo, id);
     }
 
-    @Transactional(readOnly = true)
     public List<Lunch> getByRestaurantId(Integer restaurantId) {
         return crudRepo.getByRestaurantId(restaurantId);
     }
 
-    @Transactional(readOnly = true)
     public List<Lunch> getBetweenDatesIncluding(LocalDate startDate, LocalDate endDate) {
         return crudRepo.getBetweenDatesIncluding(startDate, endDate);
     }
 
-    @Transactional(readOnly = true)
     public List<Lunch> getByDate(LocalDate date) {
         return crudRepo.getByDate(date);
     }
