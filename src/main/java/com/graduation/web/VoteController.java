@@ -65,7 +65,7 @@ public class VoteController {
 
     @GetMapping("user_votes")
     @Operation(summary = "Get Authorized User Votes")
-    @PreAuthorize("hasRole('User')")
+    @PreAuthorize("hasRole('USER')")
     public List<Vote> getAuthVotes() {
         log.info("Getting Vote of Authorized User");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

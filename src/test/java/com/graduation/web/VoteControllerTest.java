@@ -14,7 +14,16 @@ class VoteControllerTest extends AbstractMockMvcTest {
 
     @WithMockUser(username = SECURITY_USER_LOGIN, roles = SECURITY_USER_ROLE)
     @Test
-    void getByIdTest() throws Exception {
+    void getByIdUserTest() throws Exception {
+        this.mockMvc
+                .perform(get(VOTE_REST + "/by/id?id=100034"))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+
+    @WithMockUser(username = SECURITY_ADMIN_LOGIN, roles = SECURITY_ADMIN_ROLE)
+    @Test
+    void getByIdAdminTest() throws Exception {
         this.mockMvc
                 .perform(get(VOTE_REST + "/by/id?id=100034"))
                 .andDo(print())
