@@ -31,6 +31,10 @@ public class VoteService {
         return findByIdThrowExceptionIfNotFound(crudRepo, id);
     }
 
+    public List<Vote> getByUserId(Integer userId) {
+        return crudRepo.getByUserId(userId);
+    }
+
     public Vote getByUserIdAndDate(Integer userID, LocalDate date) {
         return crudRepo.getByUserIdAndDate(userID, date);
     }

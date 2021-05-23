@@ -40,11 +40,11 @@ P.P.S.: Assume that your API will be used by a frontend developer to build front
 
 ---
 
-#         * RESULTS
+#          * RESULTS
 
 ---
 
-##         * SWAGGER documentation
+##          * SWAGGER documentation
 
 * Json Format documentation
   http://localhost:8080/api-docs/
@@ -53,7 +53,7 @@ P.P.S.: Assume that your API will be used by a frontend developer to build front
 
 ---
 
-##         * SECURITY CONFIGS
+##          * SECURITY CONFIGS
 
 ### ADMIN: <br>
 
@@ -65,20 +65,20 @@ user@mail.ru : user
 
 ---
 
-##         * DATABASE MODEL STRUCTURE
+##          * DATABASE MODEL STRUCTURE
 
 ![alt text](src/main/resources/static/images/voting_app_diagram.png)
 
 
 ---
 
-##   * Postman Project Url
+##    * Postman Project Url
 
 - [Link to Postman Project File](config/topjava-graduation.postman_collection.json)
 
 ---
 
-##      * LIST of CURL Commands
+##       * LIST of CURL Commands
 
 ### RESTAURANT CONTROLLER
 
@@ -152,11 +152,15 @@ user@mail.ru : user
 
 ### VOTE CONTROLLER
 
-<i>- Get Vote By Id = 100034 (user+admin):</i>
+<i>- Get Authorized User Votes (user):</i>
+
+    curl -L -X GET 'http://localhost:8080/rest/votes/user_votes' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
+
+<i>- Get Vote By Id = 100034 (admin):</i>
 
     curl -L -X GET 'http://localhost:8080/rest/votes/by/id?id=100034' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
 
-<i>- Get All Votes (admin):</i>
+<i>- Get Votes By Date (admin):</i>
 
     curl -L -X GET 'http://localhost:8080/rest/votes/by/date?date=2021-01-01' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg=='
 

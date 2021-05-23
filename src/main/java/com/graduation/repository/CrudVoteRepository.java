@@ -24,6 +24,10 @@ public interface CrudVoteRepository extends CrudRepository<Vote, Integer> {
     List<Vote> getBetweenDatesIncluding(@Param("startDateTime") LocalDateTime startDateTime, @Param("endDateTime") LocalDateTime endDateTime);
 
     @Transactional(readOnly = true)
+    @Query("SELECT v FROM Vote v WHERE v.userId=:userId")
+    List<Vote> getByUserId(@Param("userId") Integer userId);
+
+    @Transactional(readOnly = true)
     @Query("SELECT v FROM Vote v WHERE v.voteDate=:voteDate AND v.userId=:userId")
     Vote getByUserIdAndDate(@Param("userId") Integer userId, @Param("voteDate") LocalDate voteDate);
 
