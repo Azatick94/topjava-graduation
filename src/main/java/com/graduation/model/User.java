@@ -53,6 +53,13 @@ public class User extends AbstractBaseEntity implements Serializable {
     @Column(name = "password")
     private String password;
 
+    @JsonIgnore
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role"}, name = "user_roles_unique")})
+    @Column(name = "role")
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<Role> roles;
+
     public User(Integer id, String name, String surname, String email, String password) {
         super(id);
         this.name = name;
@@ -60,11 +67,4 @@ public class User extends AbstractBaseEntity implements Serializable {
         this.email = email;
         this.password = password;
     }
-
-    @JsonIgnore
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role"}, name = "user_roles_unique")})
-    @Column(name = "role")
-    @ElementCollection(fetch = FetchType.EAGER)
-    private Set<Role> roles;
 }

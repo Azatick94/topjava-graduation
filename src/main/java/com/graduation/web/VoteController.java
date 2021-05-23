@@ -2,7 +2,6 @@ package com.graduation.web;
 
 import com.graduation.AuthUser;
 import com.graduation.model.Vote;
-import com.graduation.repository.CrudRestaurantRepository;
 import com.graduation.service.VoteService;
 import com.graduation.to.VoteTo;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,11 +32,9 @@ import java.util.List;
 public class VoteController {
 
     private final VoteService voteService;
-    private final CrudRestaurantRepository restaurantRepository;
 
-    public VoteController(VoteService voteService, CrudRestaurantRepository restaurantRepository) {
+    public VoteController(VoteService voteService) {
         this.voteService = voteService;
-        this.restaurantRepository = restaurantRepository;
     }
 
     @GetMapping("by/id")
