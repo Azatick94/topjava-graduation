@@ -16,7 +16,8 @@ import java.util.List;
 public interface CrudVoteRepository extends CrudRepository<Vote, Integer> {
 
     @Transactional(readOnly = true)
-    List<Vote> findAll();
+    @Query("SELECT v FROM Vote v WHERE v.voteDate=:voteDate")
+    List<Vote> getByDate(@Param("voteDate") LocalDate voteDate);
 
     @Transactional(readOnly = true)
     @Query("SELECT v FROM Vote v WHERE v.voteDateTime >= :startDateTime AND v.voteDateTime <= :endDateTime")

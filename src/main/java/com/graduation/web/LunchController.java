@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -40,7 +39,6 @@ public class LunchController {
 
     @GetMapping
     @Operation(summary = "Get All Lunches")
-    @Cacheable(value = "lunches")
     public List<Lunch> getAll() {
         log.info("Getting All Lunches");
         return lunchService.getAll();

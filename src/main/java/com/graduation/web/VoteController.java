@@ -13,13 +13,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -45,19 +46,20 @@ public class VoteController {
         this.restaurantRepository = restaurantRepository;
     }
 
-    @GetMapping
-    @Cacheable(value = "votes")
-    @Operation(summary = "Get All Votes")
-    public List<Vote> getAll() {
-        log.info("Getting All Votes");
-        return voteService.getAll();
-    }
-
-    @GetMapping("{id}")
+    @GetMapping("by/id")
     @Operation(summary = "Get Vote By Id")
-    public Vote getById(@PathVariable Integer id) {
+    public Vote getById(@RequestParam Integer id) {
         log.info("Getting Vote With Id: " + id);
         return voteService.getById(id);
+    }
+
+    @GetMapping("by/date")
+    @Cacheable(value = "votes")
+    @Operation(summary = "Get All Votes By Date")
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<Vote> getByDate(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        log.info("Getting All Votes By Date");
+        return voteService.getByDate(date);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

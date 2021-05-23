@@ -22,8 +22,8 @@ public class VoteService {
         this.crudRepo = crudVoteRepository;
     }
 
-    public List<Vote> getAll() {
-        return crudRepo.findAll();
+    public List<Vote> getByDate(LocalDate date) {
+        return crudRepo.getByDate(date);
     }
 
     public Vote getById(Integer id) {
@@ -35,8 +35,7 @@ public class VoteService {
     }
 
     public List<VotingResultsTo> getVoteWinnersByDate(LocalDate date) {
-        List<VotingResultsTo> result = crudRepo.getVoteWinnersByDate(date);
-        return result;
+        return crudRepo.getVoteWinnersByDate(date);
     }
 
     public List<VotingResultsTo> getAllGroupedVoteResults() {

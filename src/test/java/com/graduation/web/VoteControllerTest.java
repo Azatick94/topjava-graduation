@@ -16,7 +16,7 @@ class VoteControllerTest extends AbstractMockMvcTest {
     @Test
     void getByIdTest() throws Exception {
         this.mockMvc
-                .perform(get(VOTE_REST + "/100034"))
+                .perform(get(VOTE_REST + "/by/id?id=100034"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(

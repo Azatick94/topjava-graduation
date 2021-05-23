@@ -152,13 +152,13 @@ user@mail.ru : user
 
 ### VOTE CONTROLLER
 
-<i>- Get All Votes (user+admin):</i>
-
-    curl -L -X GET 'http://localhost:8080/rest/votes' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
-
 <i>- Get Vote By Id = 100034 (user+admin):</i>
 
-    curl -L -X GET 'http://localhost:8080/rest/votes/100034' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
+    curl -L -X GET 'http://localhost:8080/rest/votes/by/id?id=100034' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
+
+<i>- Get All Votes (admin):</i>
+
+    curl -L -X GET 'http://localhost:8080/rest/votes/by/date?date=2021-01-01' -H 'Authorization: Basic YWRtaW5AbWFpbC5ydTphZG1pbg=='
 
 <i>- Save New Vote  (user):</i>
 
