@@ -38,7 +38,9 @@ public class Lunch extends AbstractBaseEntity {
     @Column(name = "price")
     private Integer price;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    // https://thorben-janssen.com/lazyinitializationexception/#:~:text=Hibernate%20throws%20the%20LazyInitializationException%20when,client%20application%20or%20web%20layer.
+    // TO Replace EAGER
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;

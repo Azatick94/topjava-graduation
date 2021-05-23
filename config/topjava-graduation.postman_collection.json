@@ -385,7 +385,7 @@
 					"response": []
 				},
 				{
-					"name": "getByRestaurantName",
+					"name": "getByRestaurantId",
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -405,13 +405,19 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{rest_lunch}}/by_restaurant/AnderSon",
+							"raw": "{{rest_lunch}}/by_restaurant/:id",
 							"host": [
 								"{{rest_lunch}}"
 							],
 							"path": [
 								"by_restaurant",
-								"AnderSon"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "100008"
+								}
 							]
 						}
 					},
@@ -452,6 +458,45 @@
 								},
 								{
 									"key": "endDate",
+									"value": "2021-01-02"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByDate",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user@mail.ru",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest_lunch}}/filter/:date",
+							"host": [
+								"{{rest_lunch}}"
+							],
+							"path": [
+								"filter",
+								":date"
+							],
+							"variable": [
+								{
+									"key": "date",
 									"value": "2021-01-02"
 								}
 							]
@@ -576,7 +621,7 @@
 			"name": "Vote_Controller",
 			"item": [
 				{
-					"name": "getAll",
+					"name": "getAuthVotes",
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -596,54 +641,19 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{rest_vote}}",
-							"host": [
-								"{{rest_vote}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getById",
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "user",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "user@mail.ru",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{rest_vote}}/:id",
+							"raw": "{{rest_vote}}/user_votes",
 							"host": [
 								"{{rest_vote}}"
 							],
 							"path": [
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "100034"
-								}
+								"user_votes"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "delete",
+					"name": "getByDate",
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -660,15 +670,61 @@
 								}
 							]
 						},
-						"method": "DELETE",
+						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{rest_vote}}/100035",
+							"raw": "{{rest_vote}}/by/date?date=2021-01-01",
 							"host": [
 								"{{rest_vote}}"
 							],
 							"path": [
-								"100035"
+								"by",
+								"date"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2021-01-01"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin@mail.ru",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest_vote}}/by/id?id=100034",
+							"host": [
+								"{{rest_vote}}"
+							],
+							"path": [
+								"by",
+								"id"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "100034"
+								}
 							]
 						}
 					},
@@ -756,35 +812,6 @@
 			"name": "VoteHistory_Controller",
 			"item": [
 				{
-					"name": "getAll",
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "user",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "user@mail.ru",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{rest_vote_history}}",
-							"host": [
-								"{{rest_vote_history}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "getByDate",
 					"request": {
 						"auth": {
@@ -848,15 +875,15 @@
 	"variable": [
 		{
 			"key": "rest_restaurant",
-			"value": "http://localhost:8080/rest/restaurant"
+			"value": "http://localhost:8080/rest/restaurants"
 		},
 		{
 			"key": "rest_lunch",
-			"value": "http://localhost:8080/rest/lunch"
+			"value": "http://localhost:8080/rest/lunches"
 		},
 		{
 			"key": "rest_vote",
-			"value": "http://localhost:8080/rest/vote"
+			"value": "http://localhost:8080/rest/votes"
 		},
 		{
 			"key": "rest_vote_history",
