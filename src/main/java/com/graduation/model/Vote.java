@@ -40,6 +40,7 @@ public class Vote extends AbstractBaseEntity {
     @Column(name = "vote_date")
     private LocalDate voteDate;
 
+    // used in CrudVoteRepository getVoteWinnersByDate method @Query
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)

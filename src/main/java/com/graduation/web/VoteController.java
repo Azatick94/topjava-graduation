@@ -14,7 +14,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,8 +24,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -66,7 +70,7 @@ public class VoteController {
     @Operation(summary = "Save/Update Vote")
     @PreAuthorize("hasRole('USER')")
     @CacheEvict(value = "votes", allEntries = true)
-    public Vote save(@Valid @RequestBody VoteTo voteTo, Principal principal) {
+    public ResponseEntity<URI> save(@Valid @RequestBody VoteTo voteTo, Principal principal) {
         log.info("Saving/Updating Vote");
 
         // check restaurantId presence in DB
@@ -87,13 +91,16 @@ public class VoteController {
             Vote voteFromDb = voteService.getByUserIdAndDate(userId, voteDate);
 
             if (voteFromDb == null) {
-                return voteService.save(voteTo, userId);
+                Vote vote = voteService.save(voteTo, userId);
+                URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(vote.getId()).toUri();
+                return new ResponseEntity<>(uri, HttpStatus.CREATED);
             } else {
                 LocalTime time = voteTo.getVoteDateTime().toLocalTime();
                 if (time.isAfter(LocalTime.of(11, 0, 0))) {
                     throw new CustomMessageException("Vote can't be updated because User can't change his decision after 11 a.m.");
                 } else {
-                    return voteService.update(voteTo, userId, voteFromDb.getId());
+                    voteService.update(voteTo, userId, voteFromDb.getId());
+                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
                 }
             }
         }

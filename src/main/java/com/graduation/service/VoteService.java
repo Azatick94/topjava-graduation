@@ -1,5 +1,6 @@
 package com.graduation.service;
 
+import com.graduation.model.Restaurant;
 import com.graduation.model.Vote;
 import com.graduation.repository.CrudVoteRepository;
 import com.graduation.to.VotingResultsTo;
@@ -46,12 +47,14 @@ public class VoteService {
     @Transactional
     public Vote save(VoteTo voteTo, Integer userId) {
         Vote vote = new Vote(null, userId, voteTo.getRestaurantId(), voteTo.getVoteDateTime());
+        vote.setRestaurant(new Restaurant(voteTo.getRestaurantId(), ""));
         return crudRepo.save(vote);
     }
 
     @Transactional
     public Vote update(VoteTo voteTo, Integer userId, Integer voteId) {
         Vote vote = new Vote(voteId, userId, voteTo.getRestaurantId(), voteTo.getVoteDateTime());
+        vote.setRestaurant(new Restaurant(voteTo.getRestaurantId(), ""));
         return crudRepo.save(vote);
     }
 }

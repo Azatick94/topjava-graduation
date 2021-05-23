@@ -6,7 +6,9 @@ import com.graduation.to.RestaurantTo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +18,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -50,24 +54,28 @@ public class RestaurantController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Save New Restaurant")
-    public Restaurant save(@Valid @RequestBody RestaurantTo restaurantTo) {
+    public ResponseEntity<URI> save(@Valid @RequestBody RestaurantTo restaurantTo) {
         log.info("Saving restaurant");
-        return restaurantService.save(restaurantTo);
+        Restaurant restaurant = restaurantService.save(restaurantTo);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(restaurant.getId()).toUri();
+        return new ResponseEntity<>(uri, HttpStatus.CREATED);
     }
 
     @PutMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Update Existing Restaurant By Id")
-    public void update(@Valid @RequestBody RestaurantTo restaurantTo, @PathVariable int id) {
+    public ResponseEntity<HttpStatus> update(@Valid @RequestBody RestaurantTo restaurantTo, @PathVariable int id) {
         log.info("Updating Restaurant With Id = " + id);
         restaurantService.update(restaurantTo, id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("{id}")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Delete Restaurant By Id")
-    public void delete(@PathVariable int id) {
+    public ResponseEntity<HttpStatus> delete(@PathVariable int id) {
         log.info("Deleting Restaurant With Id = " + id);
         restaurantService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

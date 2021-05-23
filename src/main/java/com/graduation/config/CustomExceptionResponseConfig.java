@@ -1,5 +1,6 @@
 package com.graduation.config;
 
+import com.graduation.util.exception.CustomMessageException;
 import com.graduation.util.exception.IdNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -17,12 +18,13 @@ import java.util.Map;
 public class CustomExceptionResponseConfig {
 
     // Let Spring BasicErrorController handle the exception, we just override the status code
-    @ExceptionHandler(IdNotFoundException.class)
+    @ExceptionHandler({IdNotFoundException.class, CustomMessageException.class})
     public void springHandleNotFound(HttpServletResponse response) throws IOException {
-        response.sendError(HttpStatus.NOT_FOUND.value());
+        response.sendError(HttpStatus.UNPROCESSABLE_ENTITY.value());
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    // Customize validation exception
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(
             MethodArgumentNotValidException ex) {
