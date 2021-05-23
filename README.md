@@ -174,10 +174,6 @@ user@mail.ru : user
 
 ### VOTE HISTORY_CONTROLLER
 
-<i>- Get Restaurant Voting Results (admin+user):</i>
-
-    curl -L -X GET 'http://localhost:8080/rest/vote_history' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='
-
 <i>- Get Restaurant Voting Results By Date (admin+user):</i>
 
     curl -L -X GET 'http://localhost:8080/rest/vote_history/2021-01-01' -H 'Authorization: Basic dXNlckBtYWlsLnJ1OnVzZXI='

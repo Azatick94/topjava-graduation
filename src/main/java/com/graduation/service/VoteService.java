@@ -5,7 +5,6 @@ import com.graduation.model.Vote;
 import com.graduation.repository.CrudVoteRepository;
 import com.graduation.to.VotingResultsTo;
 import com.graduation.to.VoteTo;
-import com.graduation.util.Converters;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,11 +40,6 @@ public class VoteService {
 
     public List<VotingResultsTo> getVoteWinnersByDate(LocalDate date) {
         return crudRepo.getVoteWinnersByDate(date);
-    }
-
-    public List<VotingResultsTo> getAllGroupedVoteResults() {
-        List<Object[]> result = crudRepo.getAllGroupedVoteResults();
-        return Converters.ObjectToVotingResultsTo(result);
     }
 
     @Transactional

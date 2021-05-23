@@ -28,13 +28,6 @@ public class VoteHistoryController {
         this.voteService = voteService;
     }
 
-    @GetMapping
-    @Operation(summary = "Get Restaurant Voting Results")
-    public List<VotingResultsTo> getAll() {
-        log.info("Getting All Votes Results");
-        return voteService.getAllGroupedVoteResults();
-    }
-
     @GetMapping("{date}")
     @Operation(summary = "Get Restaurant Voting Results by Certain Date")
     public List<VotingResultsTo> getByDate(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {

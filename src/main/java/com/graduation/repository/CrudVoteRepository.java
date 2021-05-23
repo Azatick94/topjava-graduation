@@ -36,12 +36,4 @@ public interface CrudVoteRepository extends CrudRepository<Vote, Integer> {
             "WHERE v.voteDate=:date " +
             "GROUP BY v.restaurantId ORDER BY v.voteDate DESC")
     List<VotingResultsTo> getVoteWinnersByDate(@Param("date") LocalDate date);
-
-    @Transactional(readOnly = true)
-    @Query(value = "SELECT RESTAURANT_ID, RESTAURANT_NAME, VOTE_DATE, COUNT(RESTAURANT_ID) AS COUNTS FROM VOTES v" +
-            " LEFT JOIN RESTAURANTS r ON v.RESTAURANT_ID = r.ID\n" +
-            "GROUP BY VOTE_DATE, RESTAURANT_ID\n" +
-            "ORDER BY VOTE_DATE DESC, COUNTS DESC",
-            nativeQuery = true)
-    List<Object[]> getAllGroupedVoteResults();
 }
