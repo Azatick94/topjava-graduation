@@ -1,6 +1,5 @@
 package com.graduation.web;
 
-import com.graduation.AuthUser;
 import com.graduation.model.Vote;
 import com.graduation.service.VoteService;
 import com.graduation.to.VoteTo;
@@ -11,7 +10,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +21,8 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
+
+import static com.graduation.util.SecurityUtil.getAuthUserId;
 
 @RestController
 @Tag(name = "Votes", description = "Votes API")
@@ -58,8 +58,7 @@ public class VoteController {
     @PreAuthorize("hasRole('USER')")
     public List<Vote> getAuthVotes() {
         log.info("Getting Vote of Authorized User");
-        AuthUser authUser = (AuthUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Integer userId = authUser.getUser().getId();
+        Integer userId = getAuthUserId();
         return voteService.getByUserId(userId);
     }
 
