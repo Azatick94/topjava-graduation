@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -51,6 +52,7 @@ public class LunchController {
 
     @GetMapping("{id}")
     @Operation(summary = "Get Lunch By Id")
+    @Cacheable("lunches")
     public Lunch getById(@PathVariable Integer id) {
         log.info("Getting Lunches With Id = " + id);
         return lunchService.getById(id);
@@ -58,6 +60,7 @@ public class LunchController {
 
     @GetMapping("/by_restaurant")
     @Operation(summary = "Get List of Lunches By Restaurant Id")
+    @Cacheable("lunches")
     public List<Lunch> getByRestaurantId(@RequestParam Integer id) {
         log.info("Getting Lunches With Restaurant Id = " + id);
         return lunchService.getByRestaurantId(id);
@@ -65,6 +68,7 @@ public class LunchController {
 
     @GetMapping("/filter/between")
     @Operation(summary = "Get List of Lunches Between Dates")
+    @Cacheable("lunches")
     public List<Lunch> getBetweenDatesIncluding(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
                                                 @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         log.info("Getting Lunches Between Dates " + startDate + " - " + endDate);
@@ -73,6 +77,7 @@ public class LunchController {
 
     @GetMapping("/filter/date")
     @Operation(summary = "Get List of Lunches By Date")
+    @Cacheable("lunches")
     public List<Lunch> getByDate(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         log.info("Getting Lunches By Date =" + date);
         return lunchService.getByDate(date);

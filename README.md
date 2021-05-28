@@ -171,9 +171,3 @@ user@mail.ru : user
 <i>- Update Existing Vote By User Before 11 Clock =  (user):</i>
 
     curl --user user@mail.ru:user -L -X POST 'http://localhost:8080/rest/votes' -H 'Content-Type: application/json' --data-raw '{"restaurantId": 100010,"voteDateTime": "2021-05-10T10:30:00"}'
-
-### VOTE HISTORY_CONTROLLER
-
-<i>- Get Restaurant Voting Results By Date (admin+user):</i>
-
-    curl --user user@mail.ru:user -L -X GET 'http://localhost:8080/rest/vote_history/2021-01-01'
