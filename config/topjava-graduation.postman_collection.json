@@ -405,15 +405,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{rest_lunch}}/by_restaurant/:id",
+							"raw": "{{rest_lunch}}/by_restaurant?id=100008",
 							"host": [
 								"{{rest_lunch}}"
 							],
 							"path": [
-								"by_restaurant",
-								":id"
+								"by_restaurant"
 							],
-							"variable": [
+							"query": [
 								{
 									"key": "id",
 									"value": "100008"
@@ -444,12 +443,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{rest_lunch}}/filter?startDate=2021-01-02&endDate=2021-01-02",
+							"raw": "{{rest_lunch}}/filter/between?startDate=2021-01-02&endDate=2021-01-02",
 							"host": [
 								"{{rest_lunch}}"
 							],
 							"path": [
-								"filter"
+								"filter",
+								"between"
 							],
 							"query": [
 								{
@@ -486,15 +486,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{rest_lunch}}/filter/:date",
+							"raw": "{{rest_lunch}}/filter/date?date=2021-01-02",
 							"host": [
 								"{{rest_lunch}}"
 							],
 							"path": [
 								"filter",
-								":date"
+								"date"
 							],
-							"variable": [
+							"query": [
 								{
 									"key": "date",
 									"value": "2021-01-02"
@@ -731,7 +731,7 @@
 					"response": []
 				},
 				{
-					"name": "save_new",
+					"name": "save/update_vote",
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -752,7 +752,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"restaurantId\": 100009,\r\n    \"voteDateTime\": \"2021-05-10T09:00:00\"\r\n}",
+							"raw": "{\r\n    \"restaurantId\": 100009\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -763,87 +763,6 @@
 							"raw": "{{rest_vote}}",
 							"host": [
 								"{{rest_vote}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update_Before_11",
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "user",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "user@mail.ru",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"restaurantId\": 100011,\r\n    \"voteDateTime\": \"2021-05-10T10:30:00\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{rest_vote}}",
-							"host": [
-								"{{rest_vote}}"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "VoteHistory_Controller",
-			"item": [
-				{
-					"name": "getByDate",
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "user",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "user@mail.ru",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{rest_vote_history}}/:date",
-							"host": [
-								"{{rest_vote_history}}"
-							],
-							"path": [
-								":date"
-							],
-							"variable": [
-								{
-									"key": "date",
-									"value": "2021-01-01"
-								}
 							]
 						}
 					},
