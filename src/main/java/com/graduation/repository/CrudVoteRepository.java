@@ -30,10 +30,4 @@ public interface CrudVoteRepository extends CrudRepository<Vote, Integer> {
     @Transactional(readOnly = true)
     @Query("SELECT v FROM Vote v WHERE v.voteDate=:voteDate AND v.userId=:userId")
     Vote getByUserIdAndDate(@Param("userId") Integer userId, @Param("voteDate") LocalDate voteDate);
-
-    @Transactional(readOnly = true)
-    @Query("SELECT NEW com.graduation.to.VotingResultsTo(v.restaurantId, v.restaurant.restaurantName, v.voteDate, COUNT(v.restaurantId)) FROM Vote v " +
-            "WHERE v.voteDate=:date " +
-            "GROUP BY v.restaurantId ORDER BY v.voteDate DESC")
-    List<VotingResultsTo> getVoteWinnersByDate(@Param("date") LocalDate date);
 }

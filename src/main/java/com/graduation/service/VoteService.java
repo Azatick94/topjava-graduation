@@ -49,10 +49,6 @@ public class VoteService {
         return crudRepo.getByUserIdAndDate(userID, date);
     }
 
-    public List<VotingResultsTo> getVoteWinnersByDate(LocalDate date) {
-        return crudRepo.getVoteWinnersByDate(date);
-    }
-
     @Transactional
     public ResponseEntity<URI> saveUpdate(VoteTo voteTo) {
         // check restaurantId presence in DB
