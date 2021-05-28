@@ -47,13 +47,15 @@ public class LunchService {
 
     @Transactional
     public Lunch save(LunchTo lunchTo) {
-        Lunch lunch = saveOrUpdate(lunchTo, null);
+        Lunch lunch = new Lunch(null, lunchTo.getDateRegistered(), lunchTo.getLunchName(),
+                lunchTo.getPrice(), saveOrUpdateUtil(lunchTo));
         return crudRepo.save(lunch);
     }
 
     @Transactional
     public void update(LunchTo lunchTo, Integer id) {
-        Lunch lunch = saveOrUpdate(lunchTo, id);
+        Lunch lunch = new Lunch(id, lunchTo.getDateRegistered(), lunchTo.getLunchName(),
+                lunchTo.getPrice(), saveOrUpdateUtil(lunchTo));
         crudRepo.save(lunch);
     }
 
@@ -62,18 +64,8 @@ public class LunchService {
         crudRepo.delete(id);
     }
 
-    private Lunch saveOrUpdate(LunchTo lunchTo, Integer id) {
+    private Restaurant saveOrUpdateUtil(LunchTo lunchTo) {
         Integer restaurantId = lunchTo.getRestaurantId();
-        Restaurant restaurant = findByIdThrowExceptionIfNotFound(crudRestaurantRepo, restaurantId);
-
-        Lunch lunch;
-        if (id == null) {
-            lunch = new Lunch(null, lunchTo.getDateRegistered(), lunchTo.getLunchName(),
-                    lunchTo.getPrice(), restaurant);
-        } else {
-            lunch = new Lunch(id, lunchTo.getDateRegistered(), lunchTo.getLunchName(),
-                    lunchTo.getPrice(), restaurant);
-        }
-        return lunch;
+        return findByIdThrowExceptionIfNotFound(crudRestaurantRepo, restaurantId);
     }
 }
