@@ -11,7 +11,6 @@ import org.springframework.test.web.servlet.MockMvc;
 @Sql({"/db/inmemory/schema-h2.sql", "/db/inmemory/data-h2.sql"})
 public abstract class AbstractMockMvcTest {
 
-    protected final String VOTE_HISTORY_REST = "/rest/vote_history";
     protected final String VOTE_REST = "/rest/votes";
     protected final String USER_REST = "/rest/users";
 

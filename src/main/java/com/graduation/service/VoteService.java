@@ -14,9 +14,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
+import static com.graduation.util.DateTimeUtil.getCurrentDateTime;
 import static com.graduation.util.MainUtil.findByIdThrowExceptionIfNotFound;
 import static com.graduation.util.SecurityUtil.getAuthUserId;
 
@@ -55,7 +57,10 @@ public class VoteService {
 
         Integer userId = getAuthUserId();
 
-        LocalDate voteDate = voteTo.getVoteDateTime().toLocalDate();
+        // getting current datetime
+        LocalDateTime currentDateTime = getCurrentDateTime();
+
+        LocalDate voteDate = currentDateTime.toLocalDate();
         // get vote from DB by User and Date
         Vote voteFromDb = getByUserIdAndDate(userId, voteDate);
 
@@ -64,7 +69,7 @@ public class VoteService {
             URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(vote.getId()).toUri();
             return new ResponseEntity<>(uri, HttpStatus.CREATED);
         } else {
-            LocalTime time = voteTo.getVoteDateTime().toLocalTime();
+            LocalTime time = currentDateTime.toLocalTime();
             if (time.isAfter(LocalTime.of(11, 0, 0))) {
                 throw new CustomMessageException("Vote can't be updated because User can't change his decision after 11 a.m.");
             } else {
@@ -75,13 +80,13 @@ public class VoteService {
     }
 
     private Vote save(VoteTo voteTo, Integer userId) {
-        Vote vote = new Vote(null, userId, voteTo.getRestaurantId(), voteTo.getVoteDateTime());
+        Vote vote = new Vote(null, userId, voteTo.getRestaurantId(), getCurrentDateTime());
         vote.setRestaurant(new Restaurant(voteTo.getRestaurantId(), ""));
         return crudRepo.save(vote);
     }
 
     private void update(VoteTo voteTo, Integer userId, Integer voteId) {
-        Vote vote = new Vote(voteId, userId, voteTo.getRestaurantId(), voteTo.getVoteDateTime());
+        Vote vote = new Vote(voteId, userId, voteTo.getRestaurantId(), getCurrentDateTime());
         vote.setRestaurant(new Restaurant(voteTo.getRestaurantId(), ""));
     }
 }

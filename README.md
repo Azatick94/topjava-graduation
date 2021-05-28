@@ -164,10 +164,6 @@ user@mail.ru : user
 
     curl --user admin@mail.ru:admin -L -X GET 'http://localhost:8080/rest/votes/by/date?date=2021-01-01'
 
-<i>- Save New Vote  (user):</i>
+<i>- Save/Update Vote  (user):</i>
 
-    curl --user user@mail.ru:user -L -X POST 'http://localhost:8080/rest/votes' -H 'Content-Type: application/json' --data-raw '{"restaurantId": 100009,"voteDateTime": "2021-05-10T09:00:00"}'
-
-<i>- Update Existing Vote By User Before 11 Clock =  (user):</i>
-
-    curl --user user@mail.ru:user -L -X POST 'http://localhost:8080/rest/votes' -H 'Content-Type: application/json' --data-raw '{"restaurantId": 100010,"voteDateTime": "2021-05-10T10:30:00"}'
+    curl --user user@mail.ru:user -L -X POST 'http://localhost:8080/rest/votes' -H 'Content-Type: application/json' --data-raw '{"restaurantId": 100009}'
