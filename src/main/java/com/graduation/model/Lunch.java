@@ -14,12 +14,13 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "lunches")
+@Table(name = "lunches", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "lunch_name"}, name = "lunches_unique_restaurant_id_lunch_name")})
 @Setter
 @Getter
 @ToString(callSuper = true)

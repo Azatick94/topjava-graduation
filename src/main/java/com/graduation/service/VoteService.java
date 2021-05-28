@@ -69,7 +69,7 @@ public class VoteService {
                 throw new CustomMessageException("Vote can't be updated because User can't change his decision after 11 a.m.");
             } else {
                 update(voteTo, userId, voteFromDb.getId());
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                return new ResponseEntity<>(HttpStatus.OK);
             }
         }
     }
