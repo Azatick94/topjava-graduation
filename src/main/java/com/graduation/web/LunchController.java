@@ -56,14 +56,14 @@ public class LunchController {
         return lunchService.getById(id);
     }
 
-    @GetMapping("/by_restaurant/{id}")
+    @GetMapping("/by_restaurant")
     @Operation(summary = "Get List of Lunches By Restaurant Id")
-    public List<Lunch> getByRestaurantId(@PathVariable Integer id) {
+    public List<Lunch> getByRestaurantId(@RequestParam Integer id) {
         log.info("Getting Lunches With Restaurant Id = " + id);
         return lunchService.getByRestaurantId(id);
     }
 
-    @GetMapping("/filter")
+    @GetMapping("/filter/between")
     @Operation(summary = "Get List of Lunches Between Dates")
     public List<Lunch> getBetweenDatesIncluding(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
                                                 @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
@@ -71,9 +71,9 @@ public class LunchController {
         return lunchService.getBetweenDatesIncluding(startDate, endDate);
     }
 
-    @GetMapping("/filter/{date}")
+    @GetMapping("/filter/date")
     @Operation(summary = "Get List of Lunches By Date")
-    public List<Lunch> getByDate(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    public List<Lunch> getByDate(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         log.info("Getting Lunches By Date =" + date);
         return lunchService.getByDate(date);
     }

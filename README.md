@@ -128,15 +128,15 @@ user@mail.ru : user
 
 <i>- Get List of Lunches By RestaurantId = 100008 (admin+user):</i>
 
-    curl --user user@mail.ru:user -L -X GET 'http://localhost:8080/rest/lunches/by_restaurant/100008'
+    curl --user user@mail.ru:user -L -X GET 'http://localhost:8080/rest/lunches/by_restaurant?id=100008'
 
 <i>- Get List of Lunches Between Dates =  (admin+user):</i>
 
-    curl --user user@mail.ru:user -L -X GET 'http://localhost:8080/rest/lunches/filter?startDate=2021-01-02&endDate=2021-01-02'
+    curl --user user@mail.ru:user -L -X GET 'http://localhost:8080/rest/lunches/filter/between?startDate=2021-01-02&endDate=2021-01-02'
 
 <i>- Get List of Lunches By Date = 2021-01-02 =  (admin+user):</i>
 
-    curl --user user@mail.ru:user -L -X GET 'http://localhost:8080/rest/lunches/filter/2021-01-02'
+    curl --user user@mail.ru:user -L -X GET 'http://localhost:8080/rest/lunches/filter/date?date=2021-01-02'
 
 <i>- Save New Lunch (admin):</i>
 
